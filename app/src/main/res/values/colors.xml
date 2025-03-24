@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primarios -->
+    <color name="colorPrimary">#4CAF50</color>          <!-- Verde menta -->
+    <color name="colorPrimaryVariant">#388E3C</color>   <!-- Verde más oscuro -->
+    <color name="colorOnPrimary">#FFFFFF</color>        <!-- Texto sobre botones verdes -->
+
+    <!-- Secundarios -->
+    <color name="colorSecondary">#03A9F4</color>        <!-- Azul claro -->
+    <color name="colorSecondaryVariant">#0288D1</color> <!-- Azul más oscuro -->
+    <color name="colorOnSecondary">#FFFFFF</color>      <!-- Texto sobre azul -->
+
+    <!-- Fondo y superficie -->
+    <color name="colorBackground">#F9F9F9</color>       <!-- Fondo general -->
+    <color name="colorSurface">#FFFFFF</color>          <!-- Tarjetas, inputs -->
+    <color name="colorOnBackground">#212121</color>     <!-- Texto en fondo -->
+    <color name="colorOnSurface">#212121</color>        <!-- Texto en tarjetas -->
+
+    <!-- Texto -->
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+
+    <!-- Acciones / Estado -->
+    <color name="colorError">#F44336</color>
+    <color name="colorSuccess">#81C784</color>
+    <color name="colorActive">#26A69A</color>
 </resources>
