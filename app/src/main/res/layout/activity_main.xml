@@ -8,13 +8,21 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/colorBackground"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_sin_fondo"
+        android:layout_marginBottom="15dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textColorHint="@color/colorTextPrimary"
         android:hint="Correo electronico">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -29,8 +37,9 @@
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textColorHint="@color/colorTextPrimary"
         android:hint="Contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -40,14 +49,17 @@
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+
+
+
+    <Button
         android:id="@+id/loginButton"
         android:layout_marginTop="24dp"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Iniciar sesión"
-        android:background="@color/colorPrimary"
-        style="@style/Widget.MaterialComponents.Button" />
+        />
+
 
 
     <TextView
@@ -55,10 +67,22 @@
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¿No tienes cuenta? Regístrate"
+        android:text="¿No tienes cuenta?"
         android:textColor="@color/colorOnBackground"
         android:textStyle="bold"
         android:layout_gravity="center"/>
+
+    <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Registrarse"
+        />
+
+
+
 
 
 </LinearLayout>
