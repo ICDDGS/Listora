@@ -5,16 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.dan.listora.R
+import com.dan.listora.application.ListDBApp
+import com.dan.listora.data.ListRepository
+import com.dan.listora.data.db.model.ListEntity
 import com.dan.listora.databinding.FragmentListBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var binding: FragmentListBinding
 
+    private var lists: MutableList<ListEntity> = mutableListOf()
+
+    private lateinit var repository: ListRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = FragmentListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
+
 
     }
 
@@ -22,11 +33,38 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentListBinding.inflate(layoutInflater)
 
         binding.tvTitle.text = "Mis Listas"
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+
+        val app = requireActivity().application as ListDBApp
+        repository = app.repository
+
+
+        updateUI()
+        binding.addListButton.setOnClickListener {
+            val list = ListEntity(name = "Hola Lista")
+            lifecycleScope.launch(Dispatchers.IO) {
+                repository.insertList(list)
+            }
+        }
+
+
+
+
+        return binding.root
+
     }
+
+    private fun updateUI() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            lists = repository.getAllLists()
+
+        }
+    }
+
+
+
 
 
 }

@@ -5,32 +5,35 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.dan.listora.data.db.model.ListEntity
+import com.dan.listora.util.Constants
 
 @Database(
     entities = [ListEntity::class],
     version = 1,
-    exportSchema = true,)
+    exportSchema = true,
+)
+abstract class ListDataBase: RoomDatabase() {
 
-abstract class ListDB : RoomDatabase() {
     abstract fun listDao(): ListDAO
 
     companion object{
         @Volatile
-        private var INSTANCE: ListDB? = null
+        private var INSTANCE: ListDataBase? = null
 
-        fun getDatabase(context: Context): ListDB {
+        fun getDatabase(context: Context): ListDataBase {
+            // if the INSTANCE is not null, then return it,
+            // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ListDB::class.java,
-                    "list_db"
+                    ListDataBase::class.java,
+                    Constants.BATABASE_NAME
                 ).build()
                 INSTANCE = instance
+                // return instance
                 instance
             }
         }
-
-
     }
-
 }
+

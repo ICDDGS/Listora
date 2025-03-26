@@ -15,7 +15,7 @@ interface ListDAO {
     suspend fun insertList(list: ListEntity)
 
     @Insert
-    suspend fun insertLists(lists: List<ListEntity>)
+    suspend fun insertLists(lists: MutableList<ListEntity>)
 
     @Query("SELECT * FROM ${Constants.DATABASE_LIST_TABLE}")
     suspend fun getAllLists(): MutableList<ListEntity>
