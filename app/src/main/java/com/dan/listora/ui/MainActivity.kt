@@ -29,10 +29,15 @@ class MainActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                val intent = Intent(this, ListActivity::class.java)
+                startActivity(intent)
+
                 Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this, "Por favor completa los campos", Toast.LENGTH_SHORT).show()
             }
+
+
         }
         binding.btnRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
