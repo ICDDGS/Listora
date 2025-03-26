@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_lists"
+    android:id="@+id/nav">
+
+    <fragment
+        android:id="@+id/nav_lists"
+        android:name="com.dan.listora.ui.ListFragment"
+        tools:layout="@layout/fragment_list"/>
+    <fragment
+        android:id="@+id/nav_recipes"
+        android:name="com.dan.listora.ui.RecipesFragment"
+        tools:layout="@layout/fragment_recipes"/>
+    <fragment
+        android:id="@+id/nav_templates"
+        android:name="com.dan.listora.ui.TemplateFragment"
+        tools:layout="@layout/fragment_template"/>
+
+</navigation>

@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && acceptTerms) {
                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, ListActivity::class.java)
+                val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor completa los campos", Toast.LENGTH_SHORT).show()

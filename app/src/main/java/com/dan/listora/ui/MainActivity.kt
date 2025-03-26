@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                val intent = Intent(this, ListActivity::class.java)
+                val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
 
                 Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
