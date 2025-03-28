@@ -1,5 +1,6 @@
 package com.dan.listora.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.dan.listora.data.db.model.ListEntity
 import com.dan.listora.databinding.FragmentListBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -43,10 +45,15 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         updateUI()
         binding.addListButton.setOnClickListener {
+
+            /*
             val list = ListEntity(name = "Hola Lista")
             lifecycleScope.launch(Dispatchers.IO) {
                 repository.insertList(list)
-            }
+            }*/
+            val intent = Intent(requireContext(), AddListActivity::class.java)
+            startActivity(intent)
+
         }
 
 
@@ -59,6 +66,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private fun updateUI() {
         lifecycleScope.launch(Dispatchers.IO) {
             lists = repository.getAllLists()
+
+            withContext(Dispatchers.Main) {
+                binding.tvSinRegistros.visibility =
+                    if (lists.isEmpty()) View.VISIBLE else View.INVISIBLE
+                }
 
         }
     }

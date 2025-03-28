@@ -39,8 +39,12 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor completa los campos", Toast.LENGTH_SHORT).show()
             }
 
-
         }
+
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
 
 
     }

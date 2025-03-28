@@ -7,27 +7,37 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".ui.RegisterActivity">
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_vertical">
+        android:layout_marginTop="16dp"
+        >
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_arrow_back" >
         <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:text="Registro"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp"
-            android:textColor="@color/colorTextPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:gravity="center_vertical"
 
+            android:shadowRadius="10"/>
+        </com.google.android.material.appbar.MaterialToolbar>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Nombre de usuario"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -87,6 +97,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Registrarse"
             android:backgroundTint="@color/colorPrimary"
             app:cornerRadius="16dp"
