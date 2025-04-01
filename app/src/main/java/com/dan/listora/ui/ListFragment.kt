@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.ListRepository
@@ -24,6 +25,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private lateinit var repository: ListRepository
 
+    private lateinit var listAdapter: ListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,25 +39,16 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentListBinding.inflate(layoutInflater)
-
-        binding.tvTitle.text = "Mis Listas"
-
-        val app = requireActivity().application as ListDBApp
-        repository = app.repository
+        //binding.tvTitle.text = "Mis Listas"
 
 
-        updateUI()
         binding.addListButton.setOnClickListener {
-
-            /*
-            val list = ListEntity(name = "Hola Lista")
-            lifecycleScope.launch(Dispatchers.IO) {
-                repository.insertList(list)
-            }*/
             val intent = Intent(requireContext(), AddListActivity::class.java)
             startActivity(intent)
 
         }
+
+
 
 
 
@@ -65,15 +59,30 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun updateUI() {
         lifecycleScope.launch(Dispatchers.IO) {
-            lists = repository.getAllLists()
+            val listas = repository.getAllLists()
 
             withContext(Dispatchers.Main) {
-                binding.tvSinRegistros.visibility =
-                    if (lists.isEmpty()) View.VISIBLE else View.INVISIBLE
+                if (listas.isEmpty()) {
+                    binding.tvSinRegistros.visibility = View.VISIBLE
+                } else {
+                    binding.tvSinRegistros.visibility = View.GONE
                 }
 
+                val adapter = ListAdapter { listaSeleccionada ->
+                    // Ir a AddIngredientsActivity con datos
+                    val intent = Intent(requireContext(), addIngredientsActivity::class.java)
+                    intent.putExtra("lista_id", listaSeleccionada.id)
+                    intent.putExtra("lista_nombre", listaSeleccionada.name)
+                    startActivity(intent)
+                }
+
+                binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                binding.recyclerView.adapter = adapter
+                adapter.updateList(listas.toMutableList())
+            }
         }
     }
+
 
 
 

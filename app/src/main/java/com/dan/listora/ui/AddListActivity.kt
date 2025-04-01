@@ -59,7 +59,7 @@ class AddListActivity : AppCompatActivity() {
                 }
             }
             */
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, addIngredientsActivity::class.java)
             startActivity(intent)
 
         }

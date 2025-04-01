@@ -20,8 +20,14 @@ interface ListDAO {
     @Query("SELECT * FROM ${Constants.DATABASE_LIST_TABLE}")
     suspend fun getAllLists(): MutableList<ListEntity>
 
+    @Query("SELECT * FROM ${Constants.DATABASE_LIST_TABLE} WHERE list_id = :listId")
+    suspend fun getListById(listId: Long): ListEntity?
+
     @Update
     suspend fun updateList(list: ListEntity)
+
+    @Update
+    suspend fun updateLists(lists: MutableList<ListEntity>)
 
     @Delete
     suspend fun deleteList(list: ListEntity)
