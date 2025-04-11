@@ -9,7 +9,11 @@ import com.dan.listora.util.Constants
 data class ListEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "list_id")
-    val id: Long = 0,
+    var id: Long = 0,
     @ColumnInfo(name = "list_name")
-    val name: String
+    var name: String,
+    @ColumnInfo(name = "list_date")
+    var date: String,
+    @ColumnInfo(name = "list_limit")
+    var limit: String,
 )

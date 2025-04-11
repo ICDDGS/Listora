@@ -13,13 +13,16 @@ import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.ListRepository
 import com.dan.listora.data.db.model.ListEntity
 import com.dan.listora.databinding.FragmentListBinding
+import com.dan.listora.ui.dialog.ListDialog
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
-    private lateinit var binding: FragmentListBinding
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
     private var lists: MutableList<ListEntity> = mutableListOf()
 
@@ -30,57 +33,90 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListBinding.inflate(layoutInflater)
-        //binding.tvTitle.text = "Mis Listas"
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
 
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        repository = (requireActivity().application as ListDBApp).repository
+
+        listAdapter = ListAdapter { selectedList ->
+            val dialog = ListDialog(
+                newList = false,
+                list = selectedList,
+                updateUI = {
+                    updateUI()
+                },
+                message = { message ->
+                    message(message)
+                }
+
+            )
+
+            dialog.show(childFragmentManager, "ListDialog")
+        }
+
+        binding.apply {
+            rvListas.layoutManager = LinearLayoutManager(requireContext())
+            rvListas.adapter = listAdapter
+        }
 
         binding.addListButton.setOnClickListener {
-            val intent = Intent(requireContext(), AddListActivity::class.java)
-            startActivity(intent)
-
+            val dialog = ListDialog(
+                updateUI = { updateUI() },
+                message = { message(it) }
+            )
+            dialog.show(childFragmentManager, "ListDialog")
         }
 
 
 
-
-
-
-        return binding.root
 
     }
 
     private fun updateUI() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val listas = repository.getAllLists()
+        lifecycleScope.launch {
+            lists = repository.getAllLists()
 
-            withContext(Dispatchers.Main) {
-                if (listas.isEmpty()) {
-                    binding.tvSinRegistros.visibility = View.VISIBLE
-                } else {
-                    binding.tvSinRegistros.visibility = View.GONE
-                }
+            binding.tvSinRegistros.visibility =
+                if (lists.isNotEmpty()) View.INVISIBLE else View.VISIBLE
 
-                val adapter = ListAdapter { listaSeleccionada ->
-                    // Ir a AddIngredientsActivity con datos
-                    val intent = Intent(requireContext(), addIngredientsActivity::class.java)
-                    intent.putExtra("lista_id", listaSeleccionada.id)
-                    intent.putExtra("lista_nombre", listaSeleccionada.name)
-                    startActivity(intent)
-                }
-
-                binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recyclerView.adapter = adapter
-                adapter.updateList(listas.toMutableList())
-            }
+            listAdapter.updateList(lists)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+/*
+    fun click(View: View) {
+        val dialog = ListDialog(
+            updateUI = {
+                updateUI()
+            },
+            message = { message ->
+                message(message)
+            }
+        )
+        dialog.show(childFragmentManager, "ListDialog")
+
+    }*/
+
+    private fun message(text: String) {
+
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT)
+            .setTextColor(requireContext().getColor(R.color.colorOnSecondary))
+            .setBackgroundTint(requireContext().getColor(R.color.colorSecondary))
+            .show()
+
+
     }
 
 

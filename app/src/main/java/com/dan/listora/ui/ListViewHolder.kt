@@ -9,7 +9,9 @@ class ListViewHolder(
 ):RecyclerView.ViewHolder(binding.root) {
     fun bind(list : ListEntity){
         binding.apply {
-            tvListName.text = list.name
+            tvNombre.text = list.name
+            tvFecha.text = list.date
+            tvLimit.text = list.limit
         }
     }
 }
