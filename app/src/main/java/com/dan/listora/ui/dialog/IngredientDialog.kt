@@ -58,7 +58,7 @@ class IngredientDialog(
                         if (ingredient == null) {
                             val nuevo = IngEntity(name = nombre, cant = cantidad, unit = unidad, price = precio, idLista = listId)
                             nuevo.id = 0
-                            dao.inserIngredient(nuevo)
+                            dao.insertIngredient(nuevo)
 
                         } else {
                             ingredient!!.apply {

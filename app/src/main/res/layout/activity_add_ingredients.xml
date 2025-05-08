@@ -19,6 +19,16 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:navigationIcon="@drawable/ic_arrow_back" />
+        <TextView
+            android:id="@+id/tvPresupuestoRestante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Presupuesto restante: $0.00"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="16sp"
+            android:layout_margin="12dp"
+            android:visibility="gone"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredientes"

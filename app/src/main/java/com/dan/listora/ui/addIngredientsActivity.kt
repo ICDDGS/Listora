@@ -2,6 +2,7 @@ package com.dan.listora.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.dan.listora.ui.dialog.IngredientDialog
 import com.dan.listora.data.db.IngredientDAO
+import com.dan.listora.data.db.model.IngEntity
 
 class addIngredientsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddIngredientsBinding
@@ -67,11 +69,30 @@ class addIngredientsActivity : AppCompatActivity() {
                 dao.getIngredientsByListId(listaId)
             }
 
-            binding.rvIngredientes.adapter = IngredientAdapter(ingredientes) { ingrediente ->
-                Toast.makeText(this@addIngredientsActivity, "Editar: ${ingrediente.name}", Toast.LENGTH_SHORT).show()
+            // Asumiendo que recibes el presupuesto desde el intent
+            val presupuesto = intent.getDoubleExtra("lista_presupuesto", 0.0)
+            val totalGastado = ingredientes.sumOf { it.price }
+            val restante = presupuesto - totalGastado
+
+            if (presupuesto > 0) {
+                binding.tvPresupuestoRestante.visibility = View.VISIBLE
+                binding.tvPresupuestoRestante.text = "Presupuesto restante: $${"%.2f".format(restante)}"
+            } else {
+                binding.tvPresupuestoRestante.visibility = View.GONE
+            }
+
+            binding.rvIngredientes.adapter = IngredientAdapter(ingredientes) { ingrediente: IngEntity ->
+                val dialog = IngredientDialog(
+                    listId = listaId,
+                    ingredient = ingrediente
+                ) {
+                    loadIngredients()
+                }
+                dialog.show(supportFragmentManager, "EditIngredientDialog")
             }
         }
     }
+
 
 
 

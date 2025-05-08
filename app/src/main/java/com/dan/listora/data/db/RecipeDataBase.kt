@@ -4,34 +4,30 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dan.listora.data.db.model.ListEntity
-import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.data.db.model.RecipeIngredientEntity
 
 @Database(
-    entities = [ListEntity::class, IngEntity::class, RecipeEntity::class, RecipeIngredientEntity::class],
-    version = 2,
+    entities = [RecipeEntity::class, RecipeIngredientEntity::class],
+    version = 1,
     exportSchema = false
 )
-abstract class ListDataBase : RoomDatabase() {
-    abstract fun listDao(): ListDAO
-    abstract fun ingredientDAO(): IngredientDAO
+abstract class RecipeDataBase : RoomDatabase() {
     abstract fun recipeDAO(): RecipeDAO
 
     companion object {
         @Volatile
-        private var INSTANCE: ListDataBase? = null
+        private var INSTANCE: RecipeDataBase? = null
 
-        fun getDatabase(context: Context): ListDataBase {
+        fun getDatabase(context: Context): RecipeDataBase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ListDataBase::class.java,
-                    "list_database"
+                    RecipeDataBase::class.java,
+                    "recipe_database"
                 )
-                    .fallbackToDestructiveMigration()
-                    .build()
+                .fallbackToDestructiveMigration()
+                .build()
                 INSTANCE = instance
                 instance
             }

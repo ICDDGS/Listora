@@ -16,11 +16,10 @@
         <activity
             android:name=".ui.addIngredientsActivity"
             android:exported="false" />
+        <activity android:name=".ui.RecipeDetailActivity" />
+
         <activity
             android:name=".ui.MenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.AddListActivity"
             android:exported="false" />
         <activity
             android:name=".ui.RegisterActivity"

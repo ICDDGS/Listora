@@ -8,7 +8,7 @@ class IngredientRepository (
     private val ingredientDAO: IngredientDAO
 ) {
     suspend fun insertIngredient(ingredient: IngEntity) {
-        ingredientDAO.inserIngredient(ingredient)
+        ingredientDAO.insertIngredient(ingredient)
     }
 
     suspend fun getAllIngredients(): MutableList<IngEntity> {

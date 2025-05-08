@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/containerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nombre de la receta -->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre de la receta"
+            android:inputType="textPersonName" />
+
+        <!-- Categoría -->
+        <EditText
+            android:id="@+id/etCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Categoría (ej. Desayuno)"
+            android:inputType="text" />
+
+        <!-- Porciones -->
+        <EditText
+            android:id="@+id/etPorciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Porciones"
+            android:inputType="number" />
+
+        <!-- Imagen URL -->
+        <EditText
+            android:id="@+id/etImagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="URL de imagen"
+            android:inputType="textUri" />
+
+        <!-- Pasos -->
+        <EditText
+            android:id="@+id/etPasos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pasos de preparación"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:maxLines="8" />
+
+        <!-- Título ingredientes -->
+        <TextView
+            android:id="@+id/tvIngredientsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredientes"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <!-- Lista de ingredientes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIngredientes"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="vertical" />
+
+
+        <!-- Botón para agregar ingrediente -->
+        <Button
+            android:id="@+id/btnAddIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar ingrediente" />
+
+    </LinearLayout>
+</ScrollView>

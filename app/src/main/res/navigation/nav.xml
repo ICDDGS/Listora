@@ -11,11 +11,12 @@
         tools:layout="@layout/fragment_list"/>
     <fragment
         android:id="@+id/nav_recipes"
-        android:name="com.dan.listora.ui.RecipesFragment"
+        android:name="com.dan.listora.ui.fragments.RecipesFragment"
         tools:layout="@layout/fragment_recipes"/>
     <fragment
         android:id="@+id/nav_templates"
         android:name="com.dan.listora.ui.TemplateFragment"
         tools:layout="@layout/fragment_template"/>
+
 
 </navigation>

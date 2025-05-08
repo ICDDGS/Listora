@@ -12,7 +12,7 @@ import com.dan.listora.util.Constants
 interface IngredientDAO {
 
     @Insert
-    suspend fun inserIngredient(ingredient: IngEntity)
+    suspend fun insertIngredient(ingredient: IngEntity)
 
     @Insert
     suspend fun insertLists(ingredients: MutableList<IngEntity>)

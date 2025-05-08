@@ -60,6 +60,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 val intent = Intent(requireContext(), addIngredientsActivity::class.java)
                 intent.putExtra("lista_id", selectedList.id)
                 intent.putExtra("lista_nombre", selectedList.name)
+                intent.putExtra("lista_presupuesto", selectedList.presupuesto)
                 startActivity(intent)
             }
         )
