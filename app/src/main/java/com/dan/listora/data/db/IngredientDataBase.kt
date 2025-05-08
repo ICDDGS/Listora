@@ -9,8 +9,8 @@ import com.dan.listora.util.Constants
 
 @Database(
     entities = [IngEntity::class],
-    version = 1,
-    exportSchema = true,
+    version = 2,
+    exportSchema = false
 )
 abstract class IngredientDataBase: RoomDatabase() {
 
@@ -28,7 +28,9 @@ abstract class IngredientDataBase: RoomDatabase() {
                     context.applicationContext,
                     IngredientDataBase::class.java,
                     Constants.BATABASE_NAME
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // ← CRÍTICO
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance

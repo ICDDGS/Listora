@@ -15,6 +15,7 @@ import com.dan.listora.databinding.ActivityAddIngredientsBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.dan.listora.ui.dialog.IngredientDialog
 import com.dan.listora.data.db.IngredientDAO
 
 class addIngredientsActivity : AppCompatActivity() {
@@ -46,8 +47,15 @@ class addIngredientsActivity : AppCompatActivity() {
 
 
         binding.fabAddIngredient.setOnClickListener {
-            Toast.makeText(this, "Agregar ingrediente", Toast.LENGTH_SHORT).show()
+            val dialog = IngredientDialog(
+                listId = listaId,
+                ingredient = null
+            ) {
+                loadIngredients()
+            }
+            dialog.show(supportFragmentManager, "IngredientDialog")
         }
+
 
         loadIngredients()
     }
