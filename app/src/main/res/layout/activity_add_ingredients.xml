@@ -13,28 +13,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back" >
-        <TextView
-            android:id="@+id/tvTitle"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Agregar Ingredientes"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:shadowRadius="10"/>
-    </com.google.android.material.appbar.MaterialToolbar>
-        
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:navigationIcon="@drawable/ic_arrow_back" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIngredientes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:contentDescription="Agregar ingrediente"
+            android:src="@drawable/ic_add"
+            app:tint="@android:color/white"
+            app:backgroundTint="@color/colorPrimary"/>
     </LinearLayout>
-
-
 
 
 

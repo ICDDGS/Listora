@@ -14,7 +14,7 @@ import com.dan.listora.util.Constants
 )
 abstract class IngredientDataBase: RoomDatabase() {
 
-    abstract fun ingredientDAO(): IngredientDAO
+    abstract fun IngredientDAO(): IngredientDAO
 
     companion object{
         @Volatile

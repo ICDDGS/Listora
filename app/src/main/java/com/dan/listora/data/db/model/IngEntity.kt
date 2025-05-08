@@ -14,9 +14,10 @@ class IngEntity (
     var name: String,
     @ColumnInfo(name = "ingredient_cant")
     var cant: String,
-    /*
     @ColumnInfo(name = "ingredient_unit")
-    val unit: String,
-    @ColumnInfo(name = "ingredient_list_id")
-    val listId: Long*/
+    var unit: String,
+    @ColumnInfo(name = "ingredient_price")
+    var price: Double,
+    @ColumnInfo(name = "idLista")
+    var idLista: Long
 )

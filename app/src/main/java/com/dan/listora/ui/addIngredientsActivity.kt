@@ -2,20 +2,30 @@ package com.dan.listora.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dan.listora.R
+import com.dan.listora.application.ListDBApp
 import com.dan.listora.databinding.ActivityAddIngredientsBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.dan.listora.data.db.IngredientDAO
 
 class addIngredientsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddIngredientsBinding
+    private var listaId: Long = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityAddIngredientsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -26,12 +36,35 @@ class addIngredientsActivity : AppCompatActivity() {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         }
-        val listaId = intent.getIntExtra("lista_id", -1)
-        val listaNombre = intent.getStringExtra("lista_nombre")
 
+        listaId = intent.getLongExtra("lista_id", -1)
+        val listaNombre = intent.getStringExtra("lista_nombre") ?: "Sin nombre"
         binding.topAppBar.title = "Lista: $listaNombre"
 
+        binding.rvIngredientes.layoutManager = LinearLayoutManager(this)
 
 
+
+        binding.fabAddIngredient.setOnClickListener {
+            Toast.makeText(this, "Agregar ingrediente", Toast.LENGTH_SHORT).show()
+        }
+
+        loadIngredients()
     }
+
+    private fun loadIngredients() {
+        lifecycleScope.launch {
+            val ingredientes = withContext(Dispatchers.IO) {
+                val dao = (application as ListDBApp).ingredientDatabase.IngredientDAO()
+                dao.getIngredientsByListId(listaId)
+            }
+
+            binding.rvIngredientes.adapter = IngredientAdapter(ingredientes) { ingrediente ->
+                Toast.makeText(this@addIngredientsActivity, "Editar: ${ingrediente.name}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
 }

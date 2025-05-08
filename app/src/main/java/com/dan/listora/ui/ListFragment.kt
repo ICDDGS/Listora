@@ -13,11 +13,10 @@ import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.ListRepository
 import com.dan.listora.data.db.model.ListEntity
 import com.dan.listora.databinding.FragmentListBinding
+import com.dan.listora.ui.adapter.ListAdapter
 import com.dan.listora.ui.dialog.ListDialog
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -43,24 +42,28 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         return binding.root
 
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         repository = (requireActivity().application as ListDBApp).repository
 
-        listAdapter = ListAdapter { selectedList ->
-            val dialog = ListDialog(
-                newList = false,
-                list = selectedList,
-                updateUI = {
-                    updateUI()
-                },
-                message = { message ->
-                    message(message)
-                }
+        listAdapter = ListAdapter(
+            onEditClick = { selectedList ->
+                val dialog = ListDialog(
+                    newList = false,
+                    list = selectedList,
+                    updateUI = { updateUI() },
+                    message = { message(it) }
+                )
+                dialog.show(childFragmentManager, "ListDialog")
+            },
+            onItemClick = { selectedList ->
+                val intent = Intent(requireContext(), addIngredientsActivity::class.java)
+                intent.putExtra("lista_id", selectedList.id)
+                intent.putExtra("lista_nombre", selectedList.name)
+                startActivity(intent)
+            }
+        )
 
-            )
-
-            dialog.show(childFragmentManager, "ListDialog")
-        }
 
         binding.apply {
             rvListas.layoutManager = LinearLayoutManager(requireContext())
@@ -79,6 +82,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
 
     }
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+    }
 
     private fun updateUI() {
         lifecycleScope.launch {
@@ -95,19 +102,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onDestroy()
         _binding = null
     }
-/*
-    fun click(View: View) {
-        val dialog = ListDialog(
-            updateUI = {
-                updateUI()
-            },
-            message = { message ->
-                message(message)
-            }
-        )
-        dialog.show(childFragmentManager, "ListDialog")
 
-    }*/
 
     private fun message(text: String) {
 
@@ -118,8 +113,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
 
     }
-
-
 
 
 

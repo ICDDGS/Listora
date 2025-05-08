@@ -9,4 +9,13 @@
     <string name="list_deleted">Juego eliminado exitosamente</string>
     <string name="ok">Aceptar</string>
 
+    <string-array name="unidades_array">
+        <item>pz</item>
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>L</item>
+    </string-array>
+
+
 </resources>

@@ -14,6 +14,7 @@ data class ListEntity(
     var name: String,
     @ColumnInfo(name = "list_date")
     var date: String,
-    @ColumnInfo(name = "list_limit")
-    var limit: String,
+    @ColumnInfo(name = "list_budget")
+    var presupuesto: Double,
+
 )

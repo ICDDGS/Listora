@@ -24,7 +24,7 @@ class ListDialog (
     private var list: ListEntity = ListEntity(
         name = "",
         date = "",
-        limit = ""
+        presupuesto = 0.0
     ),
     private val updateUI: () -> Unit,
     private val message: (String) -> Unit
@@ -48,7 +48,7 @@ class ListDialog (
         binding.apply {
             inputNombre.setText(list.name)
             inputFecha.setText(list.date)
-            inputPresupuesto.setText(list.limit)
+            inputPresupuesto.setText(list.presupuesto.toString())
 
         }
 
@@ -60,7 +60,7 @@ class ListDialog (
                 binding.apply {
                     list.name = inputNombre.text.toString()
                     list.date = inputFecha.text.toString()
-                    list.limit = inputPresupuesto.text.toString()
+                    list.presupuesto = inputPresupuesto.text.toString().toDoubleOrNull() ?: 0.0
                 }
 
                 try {
@@ -99,7 +99,7 @@ class ListDialog (
                 binding.apply {
                     list.name = inputNombre.text.toString()
                     list.date = inputFecha.text.toString()
-                    list.limit = inputPresupuesto.text.toString()
+                    list.presupuesto = inputPresupuesto.text.toString().toDoubleOrNull() ?: 0.0
                 }
 
                 try {
@@ -202,8 +202,30 @@ class ListDialog (
                 inputPresupuesto
             )
         }
+        binding.inputFechaLayout.setEndIconOnClickListener {
+            mostrarDatePicker()
+        }
+
+        binding.inputFecha.setOnClickListener {
+            mostrarDatePicker()
+        }
+
 
     }
+    private fun mostrarDatePicker() {
+        val calendar = java.util.Calendar.getInstance()
+        val year = calendar.get(java.util.Calendar.YEAR)
+        val month = calendar.get(java.util.Calendar.MONTH)
+        val day = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+
+        val picker = android.app.DatePickerDialog(requireContext(), { _, y, m, d ->
+            val fecha = "%02d/%02d/%04d".format(d, m + 1, y)
+            binding.inputFecha.setText(fecha)
+        }, year, month, day)
+
+        picker.show()
+    }
+
 
     private fun validateFields(): Boolean =
         binding.inputNombre.text.toString().isNotEmpty()
