@@ -64,12 +64,12 @@ class RecipesFragment : Fragment() {
         binding.rvRecetas.adapter = adapter
 
         binding.fabAddRecipe.setOnClickListener {
-            val dialog = RecipeDialog(
-                recipe = null,
-                onSuccess = { loadRecipes() }
-            )
-            dialog.show(parentFragmentManager, "AddRecipeDialog")
+            val dialog = RecipeDialog(requireContext()) {
+                loadRecipes()
+            }
+            dialog.show()
         }
+
 
         loadRecipes()
     }

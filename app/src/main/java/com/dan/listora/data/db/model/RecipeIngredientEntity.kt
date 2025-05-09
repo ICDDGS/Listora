@@ -3,7 +3,9 @@ package com.dan.listora.data.db.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+
 
 @Entity(
     tableName = "recipe_ingredients",
@@ -24,4 +26,9 @@ data class RecipeIngredientEntity(
     val unit: String,
     @ColumnInfo(name = "recipe_ing_base")
     val baseQuantity: Double
-)
+
+){
+    @Ignore
+    var quantity: Double = 0.0
+
+}

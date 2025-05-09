@@ -42,22 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:entries="@array/unidades_array" />
-
-
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Precio"
-        android:layout_marginTop="12dp" />
-
-    <EditText
-        android:id="@+id/etPrecio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="Precio" />
 
 
 

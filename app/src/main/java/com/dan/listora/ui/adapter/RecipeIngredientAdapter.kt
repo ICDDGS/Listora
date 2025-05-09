@@ -4,29 +4,32 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dan.listora.data.db.model.RecipeIngredientEntity
-import com.dan.listora.databinding.RecipeIngredientItemBinding
+import com.dan.listora.databinding.IngredientItemBinding
 import com.dan.listora.ui.viewholder.RecipeIngredientViewHolder
 
 class RecipeIngredientAdapter(
-    private val ingredientes: List<RecipeIngredientEntity>,
-    private val onItemClick: (Int) -> Unit
+    private val ingredientes: MutableList<RecipeIngredientEntity>,
+    private val onDeleteClick: (RecipeIngredientEntity) -> Unit
 ) : RecyclerView.Adapter<RecipeIngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeIngredientViewHolder {
-        val binding = RecipeIngredientItemBinding.inflate(
+        val binding = IngredientItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return RecipeIngredientViewHolder(binding)
+        return RecipeIngredientViewHolder(binding, onDeleteClick)
     }
 
     override fun onBindViewHolder(holder: RecipeIngredientViewHolder, position: Int) {
         holder.bind(ingredientes[position])
-        holder.itemView.setOnClickListener {
-            onItemClick(position)
-        }
     }
 
     override fun getItemCount(): Int = ingredientes.size
+
+    fun updateData(newList: List<RecipeIngredientEntity>) {
+        ingredientes.clear()
+        ingredientes.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

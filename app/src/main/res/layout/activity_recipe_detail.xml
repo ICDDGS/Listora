@@ -67,7 +67,7 @@
                     android:id="@+id/btnDecrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_more"
+                    android:src="@drawable/ic_less"
                     android:contentDescription="Reducir"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -83,7 +83,7 @@
                     android:id="@+id/btnIncrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_less"
+                    android:src="@drawable/ic_more"
                     android:contentDescription="Aumentar"
                     android:background="?attr/selectableItemBackgroundBorderless" />
             </LinearLayout>
@@ -97,13 +97,21 @@
                 android:textSize="16sp"
                 android:layout_marginTop="12dp" />
 
-            <TextView
-                android:id="@+id/tvIngredients"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lista de ingredientes..."
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"/>
+
+
+            <Button
+                android:id="@+id/btnAddIngredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar ingrediente"
+                android:layout_marginTop="8dp" />
+
 
             <TextView
                 android:id="@+id/tvStepsLabel"

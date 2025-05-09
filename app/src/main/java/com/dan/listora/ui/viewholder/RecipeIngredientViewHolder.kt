@@ -2,14 +2,20 @@ package com.dan.listora.ui.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.dan.listora.data.db.model.RecipeIngredientEntity
-import com.dan.listora.databinding.RecipeIngredientItemBinding
+import com.dan.listora.databinding.IngredientItemBinding
 
 class RecipeIngredientViewHolder(
-    private val binding: RecipeIngredientItemBinding
+    private val binding: IngredientItemBinding,
+    private val onDeleteClick: (RecipeIngredientEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(ingredient: RecipeIngredientEntity) {
-        binding.tvIngredientName.text = ingredient.name
-        binding.tvIngredientQty.text = "%.2f %s".format(ingredient.baseQuantity, ingredient.unit)
+        binding.tvNombre.text = ingredient.name
+        binding.tvCantidad.text = String.format("%.2f", ingredient.quantity)
+        binding.tvUnidad.text = ingredient.unit
+
+        binding.btnEliminar.setOnClickListener {
+            onDeleteClick(ingredient)
+        }
     }
 }
