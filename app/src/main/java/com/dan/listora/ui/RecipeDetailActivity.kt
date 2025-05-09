@@ -1,3 +1,4 @@
+
 package com.dan.listora.ui
 
 import android.os.Bundle
@@ -51,6 +52,24 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         loadRecipeAndIngredients()
 
+        val editSteps = findViewById<EditText>(R.id.editSteps)
+        val btnGuardarPasos = findViewById<Button>(R.id.btnGuardarPasos)
+
+        btnGuardarPasos.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val stepsText = editSteps.text.toString()
+                val dao = (application as ListDBApp).database.recipeDAO()
+                val currentRecipe = dao.getRecipeById(currentRecipeId)
+                currentRecipe?.let {
+                    val updatedRecipe = it.copy(steps = stepsText)
+                    dao.updateRecipe(updatedRecipe)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@RecipeDetailActivity, "Pasos actualizados", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
         binding.fabAddToList.setOnClickListener {
             agregarIngredientesALista()
         }
@@ -59,7 +78,6 @@ class RecipeDetailActivity : AppCompatActivity() {
     private fun loadRecipeAndIngredients() {
         CoroutineScope(Dispatchers.Main).launch {
             val dao = (application as ListDBApp).database.recipeDAO()
-
             val recipe = withContext(Dispatchers.IO) { dao.getRecipeById(currentRecipeId) }
             ingredientList = withContext(Dispatchers.IO) { dao.getIngredientsForRecipe(currentRecipeId) }
 
@@ -72,7 +90,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 binding.tvCategory.text = it.category
                 binding.tvOriginalServings.text = "Porciones originales: ${originalServings}"
                 binding.tvCurrentServings.text = currentServings.toString()
-                binding.tvSteps.text = it.steps
+                findViewById<EditText>(R.id.editSteps).setText(it.steps)
 
                 if (!it.imageUrl.isNullOrEmpty()) {
                     Glide.with(this@RecipeDetailActivity)
@@ -205,3 +223,5 @@ class RecipeDetailActivity : AppCompatActivity() {
         }
     }
 }
+
+

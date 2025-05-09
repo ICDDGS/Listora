@@ -122,13 +122,29 @@
                 android:textSize="16sp"
                 android:layout_marginTop="12dp" />
 
-            <TextView
-                android:id="@+id/tvSteps"
+            <EditText
+                android:id="@+id/editSteps"
                 android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:hint="Escribe los pasos aquí..."
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:maxLength="500"
+                android:padding="12dp"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:scrollbars="vertical"
+                android:overScrollMode="always"
+                android:layout_marginTop="16dp"
+                />
+            <Button
+                android:id="@+id/btnGuardarPasos"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1. Paso uno...\n2. Paso dos..."
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+                android:text="Guardar pasos"
+                android:layout_marginTop="12dp"/>
+
+
         </LinearLayout>
     </ScrollView>
 
