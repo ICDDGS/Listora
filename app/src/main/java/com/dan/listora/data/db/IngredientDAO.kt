@@ -35,4 +35,8 @@ interface IngredientDAO {
     @Query("SELECT * FROM ${Constants.DATABASE_INGREDIENT_TABLE} WHERE idLista = :listId")
     suspend fun getIngredientsByListId(listId: Long): List<IngEntity>
 
+    @Query("DELETE FROM ${Constants.DATABASE_INGREDIENT_TABLE} WHERE ingredient_id = :id")
+    suspend fun deleteById(id: Long)
+
+
 }

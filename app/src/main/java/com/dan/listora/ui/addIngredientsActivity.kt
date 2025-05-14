@@ -1,9 +1,9 @@
+
 package com.dan.listora.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,12 +17,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.dan.listora.ui.dialog.IngredientDialog
-import com.dan.listora.data.db.IngredientDAO
 import com.dan.listora.data.db.model.IngEntity
 
 class addIngredientsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddIngredientsBinding
     private var listaId: Long = -1
+    private var adapter: IngredientAdapter? = null
+    private var selectionMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,8 +48,6 @@ class addIngredientsActivity : AppCompatActivity() {
 
         binding.rvIngredientes.layoutManager = LinearLayoutManager(this)
 
-
-
         binding.fabAddIngredient.setOnClickListener {
             val dialog = IngredientDialog(
                 listId = listaId,
@@ -59,17 +59,49 @@ class addIngredientsActivity : AppCompatActivity() {
         }
 
 
+        binding.topAppBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_select -> {
+                    selectionMode = true
+                    adapter?.selectionMode = true
+                    adapter?.notifyDataSetChanged()
+                    true
+                }
+                R.id.action_accept -> {
+                    val idsToDelete = adapter?.selectedItems ?: emptySet()
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            val dao = (application as ListDBApp).database.ingredientDAO()
+                            idsToDelete.forEach { id -> dao.deleteById(id) }
+                        }
+                        loadIngredients()
+                        selectionMode = false
+                        adapter?.selectionMode = false
+                        adapter?.selectedItems?.clear()
+                    }
+                    true
+                }
+                R.id.action_cancel -> {
+                    selectionMode = false
+                    adapter?.selectionMode = false
+                    adapter?.selectedItems?.clear()
+                    adapter?.notifyDataSetChanged()
+                    true
+                }
+                else -> false
+            }
+        }
+
         loadIngredients()
     }
 
     private fun loadIngredients() {
         lifecycleScope.launch {
             val ingredientes = withContext(Dispatchers.IO) {
-                val dao = (application as ListDBApp).ingredientDatabase.IngredientDAO()
+                val dao = (application as ListDBApp).database.ingredientDAO()
                 dao.getIngredientsByListId(listaId)
             }
 
-            // Asumiendo que recibes el presupuesto desde el intent
             val presupuesto = intent.getDoubleExtra("lista_presupuesto", 0.0)
             val totalGastado = ingredientes.sumOf { it.price }
             val restante = presupuesto - totalGastado
@@ -81,7 +113,7 @@ class addIngredientsActivity : AppCompatActivity() {
                 binding.tvPresupuestoRestante.visibility = View.GONE
             }
 
-            binding.rvIngredientes.adapter = IngredientAdapter(ingredientes) { ingrediente: IngEntity ->
+            adapter = IngredientAdapter(ingredientes) { ingrediente: IngEntity ->
                 val dialog = IngredientDialog(
                     listId = listaId,
                     ingredient = ingrediente
@@ -90,10 +122,8 @@ class addIngredientsActivity : AppCompatActivity() {
                 }
                 dialog.show(supportFragmentManager, "EditIngredientDialog")
             }
+
+            binding.rvIngredientes.adapter = adapter
         }
     }
-
-
-
-
 }

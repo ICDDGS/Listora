@@ -1,10 +1,12 @@
-
 package com.dan.listora.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +28,7 @@ class RecipeDetailActivity : AppCompatActivity() {
     private var ingredientList: List<RecipeIngredientEntity> = emptyList()
     private var currentRecipeId: Long = -1L
     private lateinit var adapter: RecipeIngredientAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +54,8 @@ class RecipeDetailActivity : AppCompatActivity() {
         binding.rvIngredients.adapter = adapter
 
         loadRecipeAndIngredients()
-
         val editSteps = findViewById<EditText>(R.id.editSteps)
-        val btnGuardarPasos = findViewById<Button>(R.id.btnGuardarPasos)
 
-        btnGuardarPasos.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val stepsText = editSteps.text.toString()
-                val dao = (application as ListDBApp).database.recipeDAO()
-                val currentRecipe = dao.getRecipeById(currentRecipeId)
-                currentRecipe?.let {
-                    val updatedRecipe = it.copy(steps = stepsText)
-                    dao.updateRecipe(updatedRecipe)
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RecipeDetailActivity, "Pasos actualizados", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
 
         binding.fabAddToList.setOnClickListener {
             agregarIngredientesALista()
@@ -78,6 +65,7 @@ class RecipeDetailActivity : AppCompatActivity() {
     private fun loadRecipeAndIngredients() {
         CoroutineScope(Dispatchers.Main).launch {
             val dao = (application as ListDBApp).database.recipeDAO()
+
             val recipe = withContext(Dispatchers.IO) { dao.getRecipeById(currentRecipeId) }
             ingredientList = withContext(Dispatchers.IO) { dao.getIngredientsForRecipe(currentRecipeId) }
 
@@ -117,6 +105,29 @@ class RecipeDetailActivity : AppCompatActivity() {
                 }
             }
         }
+        val btnGuardarPasos = Button(this).apply {
+            text = "Guardar pasos"
+        }
+        binding.root.findViewById<LinearLayout>(R.id.porcionesLayout).addView(btnGuardarPasos)
+
+        btnGuardarPasos.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val stepsText = findViewById<EditText>(R.id.editSteps).text.toString()
+
+                val dao = (application as ListDBApp).database.recipeDAO()
+                val currentRecipe = dao.getRecipeById(currentRecipeId)
+
+                currentRecipe?.let {
+                    val updatedRecipe = it.copy(steps = stepsText)
+                    dao.updateRecipe(updatedRecipe)
+
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@RecipeDetailActivity, "Pasos actualizados", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
 
     private fun updateIngredients() {
@@ -201,6 +212,8 @@ class RecipeDetailActivity : AppCompatActivity() {
                     val listaId = listas[which].id
 
                     CoroutineScope(Dispatchers.IO).launch {
+                        Log.d("Debug", "Ingredientes a agregar: ${ingredientList.size}")
+
                         ingredientList.forEach { ing ->
                             val escalado = ing.baseQuantity * currentServings / originalServings
                             ingredientDao.insertIngredient(
@@ -213,10 +226,17 @@ class RecipeDetailActivity : AppCompatActivity() {
                                 )
                             )
                         }
+
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@RecipeDetailActivity, "Ingredientes añadidos", Toast.LENGTH_SHORT).show()
+
+                            val intent = Intent(this@RecipeDetailActivity, addIngredientsActivity::class.java)
+                            intent.putExtra("lista_id", listaId)
+                            intent.putExtra("lista_nombre", listas[which].name)
+                            startActivity(intent)
                         }
                     }
+
                 }
                 .setNegativeButton("Cancelar", null)
                 .show()
