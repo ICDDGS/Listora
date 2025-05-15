@@ -35,6 +35,11 @@ class RecipeDetailActivity : AppCompatActivity() {
         binding = ActivityRecipeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
         currentRecipeId = intent.getLongExtra("recipe_id", -1)
         if (currentRecipeId == -1L) {
             Toast.makeText(this, "Receta no encontrada", Toast.LENGTH_SHORT).show()
@@ -230,10 +235,6 @@ class RecipeDetailActivity : AppCompatActivity() {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@RecipeDetailActivity, "Ingredientes añadidos", Toast.LENGTH_SHORT).show()
 
-                            val intent = Intent(this@RecipeDetailActivity, addIngredientsActivity::class.java)
-                            intent.putExtra("lista_id", listaId)
-                            intent.putExtra("lista_nombre", listas[which].name)
-                            startActivity(intent)
                         }
                     }
 

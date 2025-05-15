@@ -52,7 +52,7 @@ class IngredientDialog(
 
                 if (nombre.isNotEmpty() && cantidad.isNotEmpty() && unidad.isNotEmpty()) {
                     lifecycleScope.launch {
-                        val dao = (requireActivity().application as ListDBApp).ingredientDatabase.IngredientDAO()
+                        val dao = (requireActivity().application as ListDBApp).database.ingredientDAO()
 
 
                         if (ingredient == null) {

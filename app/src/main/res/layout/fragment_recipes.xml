@@ -7,14 +7,17 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
+    <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:title="Recetas"
-        android:background="?attr/colorPrimary"
-        android:titleTextColor="@android:color/white"
-        app:navigationIcon="@drawable/ic_arrow_back" />
+        android:layout_height="50dp"
+        android:text="Mis Recetas"
+        android:background="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:shadowRadius="10"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecetas"
