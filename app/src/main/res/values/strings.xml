@@ -8,6 +8,14 @@
     <string name="delete_confirmation">¿Realmente deseas eliminar el juego %1$s?</string>
     <string name="list_deleted">Juego eliminado exitosamente</string>
     <string name="ok">Aceptar</string>
+    <string name="action_select">Seleccionar</string>
+    <string name="action_accept">Aceptar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="delete">Eliminar</string>
+
+
+
+
 
     <string-array name="unidades_array">
         <item>pz</item>

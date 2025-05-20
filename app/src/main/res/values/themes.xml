@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Listora" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="actionModeStyle">@style/Theme.Listora.ActionMode</item>
+
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
@@ -14,6 +16,11 @@
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="colorError">@color/colorError</item>
 
+    </style>
+    <style name="Theme.Listora.ActionMode" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item> <!-- verde -->
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="actionBarStyle">@style/Widget.AppCompat.ActionBar.Solid</item>
     </style>
 
     <style name="Theme.Listora" parent="Base.Theme.Listora" />

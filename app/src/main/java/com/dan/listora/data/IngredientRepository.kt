@@ -25,5 +25,10 @@ class IngredientRepository (
     suspend fun updateIngredientPurchaseStatus(id: Long, purchased: Boolean) {
         ingredientDAO.updateIngredientPurchaseStatus(id, purchased)
     }
+
+    suspend fun deleteIngredientsByIds(ids: List<Long>) {
+        ingredientDAO.deleteIngredientsByIds(ids)
+    }
+
 }
 

@@ -8,7 +8,7 @@ import com.dan.listora.databinding.IngredientElementBinding
 import com.dan.listora.ui.viewholder.IngredientViewHolder
 
 class IngredientAdapter(
-    private val ingredients: List<IngEntity>,
+    private val ingredients: MutableList<IngEntity>,
     private val onEditClick: (IngEntity) -> Unit
 ) : RecyclerView.Adapter<IngredientViewHolder>() {
 
@@ -25,4 +25,14 @@ class IngredientAdapter(
     }
 
     override fun getItemCount(): Int = ingredients.size
+
+    fun removeItemsByIds(ids: List<Long>) {
+        ingredients.removeAll { ids.contains(it.id) }
+        notifyDataSetChanged()
+    }
+
+    fun enableSelectionMode() {
+        selectionMode = true
+        notifyDataSetChanged()
+    }
 }

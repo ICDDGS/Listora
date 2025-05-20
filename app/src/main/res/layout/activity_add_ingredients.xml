@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addIngredientsActivity">
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <!-- TopAppBar normal -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Listora"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/ic_arrow_back" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:navigationIcon="@drawable/ic_arrow_back" />
-        <TextView
-            android:id="@+id/tvPresupuestoRestante"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Presupuesto restante: $0.00"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="16sp"
-            android:layout_margin="12dp"
-            android:visibility="gone"/>
+    <!-- Barra de selección -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/menuSelection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:visibility="gone"
+        app:menu="@menu/menu_selection"
+        app:title="Seleccionar elementos"
+        app:titleTextColor="@android:color/white" />
 
+    <!-- Presupuesto -->
+    <TextView
+        android:id="@+id/tvPresupuesto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Presupuesto: $0.00"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:padding="8dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvIngredientes"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="8dp" />
+    <!-- Lista de ingredientes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIngredientes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddIngredient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:contentDescription="Agregar ingrediente"
-            android:src="@drawable/ic_add"
-            app:tint="@android:color/white"
-            app:backgroundTint="@color/colorPrimary"/>
-    </LinearLayout>
+    <!-- Botón para agregar ingrediente -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="Agregar Ingrediente"
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@android:color/white" />
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

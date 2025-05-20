@@ -41,5 +41,8 @@ interface IngredientDAO {
     @Query("UPDATE ingredient_data_table SET isPurchased = :purchased WHERE ingredient_id = :id")
     suspend fun updateIngredientPurchaseStatus(id: Long, purchased: Boolean)
 
+    @Query("DELETE FROM ingredient_data_table WHERE ingredient_id IN (:ids)")
+    suspend fun deleteIngredientsByIds(ids: List<Long>)
+
 
 }

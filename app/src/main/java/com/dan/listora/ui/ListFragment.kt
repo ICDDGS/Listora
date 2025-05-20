@@ -57,7 +57,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 dialog.show(childFragmentManager, "ListDialog")
             },
             onItemClick = { selectedList ->
-                val intent = Intent(requireContext(), addIngredientsActivity::class.java)
+                val intent = Intent(requireContext(), AddIngredientsActivity::class.java)
                 intent.putExtra("lista_id", selectedList.id)
                 intent.putExtra("lista_nombre", selectedList.name)
                 intent.putExtra("lista_presupuesto", selectedList.presupuesto)
