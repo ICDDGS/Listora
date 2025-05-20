@@ -115,7 +115,4 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     }
 
-
-
-
 }

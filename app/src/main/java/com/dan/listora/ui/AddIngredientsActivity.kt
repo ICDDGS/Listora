@@ -23,15 +23,19 @@ class AddIngredientsActivity : AppCompatActivity() {
     private lateinit var adapter: IngredientAdapter
     private lateinit var ingredientList: MutableList<IngEntity>
     private var selectionActive = false
+    private var listaId: Long = 0L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddIngredientsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        listaId = intent?.getLongExtra("lista_id", 0L) ?: 0L
+
 
         setSupportActionBar(binding.topAppBar)
-        val nombreLista = intent.getStringExtra("nombreLista") ?: "Lista"
+        val nombreLista = intent.getStringExtra("lista_nombre") ?: "Lista"
         supportActionBar?.title = nombreLista
 
 
@@ -68,7 +72,8 @@ class AddIngredientsActivity : AppCompatActivity() {
         val repo = (application as ListDBApp).ingredientRepository
 
         lifecycleScope.launch {
-            val ingredientes = repo.getAllIngredients()
+            val ingredientes = repo.getIngredientsByListId(listaId)
+
             ingredientList.clear()
             ingredientList.addAll(ingredientes)
             adapter.notifyDataSetChanged()
@@ -193,7 +198,7 @@ class AddIngredientsActivity : AppCompatActivity() {
                         cant = cantidad,
                         unit = unidad,
                         price = precio,
-                        idLista = 0L, // Puedes cambiarlo si estás manejando múltiples listas
+                        idLista = listaId,
                         isPurchased = false
                     )
 

@@ -30,5 +30,10 @@ class IngredientRepository (
         ingredientDAO.deleteIngredientsByIds(ids)
     }
 
+    suspend fun getIngredientsByListId(listaId: Long): List<IngEntity> {
+        return ingredientDAO.getIngredientsByListId(listaId)
+    }
+
+
 }
 
