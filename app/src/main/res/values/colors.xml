@@ -24,4 +24,12 @@
     <color name="colorError">#F44336</color>
     <color name="colorSuccess">#81C784</color>
     <color name="colorActive">#26A69A</color>
+
+    <color name="shopping_list_background">#FFF8E1</color> <!-- color cálido, tipo nota -->
+    <color name="shopping_check_default">#A0A0A0</color>
+    <color name="shopping_check_confirmed">#4CAF50</color> <!-- verde -->
+    <color name="black">#000000</color>
+
+
+
 </resources>

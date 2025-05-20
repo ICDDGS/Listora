@@ -19,5 +19,7 @@ class IngEntity (
     @ColumnInfo(name = "ingredient_price")
     var price: Double,
     @ColumnInfo(name = "idLista")
-    var idLista: Long
+    var idLista: Long,
+    @ColumnInfo(name = "isPurchased")
+    var isPurchased: Boolean = false
 )

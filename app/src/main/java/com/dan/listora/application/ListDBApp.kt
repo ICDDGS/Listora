@@ -1,6 +1,7 @@
 package com.dan.listora.application
 
 import android.app.Application
+import com.dan.listora.data.IngredientRepository
 import com.dan.listora.data.ListRepository
 import com.dan.listora.data.db.ListDataBase
 
@@ -12,6 +13,9 @@ class ListDBApp : Application() {
 
     val repository by lazy {
         ListRepository(database.listDao())
+    }
+    val ingredientRepository by lazy {
+        IngredientRepository(database.ingredientDAO())
     }
 }
 

@@ -1,62 +1,28 @@
-
-package com.dan.listora.ui
+package com.dan.listora.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.databinding.IngredientElementBinding
+import com.dan.listora.ui.viewholder.IngredientViewHolder
 
 class IngredientAdapter(
-    private val ingredientes: List<IngEntity>,
+    private val ingredients: List<IngEntity>,
     private val onEditClick: (IngEntity) -> Unit
-) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+) : RecyclerView.Adapter<IngredientViewHolder>() {
 
     val selectedItems = mutableSetOf<Long>()
     var selectionMode = false
 
-    inner class IngredientViewHolder(private val binding: IngredientElementBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(ingrediente: IngEntity) {
-            binding.tvNombre.text = ingrediente.name
-            binding.tvCantidadUnidad.text = "Cantidad: ${ingrediente.cant} ${ingrediente.unit}"
-            binding.tvPrecio.text = "Precio: $${ingrediente.price}"
-
-            binding.cbSeleccionar.apply {
-                visibility = if (selectionMode) View.VISIBLE else View.GONE
-                isChecked = selectedItems.contains(ingrediente.id)
-                setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) selectedItems.add(ingrediente.id)
-                    else selectedItems.remove(ingrediente.id)
-                }
-            }
-
-            binding.root.setOnClickListener {
-                if (selectionMode) {
-                    binding.cbSeleccionar.isChecked = !binding.cbSeleccionar.isChecked
-                } else {
-                    onEditClick(ingrediente)
-                }
-            }
-
-            binding.btnEditIngredient.setOnClickListener {
-                if (!selectionMode) onEditClick(ingrediente)
-            }
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val binding = IngredientElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return IngredientViewHolder(binding)
+        return IngredientViewHolder(binding, onEditClick, selectedItems, selectionMode)
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        holder.bind(ingredientes[position])
+        holder.bind(ingredients[position])
     }
 
-    override fun getItemCount(): Int = ingredientes.size
+    override fun getItemCount(): Int = ingredients.size
 }
-

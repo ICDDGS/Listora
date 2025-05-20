@@ -3,6 +3,7 @@ package com.dan.listora.data
 import com.dan.listora.data.db.ListDAO
 import com.dan.listora.data.db.model.ListEntity
 
+
 class ListRepository (
     private val listDAO: ListDAO
 ) {

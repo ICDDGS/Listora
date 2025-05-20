@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.dan.listora.ui.dialog.IngredientDialog
 import com.dan.listora.data.db.model.IngEntity
+import com.dan.listora.ui.adapter.IngredientAdapter
 
 class addIngredientsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddIngredientsBinding
