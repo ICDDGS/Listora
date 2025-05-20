@@ -15,6 +15,7 @@ class IngredientAdapter(
     val selectedItems = mutableSetOf<Long>()
     var selectionMode = false
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val binding = IngredientElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return IngredientViewHolder(binding, onEditClick, selectedItems, selectionMode)

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -27,21 +29,26 @@ class AddIngredientsActivity : AppCompatActivity() {
         binding = ActivityAddIngredientsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         setSupportActionBar(binding.topAppBar)
-        supportActionBar?.title = "Listora"
+        val nombreLista = intent.getStringExtra("nombreLista") ?: "Lista"
+        supportActionBar?.title = nombreLista
+
 
         ingredientList = mutableListOf()
 
         adapter = IngredientAdapter(ingredientList) { ingrediente ->
-            // TODO: acción editar
+            mostrarDialogoEditarIngrediente(ingrediente)
         }
+
 
         binding.rvIngredientes.layoutManager = LinearLayoutManager(this)
         binding.rvIngredientes.adapter = adapter
 
         binding.fabAddIngredient.setOnClickListener {
-            // TODO: acción agregar ingrediente
+            mostrarDialogoAgregarIngrediente()
         }
+
 
         binding.menuSelection.menu.findItem(R.id.action_accept)?.setOnMenuItemClickListener {
             deleteSelectedIngredients()
@@ -127,4 +134,84 @@ class AddIngredientsActivity : AppCompatActivity() {
             Toast.makeText(this, "Selecciona elementos para eliminar", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun mostrarDialogoEditarIngrediente(ingrediente: IngEntity) {
+        val view = layoutInflater.inflate(R.layout.dialog_ingredient, null)
+
+        val etNombre = view.findViewById<EditText>(R.id.etNombre)
+        val etCantidad = view.findViewById<EditText>(R.id.etCantidad)
+        val spUnidad = view.findViewById<Spinner>(R.id.spUnidad)
+        val etPrecio = view.findViewById<EditText>(R.id.etPrecio)
+
+        etNombre.setText(ingrediente.name)
+        etCantidad.setText(ingrediente.cant)
+        etPrecio.setText(ingrediente.price.toString())
+
+        val unidades = resources.getStringArray(R.array.unidades_array)
+        val indexUnidad = unidades.indexOf(ingrediente.unit)
+        if (indexUnidad >= 0) spUnidad.setSelection(indexUnidad)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Editar Ingrediente")
+            .setView(view)
+            .setPositiveButton("Guardar") { _, _ ->
+                val repo = (application as ListDBApp).ingredientRepository
+                lifecycleScope.launch {
+                    ingrediente.name = etNombre.text.toString()
+                    ingrediente.cant = etCantidad.text.toString()
+                    ingrediente.unit = spUnidad.selectedItem.toString()
+                    ingrediente.price = etPrecio.text.toString().toDoubleOrNull() ?: 0.0
+                    repo.updateIngredient(ingrediente)
+                    cargarIngredientes()
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .create()
+
+        dialog.show()
+    }
+
+    private fun mostrarDialogoAgregarIngrediente() {
+        val view = layoutInflater.inflate(R.layout.dialog_ingredient, null)
+
+        val etNombre = view.findViewById<EditText>(R.id.etNombre)
+        val etCantidad = view.findViewById<EditText>(R.id.etCantidad)
+        val spUnidad = view.findViewById<Spinner>(R.id.spUnidad)
+        val etPrecio = view.findViewById<EditText>(R.id.etPrecio)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Agregar Ingrediente")
+            .setView(view)
+            .setPositiveButton("Agregar") { _, _ ->
+                val nombre = etNombre.text.toString().trim()
+                val cantidad = etCantidad.text.toString().trim()
+                val unidad = spUnidad.selectedItem.toString()
+                val precio = etPrecio.text.toString().toDoubleOrNull() ?: 0.0
+
+                if (nombre.isNotEmpty() && cantidad.isNotEmpty()) {
+                    val nuevoIngrediente = IngEntity(
+                        name = nombre,
+                        cant = cantidad,
+                        unit = unidad,
+                        price = precio,
+                        idLista = 0L, // Puedes cambiarlo si estás manejando múltiples listas
+                        isPurchased = false
+                    )
+
+                    val repo = (application as ListDBApp).ingredientRepository
+                    lifecycleScope.launch {
+                        repo.insertIngredient(nuevoIngrediente)
+                        cargarIngredientes()
+                    }
+                } else {
+                    Toast.makeText(this, "Nombre y cantidad son obligatorios", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .create()
+
+        dialog.show()
+    }
+
+
+
 }

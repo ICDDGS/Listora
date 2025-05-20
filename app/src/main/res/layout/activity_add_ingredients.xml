@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
+
 
     <!-- TopAppBar normal -->
     <com.google.android.material.appbar.MaterialToolbar
@@ -53,8 +59,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
+        app:backgroundTint="@color/colorPrimary"
         android:contentDescription="Agregar Ingrediente"
         app:srcCompat="@drawable/ic_add"
         app:tint="@android:color/white" />
 
 </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
