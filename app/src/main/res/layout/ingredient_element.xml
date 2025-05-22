@@ -11,17 +11,14 @@
     <!-- CheckBox para selección múltiple -->
     <CheckBox
         android:id="@+id/cbSeleccionar"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:buttonTint="@color/colorPrimary"
-        android:backgroundTint="@color/colorPrimary"
-        android:focusable="false"
-        android:clickable="true"
-        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_marginEnd="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <!-- Botón circular confirmar compra -->
     <ImageView

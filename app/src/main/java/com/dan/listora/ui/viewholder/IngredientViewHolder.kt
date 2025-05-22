@@ -16,11 +16,10 @@ import kotlinx.coroutines.launch
 class IngredientViewHolder(
     private val binding: IngredientElementBinding,
     private val onEditClick: (IngEntity) -> Unit,
-    private val selectedItems: MutableSet<Long>,
-    private val selectionMode: Boolean
+    private val selectedItems: MutableSet<Long>
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(ingredient: IngEntity) {
+    fun bind(ingredient: IngEntity, selectionMode: Boolean) {
         binding.tvNombre.text = ingredient.name
         binding.tvCantidadUnidad.text = "Cantidad: ${ingredient.cant} ${ingredient.unit}"
         binding.tvPrecio.text = "Precio: $${ingredient.price}"
@@ -34,60 +33,60 @@ class IngredientViewHolder(
             if (isPurchased) binding.tvNombre.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             else binding.tvNombre.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         binding.btnPurchaseConfirm.setColorFilter(
-            ContextCompat.getColor(context,
-                if (isPurchased) R.color.shopping_check_confirmed else R.color.shopping_check_default)
+            ContextCompat.getColor(
+                context,
+                if (isPurchased) R.color.shopping_check_confirmed else R.color.shopping_check_default
+            )
         )
 
-        // Checkbox de selección múltiple animado
         if (selectionMode) {
             binding.cbSeleccionar.visibility = View.VISIBLE
-            binding.cbSeleccionar.alpha = 0f
-            binding.cbSeleccionar.translationX = -30f
-            binding.cbSeleccionar.animate()
-                .alpha(1f)
-                .translationX(0f)
-                .setDuration(200)
-                .start()
+
+            // Reset listener antes de actualizar estado
+            binding.cbSeleccionar.setOnCheckedChangeListener(null)
+            binding.cbSeleccionar.isChecked = selectedItems.contains(ingredient.id)
+            binding.cbSeleccionar.setOnCheckedChangeListener { _: CompoundButton, isChecked: Boolean ->
+                if (isChecked) selectedItems.add(ingredient.id)
+                else selectedItems.remove(ingredient.id)
+            }
+
+            binding.root.setOnClickListener {
+                binding.cbSeleccionar.isChecked = !binding.cbSeleccionar.isChecked
+            }
+
+            // Desactiva edición
+            binding.btnEditIngredient.setOnClickListener(null)
         } else {
             binding.cbSeleccionar.visibility = View.GONE
-        }
+            binding.cbSeleccionar.setOnCheckedChangeListener(null)
+            binding.cbSeleccionar.isChecked = false
 
-        binding.cbSeleccionar.isChecked = selectedItems.contains(ingredient.id)
-        binding.cbSeleccionar.setOnCheckedChangeListener { _: CompoundButton, isChecked: Boolean ->
-            if (isChecked) selectedItems.add(ingredient.id)
-            else selectedItems.remove(ingredient.id)
-        }
+            binding.root.setOnClickListener {
+                // Tocar fuera de modo selección → alternar comprado
+                ingredient.isPurchased = !ingredient.isPurchased
 
-        // Botón de editar
-        binding.btnEditIngredient.setOnClickListener {
-            if (!selectionMode) onEditClick(ingredient)
-        }
-
-        // Click raíz: marcar/desmarcar compra si no es botón de editar ni en modo selección
-        binding.root.setOnClickListener { view ->
-            if (selectionMode) {
-                binding.cbSeleccionar.isChecked = !binding.cbSeleccionar.isChecked
-            } else {
-                if (view.id != binding.btnEditIngredient.id) {
-                    ingredient.isPurchased = !ingredient.isPurchased
-
-                    CoroutineScope(Dispatchers.IO).launch {
-                        (binding.root.context.applicationContext as? ListDBApp)?.ingredientRepository
-                            ?.updateIngredientPurchaseStatus(ingredient.id, ingredient.isPurchased)
-                    }
-
-                    binding.root.alpha = if (ingredient.isPurchased) 0.5f else 1.0f
-                    binding.tvNombre.paintFlags =
-                        if (ingredient.isPurchased) binding.tvNombre.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                        else binding.tvNombre.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                    binding.btnPurchaseConfirm.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            if (ingredient.isPurchased) R.color.shopping_check_confirmed else R.color.shopping_check_default
-                        )
-                    )
+                CoroutineScope(Dispatchers.IO).launch {
+                    (context.applicationContext as? ListDBApp)?.ingredientRepository
+                        ?.updateIngredientPurchaseStatus(ingredient.id, ingredient.isPurchased)
                 }
+
+                binding.root.alpha = if (ingredient.isPurchased) 0.5f else 1.0f
+                binding.tvNombre.paintFlags =
+                    if (ingredient.isPurchased) binding.tvNombre.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    else binding.tvNombre.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                binding.btnPurchaseConfirm.setColorFilter(
+                    ContextCompat.getColor(
+                        context,
+                        if (ingredient.isPurchased) R.color.shopping_check_confirmed else R.color.shopping_check_default
+                    )
+                )
+            }
+
+            // Habilita edición normal
+            binding.btnEditIngredient.setOnClickListener {
+                onEditClick(ingredient)
             }
         }
     }
+
 }

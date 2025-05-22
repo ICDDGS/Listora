@@ -18,11 +18,12 @@ class IngredientAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val binding = IngredientElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return IngredientViewHolder(binding, onEditClick, selectedItems, selectionMode)
+        return IngredientViewHolder(binding, onEditClick, selectedItems)
+
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        holder.bind(ingredients[position])
+        holder.bind(ingredients[position], selectionMode)
     }
 
     override fun getItemCount(): Int = ingredients.size

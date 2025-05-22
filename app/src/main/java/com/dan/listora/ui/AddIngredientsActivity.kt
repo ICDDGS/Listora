@@ -130,15 +130,29 @@ class AddIngredientsActivity : AppCompatActivity() {
                 val repo = (application as ListDBApp).ingredientRepository
                 repo.deleteIngredientsByIds(idsToDelete)
                 adapter.removeItemsByIds(idsToDelete)
+                val cantidadEliminada = idsToDelete.size
+
+                // Limpiar estado
                 adapter.selectedItems.clear()
                 adapter.selectionMode = false
                 adapter.notifyDataSetChanged()
+                deactivateSelectionMode()
                 cargarIngredientes()
+
+                // Mostrar Snackbar
+                binding.root?.let {
+                    com.google.android.material.snackbar.Snackbar.make(
+                        it,
+                        "$cantidadEliminada ingrediente(s) eliminado(s)",
+                        com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
         } else {
             Toast.makeText(this, "Selecciona elementos para eliminar", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun mostrarDialogoEditarIngrediente(ingrediente: IngEntity) {
         val view = layoutInflater.inflate(R.layout.dialog_ingredient, null)
 
