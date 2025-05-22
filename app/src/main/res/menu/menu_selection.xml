@@ -6,8 +6,7 @@
         android:id="@+id/action_accept"
         android:title="@string/action_accept"
         android:icon="@drawable/ic_check"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_cancel"
