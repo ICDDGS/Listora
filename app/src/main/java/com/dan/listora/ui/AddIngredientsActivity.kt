@@ -70,6 +70,7 @@ class AddIngredientsActivity : AppCompatActivity() {
 
     private fun cargarIngredientes() {
         val repo = (application as ListDBApp).ingredientRepository
+        val presupuestoOriginal = intent.getDoubleExtra("lista_presupuesto", 0.0)
 
         lifecycleScope.launch {
             val ingredientes = repo.getIngredientsByListId(listaId)
@@ -78,10 +79,29 @@ class AddIngredientsActivity : AppCompatActivity() {
             ingredientList.addAll(ingredientes)
             adapter.notifyDataSetChanged()
 
-            val total = ingredientList.sumOf { it.price ?: 0.0 }
-            binding.tvPresupuesto.text = "Presupuesto: $%.2f".format(total)
+            if (presupuestoOriginal > 0.0) {
+                val totalGastado = ingredientList.sumOf { it.price ?: 0.0 }
+                val presupuestoRestante = presupuestoOriginal - totalGastado
+
+                binding.tvPresupuesto.visibility = View.VISIBLE
+                binding.tvPresupuesto.text = "Presupuesto: $%.2f".format(presupuestoRestante)
+
+                if (presupuestoRestante < 0) {
+                    binding.tvPresupuesto.setTextColor(
+                        androidx.core.content.ContextCompat.getColor(this@AddIngredientsActivity, android.R.color.holo_red_dark)
+                    )
+                } else {
+                    binding.tvPresupuesto.setTextColor(
+                        androidx.core.content.ContextCompat.getColor(this@AddIngredientsActivity, com.dan.listora.R.color.black)
+                    )
+                }
+            } else {
+                binding.tvPresupuesto.visibility = View.GONE
+            }
         }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (!selectionActive) {

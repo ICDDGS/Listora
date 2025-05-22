@@ -9,14 +9,15 @@ import com.dan.listora.ui.viewholder.ListViewHolder
 
 class ListAdapter(
     private val onEditClick: (ListEntity) -> Unit,
-    private val onItemClick: (ListEntity) -> Unit
+    private val onItemClick: (ListEntity) -> Unit,
+    private val onDeleteClick: (ListEntity) -> Unit
 ) : RecyclerView.Adapter<ListViewHolder>() {
 
     private var lists: List<ListEntity> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ListElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ListViewHolder(binding, onEditClick, onItemClick)
+        return ListViewHolder(binding, onEditClick, onItemClick, onDeleteClick)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
@@ -30,4 +31,3 @@ class ListAdapter(
         notifyDataSetChanged()
     }
 }
-

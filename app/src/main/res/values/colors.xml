@@ -30,6 +30,8 @@
     <color name="shopping_check_confirmed">#4CAF50</color> <!-- verde -->
     <color name="black">#000000</color>
 
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FFC107</color>
 
 
 

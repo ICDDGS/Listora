@@ -32,6 +32,10 @@ interface ListDAO {
     @Delete
     suspend fun deleteList(list: ListEntity)
 
+    @Query("DELETE FROM list_data_table WHERE list_id = :id")
+    suspend fun deleteById(id: Long)
+
+
 
 
 }

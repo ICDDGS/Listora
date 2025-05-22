@@ -12,8 +12,9 @@ class ListDBApp : Application() {
     }
 
     val repository by lazy {
-        ListRepository(database.listDao())
+        ListRepository(database.listDao(), database.ingredientDAO())
     }
+
     val ingredientRepository by lazy {
         IngredientRepository(database.ingredientDAO())
     }
