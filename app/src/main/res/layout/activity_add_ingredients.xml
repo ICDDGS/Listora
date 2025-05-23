@@ -64,5 +64,19 @@
         app:srcCompat="@drawable/ic_add"
         app:tint="@android:color/white" />
 
+    <TextView
+        android:id="@+id/btnListaCompletada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lista completada"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:background="@drawable/bg_lista_completada"
+        android:alpha="0.5"
+        android:layout_marginBottom="72dp" />
+
+
 </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

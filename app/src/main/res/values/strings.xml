@@ -14,9 +14,6 @@
     <string name="delete">Eliminar</string>
 
 
-
-
-
     <string-array name="unidades_array">
         <item>pz</item>
         <item>g</item>

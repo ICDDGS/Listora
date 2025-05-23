@@ -1,5 +1,6 @@
 package com.dan.listora.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +9,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dan.listora.R
@@ -66,6 +68,13 @@ class AddIngredientsActivity : AppCompatActivity() {
         }
 
         cargarIngredientes()
+
+        binding.btnListaCompletada.setOnClickListener {
+            val intent = Intent(this, ResumeActivity::class.java) // si usarás ResumeFragment en una actividad
+            intent.putExtra("nombre_lista", intent.getStringExtra("lista_nombre") ?: "")
+            startActivity(intent)
+        }
+
     }
 
     private fun cargarIngredientes() {
@@ -99,6 +108,18 @@ class AddIngredientsActivity : AppCompatActivity() {
                 binding.tvPresupuesto.visibility = View.GONE
             }
         }
+        val todosComprados = ingredientList.isNotEmpty() && ingredientList.all { it.isPurchased }
+
+        binding.btnListaCompletada.apply {
+            alpha = if (todosComprados) 1.0f else 0.5f
+            setTextColor(
+                ContextCompat.getColor(
+                    this@AddIngredientsActivity,
+                    if (todosComprados) R.color.colorPrimary else R.color.colorPrimaryVariant
+                )
+            )
+        }
+
     }
 
 

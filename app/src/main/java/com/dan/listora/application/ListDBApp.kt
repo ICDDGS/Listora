@@ -4,6 +4,8 @@ import android.app.Application
 import com.dan.listora.data.IngredientRepository
 import com.dan.listora.data.ListRepository
 import com.dan.listora.data.db.ListDataBase
+import com.dan.listora.data.HistorialRepository
+
 
 class ListDBApp : Application() {
 
@@ -18,5 +20,9 @@ class ListDBApp : Application() {
     val ingredientRepository by lazy {
         IngredientRepository(database.ingredientDAO())
     }
+    val historialRepository by lazy {
+        HistorialRepository(database.historialDao())
+    }
+
 }
 

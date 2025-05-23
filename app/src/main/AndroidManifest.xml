@@ -14,10 +14,12 @@
         android:theme="@style/Theme.Listora"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ResumeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.AddIngredientsActivity"
             android:exported="false" />
         <activity android:name=".ui.RecipeDetailActivity" />
-
         <activity
             android:name=".ui.MenuActivity"
             android:exported="false" />

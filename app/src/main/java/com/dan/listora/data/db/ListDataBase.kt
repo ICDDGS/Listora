@@ -8,16 +8,28 @@ import com.dan.listora.data.db.model.ListEntity
 import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.data.db.model.RecipeIngredientEntity
+import com.dan.listora.data.db.model.HistorialEntity
+import com.dan.listora.data.db.HistorialDAO
+
 
 @Database(
-    entities = [ListEntity::class, IngEntity::class, RecipeEntity::class, RecipeIngredientEntity::class],
-    version = 2,
+    entities = [
+        ListEntity::class,
+        IngEntity::class,
+        RecipeEntity::class,
+        RecipeIngredientEntity::class,
+        HistorialEntity::class // debe estar aquí
+    ],
+    version = 1, // o mayor
     exportSchema = false
 )
+
 abstract class ListDataBase : RoomDatabase() {
     abstract fun listDao(): ListDAO
     abstract fun ingredientDAO(): IngredientDAO
     abstract fun recipeDAO(): RecipeDAO
+    abstract fun historialDao(): HistorialDAO
+
 
     companion object {
         @Volatile
