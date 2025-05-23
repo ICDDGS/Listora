@@ -1,5 +1,6 @@
 package com.dan.listora.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -43,8 +44,12 @@ class ResumeActivity : AppCompatActivity() {
         }
 
         binding.btnContinuar.setOnClickListener {
-            finish() // Cierra ResumeActivity y vuelve a la anterior
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
         }
+
 
         binding.btnExportar.setOnClickListener {
             exportarAExcel()

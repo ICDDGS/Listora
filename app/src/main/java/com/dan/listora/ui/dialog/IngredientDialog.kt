@@ -56,7 +56,13 @@ class IngredientDialog(
 
 
                         if (ingredient == null) {
-                            val nuevo = IngEntity(name = nombre, cant = cantidad, unit = unidad, price = precio, idLista = listId)
+                            val nuevo = IngEntity(
+                                name = nombre,
+                                cant = cantidad,
+                                unit = unidad,
+                                price = precio,
+                                idLista = listId,
+                                date = System.currentTimeMillis())
                             nuevo.id = 0
                             dao.insertIngredient(nuevo)
 

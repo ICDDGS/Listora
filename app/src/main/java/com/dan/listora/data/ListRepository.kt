@@ -28,4 +28,9 @@ class ListRepository(
         ingredientDAO.deleteByListId(listId)
         listDAO.deleteById(listId)
     }
+
+    suspend fun getNombreListaPorId(id: Long): String {
+        return listDAO.getListNameById(id) ?: "Sin nombre"
+    }
+
 }

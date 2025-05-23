@@ -35,6 +35,11 @@ interface ListDAO {
     @Query("DELETE FROM list_data_table WHERE list_id = :id")
     suspend fun deleteById(id: Long)
 
+    @Query("SELECT list_name FROM list_data_table WHERE list_id = :id")
+    suspend fun getListNameById(id: Long): String?
+
+
+
 
 
 

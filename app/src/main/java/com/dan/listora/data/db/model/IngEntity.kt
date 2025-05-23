@@ -21,5 +21,8 @@ class IngEntity (
     @ColumnInfo(name = "idLista")
     var idLista: Long,
     @ColumnInfo(name = "isPurchased")
-    var isPurchased: Boolean = false
+    var isPurchased: Boolean = false,
+    @ColumnInfo(name = "date")
+    var date: Long
+
 )

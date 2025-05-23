@@ -17,7 +17,10 @@ import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.databinding.ActivityAddIngredientsBinding
 import com.dan.listora.ui.adapter.IngredientAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AddIngredientsActivity : AppCompatActivity() {
 
@@ -70,10 +73,27 @@ class AddIngredientsActivity : AppCompatActivity() {
         cargarIngredientes()
 
         binding.btnListaCompletada.setOnClickListener {
-            val intent = Intent(this, ResumeActivity::class.java) // si usarás ResumeFragment en una actividad
-            intent.putExtra("nombre_lista", intent.getStringExtra("lista_nombre") ?: "")
-            startActivity(intent)
+            val nombreLista = intent.getStringExtra("lista_nombre") ?: return@setOnClickListener
+            val idLista = intent.getLongExtra("lista_id", -1)
+            if (idLista == -1L) return@setOnClickListener
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val app = application as ListDBApp
+                val ingredientesComprados = app.ingredientRepository.getIngredientsByListId(idLista).filter { it.isPurchased }
+
+                ingredientesComprados.forEach { ingrediente ->
+                    app.historialRepository.guardarDesdeIngrediente(app.repository, ingrediente)
+                }
+
+                // Una vez guardado, ir a ResumeActivity
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(this@AddIngredientsActivity, ResumeActivity::class.java)
+                    intent.putExtra("nombre_lista", nombreLista)
+                    startActivity(intent)
+                }
+            }
         }
+
 
     }
 
@@ -254,7 +274,8 @@ class AddIngredientsActivity : AppCompatActivity() {
                         unit = unidad,
                         price = precio,
                         idLista = listaId,
-                        isPurchased = false
+                        isPurchased = false,
+                        date = System.currentTimeMillis()
                     )
 
                     val repo = (application as ListDBApp).ingredientRepository

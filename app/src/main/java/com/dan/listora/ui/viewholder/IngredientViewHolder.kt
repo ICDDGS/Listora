@@ -7,11 +7,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
+import com.dan.listora.data.db.model.HistorialEntity
 import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.databinding.IngredientElementBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.*
+
 
 class IngredientViewHolder(
     private val binding: IngredientElementBinding,
@@ -58,12 +64,19 @@ class IngredientViewHolder(
                 ingredient.isPurchased = !ingredient.isPurchased
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    (context.applicationContext as? ListDBApp)?.ingredientRepository
-                        ?.updateIngredientPurchaseStatus(ingredient.id, ingredient.isPurchased)
+                    val app = context.applicationContext as? ListDBApp
+                    app?.ingredientRepository?.updateIngredientPurchaseStatus(ingredient.id, ingredient.isPurchased)
+
+                    if (ingredient.isPurchased) {
+                        ingredient.date = System.currentTimeMillis()
+
+                    }
                 }
+
 
                 updateVisualState(ingredient.isPurchased)
             }
+
 
             // Botón editar funciona normalmente
             binding.btnEditIngredient.setOnClickListener {

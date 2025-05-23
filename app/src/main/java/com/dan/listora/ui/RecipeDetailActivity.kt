@@ -227,7 +227,8 @@ class RecipeDetailActivity : AppCompatActivity() {
                                     cant = escalado.toString(),
                                     unit = ing.unit,
                                     price = 0.0,
-                                    idLista = listaId
+                                    idLista = listaId,
+                                    date = System.currentTimeMillis(),
                                 )
                             )
                         }
