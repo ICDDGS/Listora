@@ -2,6 +2,7 @@ package com.dan.listora.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +11,11 @@ import com.dan.listora.application.ListDBApp
 import com.dan.listora.databinding.ActivityResumeBinding
 import com.dan.listora.ui.adapter.HistorialAdapter
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileWriter
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ResumeActivity : AppCompatActivity() {
 
@@ -52,12 +58,43 @@ class ResumeActivity : AppCompatActivity() {
 
 
         binding.btnExportar.setOnClickListener {
-            exportarAExcel()
+            lifecycleScope.launch {
+                exportarAExcel()
+            }
+        }
+
+    }
+
+    private suspend fun exportarAExcel() {
+        val nombreArchivo = "historial_${System.currentTimeMillis()}.csv"
+        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val file = File(downloadsDir, nombreArchivo)
+
+        try {
+            val writer = FileWriter(file)
+
+            // Encabezados
+            writer.append("Ingrediente,Cantidad,Unidad,Costo,Fecha\n")
+
+            val historial = (application as ListDBApp)
+                .historialRepository
+                .getHistorialPorLista(nombreLista)
+
+            val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+            historial.forEach {
+                writer.append("${it.ingrediente},${it.cantidad},${it.unidad},${it.costo},${formato.format(Date(it.fecha))}\n")
+            }
+
+            writer.flush()
+            writer.close()
+
+            Toast.makeText(this, "Exportado a Descargas", Toast.LENGTH_LONG).show()
+
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error al exportar: ${e.message}", Toast.LENGTH_LONG).show()
+            e.printStackTrace()
         }
     }
 
-    private fun exportarAExcel() {
-        Toast.makeText(this, "Exportación pendiente de implementar", Toast.LENGTH_SHORT).show()
-        // Aquí podrías generar Excel o CSV más adelante
-    }
 }
