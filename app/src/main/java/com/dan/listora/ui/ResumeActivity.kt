@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dan.listora.application.ListDBApp
 import com.dan.listora.databinding.ActivityResumeBinding
 import com.dan.listora.ui.adapter.HistorialAdapter
+import com.dan.listora.ui.adapter.ResumenCompraAdapter
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileWriter
@@ -27,10 +28,8 @@ class ResumeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResumeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.topAppBarResume)
-        binding.topAppBarResume.setNavigationOnClickListener {
-            finish() // Cierra la actividad y regresa a la anterior
-        }
+
+
 
 
 
@@ -39,22 +38,38 @@ class ResumeActivity : AppCompatActivity() {
         binding.rvCompras.layoutManager = LinearLayoutManager(this)
 
         lifecycleScope.launch {
-            val repo = (application as ListDBApp).historialRepository
-            val historial = repo.getHistorialPorLista(nombreLista)
+            val app = application as ListDBApp
+            val ingredientesComprados = app.ingredientRepository
+                .getIngredientsByListId(intent.getLongExtra("lista_id", 0L))
+                .filter { it.isPurchased }
 
-            historialAdapter = HistorialAdapter(historial)
-            binding.rvCompras.adapter = historialAdapter
+            val resumenAdapter = ResumenCompraAdapter(ingredientesComprados)
+            binding.rvCompras.adapter = resumenAdapter
 
-            val total = historial.sumOf { it.costo }
+            val total = ingredientesComprados.sumOf { it.price ?: 0.0 }
             binding.tvTotalGastado.text = "Total gastado: $%.2f".format(total)
         }
 
+
         binding.btnContinuar.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-            finish()
+            lifecycleScope.launch {
+                val app = application as ListDBApp
+                val idLista = intent.getLongExtra("lista_id", 0L)
+                val ingredientesComprados = app.ingredientRepository
+                    .getIngredientsByListId(idLista)
+                    .filter { it.isPurchased }
+
+                ingredientesComprados.forEach { ingrediente ->
+                    app.historialRepository.guardarDesdeIngrediente(app.repository, ingrediente)
+                }
+
+                val intent = Intent(this@ResumeActivity, MenuActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
         }
+
 
 
         binding.btnExportar.setOnClickListener {

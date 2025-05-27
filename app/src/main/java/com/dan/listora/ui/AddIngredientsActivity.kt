@@ -81,16 +81,13 @@ class AddIngredientsActivity : AppCompatActivity() {
                 val app = application as ListDBApp
                 val ingredientesComprados = app.ingredientRepository.getIngredientsByListId(idLista).filter { it.isPurchased }
 
-                ingredientesComprados.forEach { ingrediente ->
-                    app.historialRepository.guardarDesdeIngrediente(app.repository, ingrediente)
-                }
 
-                // Una vez guardado, ir a ResumeActivity
-                withContext(Dispatchers.Main) {
-                    val intent = Intent(this@AddIngredientsActivity, ResumeActivity::class.java)
-                    intent.putExtra("nombre_lista", nombreLista)
-                    startActivity(intent)
-                }
+
+                val intent = Intent(this@AddIngredientsActivity, ResumeActivity::class.java)
+                intent.putExtra("nombre_lista", nombreLista)
+                intent.putExtra("lista_id", idLista)
+                startActivity(intent)
+
             }
         }
 
