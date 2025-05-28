@@ -20,10 +20,6 @@ class ListRepository(
         listDAO.updateList(list)
     }
 
-    suspend fun deleteList(list: ListEntity) {
-        listDAO.deleteList(list)
-    }
-
     suspend fun deleteListAndIngredients(listId: Long) {
         ingredientDAO.deleteByListId(listId)
         listDAO.deleteById(listId)

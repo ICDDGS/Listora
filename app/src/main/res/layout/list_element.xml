@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,17 +20,18 @@
             android:id="@+id/tvNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre"
+            android:text="@string/nombre"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/tvFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvNombre"
-            android:text="Fecha límite: 00/00/0000"
+            android:text="@string/fecha_limite"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
@@ -39,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFecha"
-            android:text="Presupuesto: $0.0"
+            android:text="@string/presupuesto"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
@@ -52,7 +54,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_more_vert"
             app:tint="?attr/colorOnPrimary"
-            android:contentDescription="Opciones" />
+            android:contentDescription="@string/opciones" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
 

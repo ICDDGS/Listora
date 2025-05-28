@@ -1,10 +1,9 @@
 package com.dan.listora.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -125,6 +124,7 @@ class AddIngredientsActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n", "Recycle")
     private fun cargarIngredientes() {
         val repo = (application as ListDBApp).ingredientRepository
         val presupuestoOriginal = intent.getDoubleExtra("lista_presupuesto", 0.0)
@@ -137,7 +137,7 @@ class AddIngredientsActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
 
             if (presupuestoOriginal > 0.0) {
-                val totalGastado = ingredientList.sumOf { it.price ?: 0.0 }
+                val totalGastado = ingredientList.sumOf { it.price }
                 val presupuestoRestante = presupuestoOriginal - totalGastado
 
                 binding.tvPresupuesto.visibility = View.VISIBLE
@@ -145,7 +145,7 @@ class AddIngredientsActivity : AppCompatActivity() {
 
                 if (presupuestoRestante < 0) {
                     binding.tvPresupuesto.setTextColor(
-                        androidx.core.content.ContextCompat.getColor(this@AddIngredientsActivity, android.R.color.holo_red_dark)
+                        ContextCompat.getColor(this@AddIngredientsActivity, android.R.color.holo_red_dark)
                     )
                 } else {
                     val themedColor = obtainStyledAttributes(intArrayOf(android.R.attr.textColorPrimary))
@@ -190,6 +190,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun activateSelectionMode() {
         selectionActive = true
         adapter.selectionMode = true
@@ -199,6 +200,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         invalidateOptionsMenu()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun deactivateSelectionMode() {
         selectionActive = false
         adapter.selectionMode = false
@@ -209,6 +211,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         invalidateOptionsMenu()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun deleteSelectedIngredients() {
         val idsToDelete = adapter.selectedItems.toList()
         if (idsToDelete.isNotEmpty()) {
@@ -226,7 +229,7 @@ class AddIngredientsActivity : AppCompatActivity() {
                 cargarIngredientes()
 
                 // Mostrar Snackbar
-                binding.root?.let {
+                binding.root.let {
                     com.google.android.material.snackbar.Snackbar.make(
                         it,
                         "$cantidadEliminada ingrediente(s) eliminado(s)",

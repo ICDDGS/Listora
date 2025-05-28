@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
@@ -19,6 +21,7 @@
             android:id="@+id/ivRecipeImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:contentDescription="@string/imagen_comida"
             android:scaleType="centerCrop"
             android:src="@drawable/food"
             android:layout_alignParentStart="true" />
@@ -27,19 +30,20 @@
             android:id="@+id/tvRecipeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre de la receta"
+            android:text="@string/nombre_receta"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
             android:layout_toEndOf="@id/ivRecipeImage"
             android:layout_marginStart="12dp"
-            android:layout_alignTop="@id/ivRecipeImage" />
+            android:layout_alignTop="@id/ivRecipeImage"
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Categoría"
+            android:text="@string/categoria"
             android:textSize="14sp"
             android:textColor="?android:textColorPrimary"
             android:layout_below="@id/tvRecipeName"
@@ -53,7 +57,7 @@
             app:tint="?android:textColorPrimary"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/tvRecipeName"
-            android:contentDescription="Favorito" />
+            android:contentDescription="@string/favorito" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

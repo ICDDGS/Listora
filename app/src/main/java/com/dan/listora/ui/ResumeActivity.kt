@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileWriter
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -81,14 +82,26 @@ class ResumeActivity : AppCompatActivity() {
     }
 
     private suspend fun exportarAExcel() {
-        val nombreArchivo = "historial_${System.currentTimeMillis()}.csv"
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd_MMM_yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(calendar.time)
+
+        val safeNombreLista = nombreLista.replace(Regex("[^a-zA-Z0-9]"), "_")
+        val baseFileName = "${safeNombreLista}_$formattedDate.csv"
         val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val file = File(downloadsDir, nombreArchivo)
+
+        // Verifica existencia y agrega índice si ya existe
+        var finalFile = File(downloadsDir, baseFileName)
+        var index = 1
+        while (finalFile.exists()) {
+            val indexedFileName = "${safeNombreLista}_$formattedDate($index).csv"
+            finalFile = File(downloadsDir, indexedFileName)
+            index++
+        }
 
         try {
-            val writer = FileWriter(file)
+            val writer = FileWriter(finalFile, false)
 
-            // Encabezados
             writer.append("Ingrediente,Cantidad,Unidad,Costo,Fecha\n")
 
             val historial = (application as ListDBApp)
@@ -96,7 +109,6 @@ class ResumeActivity : AppCompatActivity() {
                 .getHistorialPorLista(nombreLista)
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
             historial.forEach {
                 writer.append("${it.ingrediente},${it.cantidad},${it.unidad},${it.costo},${formato.format(Date(it.fecha))}\n")
             }
@@ -104,12 +116,14 @@ class ResumeActivity : AppCompatActivity() {
             writer.flush()
             writer.close()
 
-            Toast.makeText(this, "Exportado a Descargas", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Exportado a Descargas: ${finalFile.name}", Toast.LENGTH_LONG).show()
 
         } catch (e: Exception) {
             Toast.makeText(this, "Error al exportar: ${e.message}", Toast.LENGTH_LONG).show()
             e.printStackTrace()
         }
     }
+
+
 
 }

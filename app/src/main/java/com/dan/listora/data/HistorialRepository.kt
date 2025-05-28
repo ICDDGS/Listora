@@ -3,9 +3,7 @@ package com.dan.listora.data
 import com.dan.listora.data.db.HistorialDAO
 import com.dan.listora.data.db.model.HistorialEntity
 import com.dan.listora.data.db.model.IngEntity
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+
 
 class HistorialRepository(private val historialDao: HistorialDAO) {
 
@@ -22,7 +20,6 @@ class HistorialRepository(private val historialDao: HistorialDAO) {
         ingredient: IngEntity
     ) {
         val nombreLista = listaRepository.getNombreListaPorId(ingredient.idLista)
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
         val historial = HistorialEntity(
             nombreLista = nombreLista,

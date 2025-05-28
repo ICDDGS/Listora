@@ -23,15 +23,15 @@
                 android:id="@+id/ivRecipeImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:contentDescription="@string/imagen_comida"
                 android:scaleType="centerCrop"
-                android:contentDescription="Imagen de la receta"
                 android:src="@drawable/food" />
 
             <TextView
                 android:id="@+id/tvRecipeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre de la receta"
+                android:text="@string/nombre_receta"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginTop="12dp" />
@@ -40,18 +40,12 @@
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categoría"
+                android:text="@string/categoria"
                 android:textStyle="italic"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp" />
 
-            <TextView
-                android:id="@+id/tvOriginalServings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Porciones originales: 1"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+
 
             <LinearLayout
                 android:id="@+id/porcionesLayout"
@@ -64,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cantidad: "
+                    android:text="@string/cantidad"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
@@ -73,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_less"
-                    android:contentDescription="Reducir"
+                    android:contentDescription="@string/reducir"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -81,7 +75,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="1"
+                    android:text="@string/_1"
                     android:textSize="16sp" />
 
                 <ImageButton
@@ -89,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_more"
-                    android:contentDescription="Aumentar"
+                    android:contentDescription="@string/aumentar"
                     android:background="?attr/selectableItemBackgroundBorderless" />
             </LinearLayout>
 
@@ -97,7 +91,7 @@
                 android:id="@+id/tvIngredientsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingredientes"
+                android:text="@string/ingredientes"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp" />
@@ -114,7 +108,7 @@
                 android:id="@+id/btnAddIngredient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar ingrediente"
+                android:text="@string/agg_ingrediente"
                 style="@style/Widget.MaterialComponents.Button"
                 app:backgroundTint="?attr/colorPrimary"
                 android:textColor="?attr/colorOnPrimary"
@@ -126,7 +120,7 @@
                 android:id="@+id/tvStepsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pasos de preparación"
+                android:text="@string/pasos_preparacion"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp" />
@@ -135,7 +129,8 @@
                 android:id="@+id/editSteps"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:hint="Escribe los pasos aquí..."
+                android:autofillHints=""
+                android:hint="@string/escribe_pasos"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
                 android:maxLength="500"
@@ -150,7 +145,7 @@
                 android:id="@+id/btnGuardarPasos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Guardar pasos"
+                android:text="@string/guardar_pasos"
                 style="@style/Widget.MaterialComponents.Button"
                 app:backgroundTint="?attr/colorSecondary"
                 android:textColor="?attr/colorOnSecondary"
@@ -167,7 +162,7 @@
         android:id="@+id/fabAddToList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar a lista"
+        android:text="@string/agregar_lista"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:icon="@drawable/ic_add"

@@ -2,6 +2,7 @@ package com.dan.listora.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.FileOutputStream
 import java.io.FileWriter
+import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -124,21 +127,44 @@ class StatisticsFragment : Fragment() {
             currentWeekStart.timeInMillis + 6 * 24 * 60 * 60 * 1000
         )
 
-        val file = File(requireContext().getExternalFilesDir(null), "semana_export_${System.currentTimeMillis()}.csv")
-        val writer = FileWriter(file)
+        val calendar = Calendar.getInstance()
+        val weekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH)
+        val dateFormat = SimpleDateFormat("MMM_yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(calendar.time)
 
-        writer.append("Ingrediente,Cantidad,Unidad,Costo,Fecha\n")
+        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-        val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        historial.forEach {
-            writer.append("${it.ingrediente},${it.cantidad},${it.unidad},${it.costo},${formato.format(Date(it.fecha))}\n")
+        var fileName = "Semana${weekOfMonth}_$formattedDate.csv"
+        var file = File(downloadsDir, fileName)
+        var index = 1
+
+        while (file.exists()) {
+            fileName = "Semana${weekOfMonth}_$formattedDate($index).csv"
+            file = File(downloadsDir, fileName)
+            index++
         }
 
-        writer.flush()
-        writer.close()
+        try {
+            val writer = OutputStreamWriter(FileOutputStream(file))
+            writer.append("Ingrediente,Cantidad,Unidad,Costo,Fecha\n")
 
-        withContext(Dispatchers.Main) {
-            Toast.makeText(requireContext(), "Exportado a ${file.absolutePath}", Toast.LENGTH_LONG).show()
+            val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            historial.forEach {
+                writer.append("${it.ingrediente},${it.cantidad},${it.unidad},${it.costo},${formato.format(Date(it.fecha))}\n")
+            }
+
+            writer.flush()
+            writer.close()
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "Exportado a Descargas: ${file.name}", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "Error exportando: ${e.message}", Toast.LENGTH_LONG).show()
+            }
         }
     }
+
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre"
+        android:text="@string/nombre"
         android:layout_marginTop="8dp"
         android:textColor="?android:textColorPrimary"
         />
@@ -19,12 +19,14 @@
         android:id="@+id/etNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:autofillHints=""
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cantidad y unidad"
+        android:text="@string/cant_unit"
         android:layout_marginTop="12dp"
         android:textColor="?android:textColorPrimary"
         />
@@ -40,8 +42,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:autofillHints=""
             android:inputType="numberDecimal"
-            android:hint="Cantidad" />
+            android:hint="@string/cant" />
 
         <Spinner
             android:id="@+id/spUnidad"
@@ -56,7 +59,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Precio"
+        android:text="@string/precio"
         android:layout_marginTop="12dp"
         android:textColor="?android:textColorPrimary"
         />
@@ -65,8 +68,9 @@
         android:id="@+id/etPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:inputType="numberDecimal"
-        android:hint="Precio" />
+        android:hint="@string/precio" />
 
 
 

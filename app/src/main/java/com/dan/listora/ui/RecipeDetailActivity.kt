@@ -100,7 +100,6 @@ class RecipeDetailActivity : AppCompatActivity() {
                 title = it.name
                 binding.tvRecipeTitle.text = it.name
                 binding.tvCategory.text = it.category
-                binding.tvOriginalServings.text = "Porciones originales: ${originalServings}"
                 binding.tvCurrentServings.text = currentServings.toString()
                 findViewById<EditText>(R.id.editSteps).setText(it.steps)
 

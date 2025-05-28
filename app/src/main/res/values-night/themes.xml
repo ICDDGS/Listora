@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <style name="Theme.Listora" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Colores oscuros -->
         <item name="colorPrimary">#0AF598</item> <!-- aqua más suave -->
         <item name="colorPrimaryVariant">#0AF5E8</item>
         <item name="colorOnPrimary">#000000</item>

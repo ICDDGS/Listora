@@ -12,7 +12,7 @@
         android:padding="16dp">
 
         <TextView
-            android:text="Ajustes"
+            android:text="@string/ajustes"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
@@ -20,37 +20,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp" />
 
-        <!-- Opción: Notificaciones -->
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_notifications"
-                android:layout_marginEnd="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notificaciones"
-                android:textSize="16sp"
-                android:textColor="?android:textColorPrimary" />
-        </LinearLayout>-->
-
-        <!-- Botón cerrar sesión -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cerrar sesión"
+            android:text="@string/cerrar_sesion"
             android:layout_marginTop="24dp"
             style="@style/Widget.MaterialComponents.Button"
             app:backgroundTint="?attr/colorPrimary"

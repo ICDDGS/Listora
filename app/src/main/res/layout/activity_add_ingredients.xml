@@ -4,82 +4,73 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
 
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Listora"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        android:background="?attr/colorPrimary"
-        android:textColor="?attr/colorOnPrimary"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/app_name" />
 
-    <!-- Barra de selección -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/menuSelection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:visibility="gone"
-        app:menu="@menu/menu_selection"
-        app:title="Seleccionar elementos"
-        app:titleTextColor="@android:color/white" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/menuSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="gone"
+            app:menu="@menu/menu_selection"
+            app:title="@string/title_select_items"
+            app:titleTextColor="@android:color/white" />
 
-    <!-- Presupuesto -->
-    <TextView
-        android:id="@+id/tvPresupuesto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Presupuesto: $0.00"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:padding="8dp" />
+        <TextView
+            android:id="@+id/tvPresupuesto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_budget"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:padding="8dp" />
 
-    <!-- Lista de ingredientes -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvIngredientes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIngredientes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp" />
 
-    <!-- Botón para agregar ingrediente -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddIngredient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        app:backgroundTint="@color/listora_green_primary"
-        android:contentDescription="Agregar Ingrediente"
-        app:srcCompat="@drawable/ic_add"
-        app:tint="@android:color/white" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/desc_add_ingredient"
+            app:backgroundTint="@color/listora_green_primary"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@android:color/white" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnListaCompletada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="72dp"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="12dp"
-        android:text="Lista completada"
-        style="@style/Widget.MaterialComponents.Button"
-        app:backgroundTint="?attr/colorSecondary"
-        android:textColor="?attr/colorOnPrimary"
-        android:alpha="0.9" />
-
-
-
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnListaCompletada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="72dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:text="@string/btn_list_completed"
+            style="@style/Widget.MaterialComponents.Button"
+            app:backgroundTint="?attr/colorSecondary"
+            android:textColor="?attr/colorOnPrimary"
+            android:alpha="0.9" />
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

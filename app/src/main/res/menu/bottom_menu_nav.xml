@@ -3,19 +3,19 @@
 <item
     android:id="@+id/nav_lists"
     android:icon="@drawable/ic_list"
-    android:title="Listas" />
+    android:title="@string/listas" />
 <item
     android:id="@+id/nav_recipes"
     android:icon="@drawable/ic_receip"
-    android:title="Recetas" />
+    android:title="@string/recetas" />
     <item
         android:id="@+id/nav_statistics"
         android:icon="@drawable/ic_statistics"
-        android:title="Estadísticas" />
+        android:title="@string/estadisticas" />
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Ajustes" />
+        android:title="@string/ajustes" />
 
 
 

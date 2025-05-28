@@ -9,7 +9,6 @@ import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.data.db.model.RecipeIngredientEntity
 import com.dan.listora.data.db.model.HistorialEntity
-import com.dan.listora.data.db.HistorialDAO
 
 
 @Database(
@@ -42,7 +41,7 @@ abstract class ListDataBase : RoomDatabase() {
                     ListDataBase::class.java,
                     "list_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration(false)
                     .build()
                 INSTANCE = instance
                 instance

@@ -27,7 +27,7 @@ tools:context=".ui.RegisterActivity">
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Registro"
+            android:text="@string/registro"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
@@ -38,12 +38,12 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Nombre de usuario"/>
+            android:text="@string/nombre_usuario"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre de usuario">
+            android:hint="@string/nombre_usuario">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiUsername"
                 android:layout_width="match_parent"
@@ -54,13 +54,13 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Correo electrónico"/>
+            android:text="@string/correo"/>
 
         <com.google.android.material.textfield.TextInputLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Correo electrónico">
+            android:hint="@string/correo">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiEmail"
                 android:layout_width="match_parent"
@@ -72,11 +72,11 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Contraseña"/>
+            android:text="@string/contrasena"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contraseña">
+            android:hint="@string/contrasena">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiPassword"
                 android:layout_width="match_parent"
@@ -89,7 +89,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Acepto los términos y condiciones"
+            android:text="@string/term_cond"
             android:textColor="?android:textColorPrimary"
             />
 
@@ -99,7 +99,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Registrarse"
+            android:text="@string/registrarse"
             app:backgroundTint="?attr/colorPrimary"
             android:textColor="?attr/colorOnPrimary"
 

@@ -30,7 +30,7 @@
             android:layout_height="36dp"
             android:src="@drawable/ic_check_circle"
             android:background="@drawable/circle_background"
-            android:contentDescription="Confirmar compra"
+            android:contentDescription="@string/confirmar_compra"
             app:tint="?attr/colorPrimary"
             app:layout_constraintStart_toEndOf="@id/cbSeleccionar"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +53,7 @@
                 android:id="@+id/tvNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del ingrediente"
+                android:text="@string/nombre_ingrediente"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="?android:textColorPrimary" />
@@ -62,7 +62,7 @@
                 android:id="@+id/tvCantidadUnidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cantidad: 5 pz"
+                android:text="@string/cantidad"
                 android:textSize="14sp"
                 android:textColor="?android:textColorPrimary" />
 
@@ -70,7 +70,7 @@
                 android:id="@+id/tvPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio: $50"
+                android:text="@string/precio"
                 android:textSize="14sp"
                 android:textColor="?android:textColorPrimary" />
         </LinearLayout>
@@ -79,7 +79,7 @@
             android:id="@+id/btnEditIngredient"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="Editar ingrediente"
+            android:contentDescription="@string/editar"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_edit"
             app:tint="?android:textColorPrimary"

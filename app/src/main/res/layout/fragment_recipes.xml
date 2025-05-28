@@ -12,7 +12,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Mis Recetas"
+        android:text="@string/mis_recetas"
         android:background="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_margin="16dp"
-        android:contentDescription="Agregar receta"
+        android:contentDescription="@string/btn_add"
         android:src="@drawable/ic_add"
         app:backgroundTint="?attr/colorPrimary"
         app:tint="?attr/colorOnPrimary" />

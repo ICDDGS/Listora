@@ -11,17 +11,11 @@ class IngredientRepository (
         ingredientDAO.insertIngredient(ingredient)
     }
 
-    suspend fun getAllIngredients(): MutableList<IngEntity> {
-        return ingredientDAO.getAllIngredients()
-    }
 
     suspend fun updateIngredient(ingredient: IngEntity) {
         ingredientDAO.updateIngredient(ingredient)
     }
-    suspend fun deleteIngredient(ingredient: IngEntity) {
 
-        ingredientDAO.deleteIngredient(ingredient)
-    }
     suspend fun updateIngredientPurchaseStatus(id: Long, purchased: Boolean) {
         ingredientDAO.updateIngredientPurchaseStatus(id, purchased)
     }

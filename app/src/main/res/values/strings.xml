@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Listora</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="update_button">Actualizar</string>
     <string name="delete_button">Eliminar</string>
@@ -12,7 +10,38 @@
     <string name="action_accept">Aceptar</string>
     <string name="action_cancel">Cancelar</string>
     <string name="delete">Eliminar</string>
-
+    <string name="title_select_items">Seleccionar elementos</string>
+    <string name="label_budget">Presupuesto: $0.00</string>
+    <string name="desc_add_ingredient">Agregar Ingrediente</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="button_login">Iniciar sesión</string>
+    <string name="text_no_account">¿No tienes cuenta?</string>
+    <string name="button_register">Registrarse</string>
+    <string name="total_gastado">Total gastado: $0.00</string>
+    <string name="compras_realizadas">Compras realizadas:</string>
+    <string name="exportar_excel">Exportar a Excel</string>
+    <string name="continuar">Continuar</string>
+    <string name="pasos_preparacion">Pasos de preparación</string>
+    <string name="escribe_pasos">Escribe los pasos aquí…</string>
+    <string name="guardar_pasos">Guardar pasos</string>
+    <string name="agregar_lista">Agregar a lista</string>
+    <string name="registro">Registro</string>
+    <string name="nombre_usuario">Nombre de usuario</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="term_cond">Acepto los términos y condiciones</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="nombre">Nombre</string>
+    <string name="cant_unit">Cantidad y unidad</string>
+    <string name="cant">Cantidad</string>
+    <string name="precio">Precio</string>
+    <string name="nombre_receta">Nomre de la receta</string>
+    <string name="categoria">Categoria de la receta</string>
+    <string name="mis_listas">Mis Listas</string>
+    <string name="agg_lista">Agregar lista</string>
+    <string name="message_no_hay_registros">¡No hay registros!</string>
+    <string name="mis_recetas">Mis Recetas</string>
 
     <string-array name="unidades_array">
         <item>pz</item>
@@ -21,6 +50,72 @@
         <item>ml</item>
         <item>L</item>
     </string-array>
+
+
+        <!-- Actividad Principal -->
+        <string name="app_name">Listora</string>
+        <string name="menu_settings">Ajustes</string>
+        <string name="menu_list">Listas</string>
+        <string name="menu_recipes">Recetas</string>
+        <string name="menu_statistics">Estadísticas</string>
+
+        <!-- Resume/Exportación -->
+        <string name="export_success">Exportado a Descargas: %1$s</string>
+        <string name="export_error">Error exportando: %1$s</string>
+
+        <!-- Confirmaciones -->
+        <string name="dialog_title_confirm_delete">¿Seguro que desea eliminar?</string>
+        <string name="dialog_yes">Sí</string>
+        <string name="dialog_no">No</string>
+        <string name="dialog_list_incomplete">La lista no está completada. ¿Desea continuar?</string>
+
+        <!-- Botones -->
+        <string name="btn_save">Guardar</string>
+        <string name="btn_add">Agregar</string>
+        <string name="btn_delete">Eliminar</string>
+        <string name="btn_edit">Editar</string>
+        <string name="btn_purchase_confirm">Confirmar Compra</string>
+        <string name="btn_list_completed">Lista Completada</string>
+
+        <!-- Campos -->
+        <string name="hint_ingredient_name">Nombre del ingrediente</string>
+        <string name="hint_quantity">Cantidad</string>
+        <string name="hint_unit">Unidad</string>
+        <string name="hint_cost">Costo</string>
+
+        <!-- Otros -->
+        <string name="empty_list">No hay elementos</string>
+        <string name="add_note">Agregar nota</string>
+    <string name="agg_ingrediente">Agregar ingrediente</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="reducir">Reducir</string>
+    <string name="aumentar">Aumentar</string>
+    <string name="_1">1</string>
+    <string name="ingredientes">Ingredientes</string>
+    <string name="imagen_comida">Imagen Comida</string>
+    <string name="imagen_app">Imagen app</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="semana_actual">Semana actual</string>
+    <string name="semana_anterior">Semana anterior</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="exportar_semana_excel">Exportar semana a Excel</string>
+    <string name="confirmar_compra">Confirmar compra</string>
+    <string name="nombre_ingrediente">Nombre del ingrediente</string>
+    <string name="editar">Editar</string>
+    <string name="unidad">Unidad</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="historial_item">Historial item</string>
+    <string name="presupuesto_limite">Presupuesto límite</string>
+    <string name="presupuesto">Presupuesto ($)</string>
+    <string name="fecha_limite">Fecha límite (dd/MM/yyyy)</string>
+    <string name="opciones">Opciones</string>
+    <string name="favorito">Favorito</string>
+    <string name="listas">Listas</string>
+    <string name="recetas">Recetas</string>
+    <string name="estadisticas">Estadísticas</string>
+    <string name="nombre_lista">Nombre de la lista</string>
+    <string name="fecha_limite_2">Fecha límite</string>
 
 
 </resources>
