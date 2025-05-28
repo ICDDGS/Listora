@@ -27,15 +27,15 @@ class RecipeDialog(
         val recipeName = dialogView.findViewById<EditText>(R.id.etRecipeName)
         val categorySpinner = dialogView.findViewById<Spinner>(R.id.spinnerCategory)
 
-        // Lista de categorías para el spinner
-        val categories = listOf("Desayuno", "Comida", "Cena")
+        val categories = listOf(context.getString(R.string.desayuno),
+            context.getString(R.string.comida), context.getString(R.string.cena))
         categorySpinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, categories)
 
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Nueva receta")
+            .setTitle(context.getString(R.string.nueva_receta))
             .setView(dialogView)
-            .setPositiveButton("Guardar", null) // Se setea manualmente para validación
-            .setNegativeButton("Cancelar") { d, _ -> d.dismiss() }
+            .setPositiveButton(context.getString(R.string.guardar), null)
+            .setNegativeButton(context.getString(R.string.cancelar)) { d, _ -> d.dismiss() }
             .create()
 
         dialog.setOnShowListener {
@@ -45,7 +45,7 @@ class RecipeDialog(
                 val category = categorySpinner.selectedItem.toString()
 
                 if (name.isEmpty()) {
-                    recipeName.error = "El nombre es obligatorio"
+                    recipeName.error = context.getString(R.string.el_nombre_es_obligatorio)
                     return@setOnClickListener
                 }
 

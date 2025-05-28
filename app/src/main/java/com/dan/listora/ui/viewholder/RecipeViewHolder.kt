@@ -23,16 +23,13 @@ class RecipeViewHolder(
             binding.ivRecipeImage.setImageResource(R.drawable.food)
         }
 
-        // Mostrar ícono correcto según favorito
         val iconRes = if (recipe.isFavorite) R.drawable.ic_star else R.drawable.ic_star_border
         binding.ivFavorite.setImageResource(iconRes)
 
-        // Click en el ítem (receta completa)
         binding.root.setOnClickListener {
             onClick(recipe)
         }
 
-        // Click en la estrella
         binding.ivFavorite.setOnClickListener {
             onToggleFavorite(recipe)
         }

@@ -1,13 +1,12 @@
 package com.dan.listora.ui
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +17,7 @@ import com.dan.listora.data.db.ListDataBase
 import com.dan.listora.data.db.model.RecipeIngredientEntity
 import com.dan.listora.databinding.ActivityRecipeDetailBinding
 import com.dan.listora.ui.adapter.RecipeIngredientAdapter
+import com.dan.listora.util.styledSnackbar
 import kotlinx.coroutines.*
 
 class RecipeDetailActivity : AppCompatActivity() {
@@ -30,6 +30,7 @@ class RecipeDetailActivity : AppCompatActivity() {
     private lateinit var adapter: RecipeIngredientAdapter
 
 
+    @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecipeDetailBinding.inflate(layoutInflater)
@@ -42,7 +43,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         currentRecipeId = intent.getLongExtra("recipe_id", -1)
         if (currentRecipeId == -1L) {
-            Toast.makeText(this, "Receta no encontrada", Toast.LENGTH_SHORT).show()
+            binding.root.styledSnackbar(getString(R.string.receta_no_encontrada), this)
             finish()
             return
         }
@@ -59,7 +60,6 @@ class RecipeDetailActivity : AppCompatActivity() {
         binding.rvIngredients.adapter = adapter
 
         loadRecipeAndIngredients()
-        val editSteps = findViewById<EditText>(R.id.editSteps)
 
 
         binding.fabAddToList.setOnClickListener {
@@ -78,7 +78,8 @@ class RecipeDetailActivity : AppCompatActivity() {
                     dao.updateRecipe(updatedRecipe)
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RecipeDetailActivity, "Pasos actualizados", Toast.LENGTH_SHORT).show()
+                        binding.root.styledSnackbar(getString(R.string.pasos_actualizados), this@RecipeDetailActivity)
+
                     }
                 }
             }
@@ -128,28 +129,6 @@ class RecipeDetailActivity : AppCompatActivity() {
                 }
             }
         }
-        val btnGuardarPasos = Button(this).apply {
-            text = "Guardar pasos"
-        }
-        binding.root.findViewById<LinearLayout>(R.id.porcionesLayout).addView(btnGuardarPasos)
-
-        btnGuardarPasos.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val stepsText = findViewById<EditText>(R.id.editSteps).text.toString()
-
-                val dao = (application as ListDBApp).database.recipeDAO()
-                val currentRecipe = dao.getRecipeById(currentRecipeId)
-
-                currentRecipe?.let {
-                    val updatedRecipe = it.copy(steps = stepsText)
-                    dao.updateRecipe(updatedRecipe)
-
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RecipeDetailActivity, "Pasos actualizados", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
 
     }
 
@@ -173,9 +152,9 @@ class RecipeDetailActivity : AppCompatActivity() {
         spUnidad.adapter = spinnerAdapter
 
         AlertDialog.Builder(this)
-            .setTitle("Agregar ingrediente a receta")
+            .setTitle(getString(R.string.agg_ingrediente_receta))
             .setView(view)
-            .setPositiveButton("Agregar") { dialog, _ ->
+            .setPositiveButton(getString(R.string.agregar)) { dialog, _ ->
                 val nombre = etNombre.text.toString().trim()
                 val cantidad = etCantidad.text.toString().toDoubleOrNull() ?: 0.0
                 val unidad = spUnidad.selectedItem.toString()
@@ -198,12 +177,12 @@ class RecipeDetailActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+                    binding.root.styledSnackbar(getString(R.string.completar_campos), this)
                 }
 
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
 
@@ -215,6 +194,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("StringFormatMatches")
     private fun agregarIngredientesALista() {
         CoroutineScope(Dispatchers.Main).launch {
             val listDao = (application as ListDBApp).database.listDao()
@@ -223,19 +203,20 @@ class RecipeDetailActivity : AppCompatActivity() {
             val listas = withContext(Dispatchers.IO) { listDao.getAllLists() }
 
             if (listas.isEmpty()) {
-                Toast.makeText(this@RecipeDetailActivity, "No hay listas disponibles", Toast.LENGTH_SHORT).show()
+                binding.root.styledSnackbar(getString(R.string.no_hay_listas_disponibles), this@RecipeDetailActivity)
                 return@launch
             }
 
             val nombres = listas.map { it.name }.toTypedArray()
 
             AlertDialog.Builder(this@RecipeDetailActivity)
-                .setTitle("Selecciona una lista")
+                .setTitle(getString(R.string.selecciona_lista))
                 .setItems(nombres) { _, which ->
                     val listaId = listas[which].id
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        Log.d("Debug", "Ingredientes a agregar: ${ingredientList.size}")
+                        Log.d("Debug",
+                            getString(R.string.ingredientes_a_agregar, ingredientList.size))
 
                         ingredientList.forEach { ing ->
                             val escalado = ing.baseQuantity * currentServings / originalServings
@@ -252,13 +233,13 @@ class RecipeDetailActivity : AppCompatActivity() {
                         }
 
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(this@RecipeDetailActivity, "Ingredientes añadidos", Toast.LENGTH_SHORT).show()
+                            binding.root.styledSnackbar(getString(R.string.ingredientes_anadidos), this@RecipeDetailActivity)
 
                         }
                     }
 
                 }
-                .setNegativeButton("Cancelar", null)
+                .setNegativeButton(getString(R.string.cancelar), null)
                 .show()
         }
     }

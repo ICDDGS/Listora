@@ -1,5 +1,6 @@
 package com.dan.listora.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class ListAdapter(
 
     override fun getItemCount(): Int = lists.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(list: List<ListEntity>) {
         lists = list
         notifyDataSetChanged()

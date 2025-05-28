@@ -22,7 +22,7 @@ class ResumenCompraAdapter(private val lista: List<IngEntity>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = lista[position]
-        val resumen = "${item.name} ${item.cant}${item.unit} \$${item.price}"
+        val resumen = "${item.name} ${item.cant}${item.unit} $${item.price}"
         holder.tvLineaResumen.text = resumen
     }
 

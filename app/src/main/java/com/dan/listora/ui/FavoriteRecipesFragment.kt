@@ -1,5 +1,6 @@
 package com.dan.listora.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.databinding.FragmentRecipesBinding
-import com.dan.listora.ui.RecipeDetailActivity
 import com.dan.listora.ui.adapter.RecipeAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,6 +60,7 @@ class FavoriteRecipesFragment : Fragment() {
         loadFavorites()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun loadFavorites() {
         lifecycleScope.launch {
             val dao = (requireActivity().application as ListDBApp).database.recipeDAO()

@@ -22,7 +22,7 @@ class HistorialAdapter(private val historialList: List<HistorialEntity>) :
 
     override fun onBindViewHolder(holder: HistorialViewHolder, position: Int) {
         val item = historialList[position]
-        val resumen = "${item.ingrediente} ${item.cantidad}${item.unidad} \$${item.costo}"
+        val resumen = "${item.ingrediente} ${item.cantidad}${item.unidad} $${item.costo}"
         holder.tvLineaResumen.text = resumen
     }
 

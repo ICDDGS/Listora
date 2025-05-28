@@ -2,13 +2,14 @@ package com.dan.listora.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dan.listora.R
 import com.dan.listora.databinding.ActivityRegisterBinding
+import com.dan.listora.util.styledSnackbar
+
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -32,11 +33,12 @@ class RegisterActivity : AppCompatActivity() {
             val acceptTerms = binding.cbTerms.isChecked
 
             if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && acceptTerms) {
-                Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                binding.root.styledSnackbar(getString(R.string.registro_exitoso), this)
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Por favor completa los campos", Toast.LENGTH_SHORT).show()
+                binding.root.styledSnackbar(getString(R.string.completar_campos), this)
+
             }
 
         }

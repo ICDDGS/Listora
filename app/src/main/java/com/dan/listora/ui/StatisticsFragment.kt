@@ -1,13 +1,12 @@
 package com.dan.listora.ui
 
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
@@ -17,12 +16,12 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.dan.listora.util.styledSnackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
-import java.io.FileWriter
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -78,12 +77,12 @@ class StatisticsFragment : Fragment() {
                 fin = currentWeekStart.timeInMillis + 6 * 24 * 60 * 60 * 1000
             )
 
-            val gastosPorDia = MutableList(7) { 0.0 } // Lunes a Domingo
+            val gastosPorDia = MutableList(7) { 0.0 }
 
             for (item in historial) {
                 val cal = Calendar.getInstance()
                 cal.timeInMillis = item.fecha
-                val index = (cal.get(Calendar.DAY_OF_WEEK) + 5) % 7 // lunes = 0, ..., domingo = 6
+                val index = (cal.get(Calendar.DAY_OF_WEEK) + 5) % 7
                 gastosPorDia[index] += item.costo
             }
 
@@ -91,14 +90,12 @@ class StatisticsFragment : Fragment() {
                 BarEntry(index.toFloat(), valor.toFloat())
             }
 
-            val dataSet = BarDataSet(entries, "Gastos por día").apply {
+            val dataSet = BarDataSet(entries, getString(R.string.gastos_por_dia)).apply {
                 valueTextSize = 12f
             }
 
             val data = BarData(dataSet)
 
-            //barChart.axisLeft.gridColor = Color.LTGRAY
-            //barChart.xAxis.gridColor = Color.LTGRAY
             barChart.axisLeft.setDrawGridLines(false)
             barChart.axisRight.setDrawGridLines(false)
             barChart.xAxis.setDrawGridLines(false)
@@ -109,17 +106,27 @@ class StatisticsFragment : Fragment() {
             barChart.data = data
 
             barChart.xAxis.valueFormatter = IndexAxisValueFormatter(
-                listOf("Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom")
+                listOf(getString(R.string.lun),
+                    getString(R.string.mar), getString(R.string.mie),
+                    getString(R.string.jue), getString(R.string.vie), getString(R.string.sab),
+                    getString(
+                        R.string.dom
+                    ))
             )
             barChart.invalidate()
 
             val formato = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
             val finSemana = Calendar.getInstance().apply { timeInMillis = currentWeekStart.timeInMillis }
             finSemana.add(Calendar.DAY_OF_MONTH, 6)
-            binding.tvSemana.text = "Semana: ${formato.format(currentWeekStart.time)} - ${formato.format(finSemana.time)}"
+            binding.tvSemana.text = getString(
+                R.string.semana,
+                formato.format(currentWeekStart.time),
+                formato.format(finSemana.time)
+            )
         }
     }
 
+    @SuppressLint("StringFormatMatches")
     private suspend fun exportarSemanaAExcel() {
         val app = requireActivity().application as ListDBApp
         val historial = app.historialRepository.getHistorialEntreFechas(
@@ -134,19 +141,19 @@ class StatisticsFragment : Fragment() {
 
         val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-        var fileName = "Semana${weekOfMonth}_$formattedDate.csv"
+        var fileName = getString(R.string.semana_csv, weekOfMonth, formattedDate)
         var file = File(downloadsDir, fileName)
         var index = 1
 
         while (file.exists()) {
-            fileName = "Semana${weekOfMonth}_$formattedDate($index).csv"
+            fileName = getString(R.string.semana_csv_2, weekOfMonth, formattedDate, index)
             file = File(downloadsDir, fileName)
             index++
         }
 
         try {
             val writer = OutputStreamWriter(FileOutputStream(file))
-            writer.append("Ingrediente,Cantidad,Unidad,Costo,Fecha\n")
+            writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha))
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             historial.forEach {
@@ -157,11 +164,14 @@ class StatisticsFragment : Fragment() {
             writer.close()
 
             withContext(Dispatchers.Main) {
-                Toast.makeText(requireContext(), "Exportado a Descargas: ${file.name}", Toast.LENGTH_LONG).show()
+                binding.root.styledSnackbar(getString(R.string.exportado_a_descargas, file.name), requireContext())
+
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                Toast.makeText(requireContext(), "Error exportando: ${e.message}", Toast.LENGTH_LONG).show()
+                binding.root.styledSnackbar(getString(R.string.error_al_exportar, e.message), requireContext())
+
+
             }
         }
     }

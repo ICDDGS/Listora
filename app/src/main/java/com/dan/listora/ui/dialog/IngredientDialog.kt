@@ -1,5 +1,6 @@
 package com.dan.listora.ui.dialog
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -7,7 +8,6 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
-import androidx.room.util.copy
 import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.db.model.IngEntity
@@ -25,6 +25,7 @@ class IngredientDialog(
     private var _binding: DialogIngredientBinding? = null
     private val binding get() = _binding!!
 
+    @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogIngredientBinding.inflate(LayoutInflater.from(context))
 
@@ -42,9 +43,9 @@ class IngredientDialog(
 
 
         return AlertDialog.Builder(requireContext())
-            .setTitle(if (ingredient == null) "Agregar Ingrediente" else "Editar Ingrediente")
+            .setTitle(if (ingredient == null) getString(R.string.agg_ingrediente) else getString(R.string.editar_ingrediente))
             .setView(binding.root)
-            .setPositiveButton("Guardar") { _, _ ->
+            .setPositiveButton(getString(R.string.guardar)) { _, _ ->
                 val nombre = binding.etNombre.text.toString().trim()
                 val cantidad = binding.etCantidad.text.toString().trim()
                 val unidad = binding.spUnidad.selectedItem.toString()
@@ -77,15 +78,16 @@ class IngredientDialog(
                         }
 
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Guardado", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),
+                                getString(R.string.guardado), Toast.LENGTH_SHORT).show()
                             onSuccess()
                         }
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Completa todos los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.completar_campos), Toast.LENGTH_SHORT).show()
                 }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .create()
     }
 

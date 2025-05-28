@@ -15,9 +15,10 @@ import com.dan.listora.data.db.model.ListEntity
 import com.dan.listora.databinding.FragmentListBinding
 import com.dan.listora.ui.adapter.ListAdapter
 import com.dan.listora.ui.dialog.ListDialog
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import androidx.appcompat.app.AlertDialog
+import com.dan.listora.util.styledSnackbar
+
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
@@ -59,16 +60,16 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             },
             onDeleteClick = { list ->
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Eliminar lista")
-                    .setMessage("¿Seguro que quieres eliminar esta lista y todos sus ingredientes?")
-                    .setPositiveButton("Sí") { _, _ ->
+                    .setTitle(getString(R.string.eliminar_lista))
+                    .setMessage(getString(R.string.message_dialog_delete_lista))
+                    .setPositiveButton(getString(R.string.si)) { _, _ ->
                         lifecycleScope.launch {
                             repository.deleteListAndIngredients(list.id)
                             updateUI()
-                            message("Lista eliminada")
+                            message(getString(R.string.lista_eliminada))
                         }
                     }
-                    .setNegativeButton("Cancelar", null)
+                    .setNegativeButton(getString(R.string.cancelar), null)
                     .show()
             }
         )
@@ -105,9 +106,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun message(text: String) {
-        Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT)
-            .setTextColor(requireContext().getColor(com.google.android.material.R.color.design_default_color_on_secondary))
-            .setBackgroundTint(requireContext().getColor(com.google.android.material.R.color.design_default_color_secondary))
-            .show()
+        binding.root.styledSnackbar(text, requireContext())
+
     }
 }

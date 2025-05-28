@@ -1,5 +1,6 @@
 package com.dan.listora.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -28,13 +29,10 @@ class IngredientAdapter(
 
     override fun getItemCount(): Int = ingredients.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun removeItemsByIds(ids: List<Long>) {
         ingredients.removeAll { ids.contains(it.id) }
         notifyDataSetChanged()
     }
 
-    fun enableSelectionMode() {
-        selectionMode = true
-        notifyDataSetChanged()
-    }
 }

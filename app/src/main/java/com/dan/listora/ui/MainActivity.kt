@@ -2,12 +2,14 @@ package com.dan.listora.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dan.listora.databinding.ActivityMainBinding
+import androidx.core.content.edit
+import com.dan.listora.R
+import com.dan.listora.util.styledSnackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -15,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ✅ Redirigir si ya inició sesión
         val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
         if (prefs.getBoolean("isLoggedIn", false)) {
             startActivity(Intent(this, MenuActivity::class.java))
@@ -38,13 +39,15 @@ class MainActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                prefs.edit().putBoolean("isLoggedIn", true).apply()
+                prefs.edit { putBoolean("isLoggedIn", true) }
 
                 startActivity(Intent(this, MenuActivity::class.java))
                 finish()
-                Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
+                binding.root.styledSnackbar(getString(R.string.bienvenido), this)
+
             } else {
-                Toast.makeText(this, "Por favor completa los campos", Toast.LENGTH_SHORT).show()
+                binding.root.styledSnackbar(getString(R.string.completar_campos), this)
+
             }
         }
 

@@ -1,5 +1,6 @@
 package com.dan.listora.ui.viewholder
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +15,12 @@ class ListViewHolder(
     private val onDeleteClick: (ListEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    @SuppressLint("StringFormatMatches")
     fun bind(lista: ListEntity) {
+        val context = binding.root.context
         binding.tvNombre.text = lista.name
-        binding.tvFecha.text = "Fecha límite: ${lista.date}"
-        binding.tvLimit.text = "Presupuesto: $${lista.presupuesto}"
+        binding.tvFecha.text = context.getString(R.string.fecha_limite_3, lista.date)
+        binding.tvLimit.text = context.getString(R.string.presupuesto_2, lista.presupuesto)
 
 
         binding.cardView.setOnClickListener {

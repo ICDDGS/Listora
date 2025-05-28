@@ -1,22 +1,18 @@
 package com.dan.listora.ui.viewholder
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.view.View
-import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
-import com.dan.listora.data.db.model.HistorialEntity
 import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.databinding.IngredientElementBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.*
+
 
 
 class IngredientViewHolder(
@@ -25,12 +21,14 @@ class IngredientViewHolder(
     private val selectedItems: MutableSet<Long>
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    @SuppressLint("StringFormatMatches")
     fun bind(ingredient: IngEntity, selectionMode: Boolean) {
         val context = binding.root.context
 
         binding.tvNombre.text = ingredient.name
-        binding.tvCantidadUnidad.text = "Cantidad: ${ingredient.cant} ${ingredient.unit}"
-        binding.tvPrecio.text = "Precio: $${ingredient.price}"
+        binding.tvCantidadUnidad.text =
+            context.getString(R.string.cantidad_2, ingredient.cant, ingredient.unit)
+        binding.tvPrecio.text = context.getString(R.string.precio_2, ingredient.price)
 
         val isPurchased = ingredient.isPurchased
         updateVisualState(isPurchased)

@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -19,10 +18,12 @@ import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.db.model.IngEntity
 import com.dan.listora.databinding.ActivityAddIngredientsBinding
 import com.dan.listora.ui.adapter.IngredientAdapter
+import com.dan.listora.util.styledSnackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class AddIngredientsActivity : AppCompatActivity() {
 
@@ -39,7 +40,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         binding = ActivityAddIngredientsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listaId = intent?.getLongExtra("lista_id", 0L) ?: 0L
+        listaId = intent?.getLongExtra(getString(R.string.lista_id), 0L) ?: 0L
 
 
         setSupportActionBar(binding.topAppBar)
@@ -64,13 +65,13 @@ class AddIngredientsActivity : AppCompatActivity() {
 
         binding.menuSelection.menu.findItem(R.id.action_accept)?.setOnMenuItemClickListener {
             val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("Confirmar eliminación")
-                .setMessage("¿Está seguro de que desea eliminar los ingredientes seleccionados?")
-                .setPositiveButton("Sí") { _, _ ->
+                .setTitle(getString(R.string.confirmar_eliminacion))
+                .setMessage(getString(R.string.mensaje_confirmar_eliminacion))
+                .setPositiveButton(getString(R.string.si)) { _, _ ->
                     deleteSelectedIngredients()
                     deactivateSelectionMode()
                 }
-                .setNegativeButton("No", null)
+                .setNegativeButton(getString(R.string.no), null)
                 .create()
             dialog.show()
             true
@@ -97,14 +98,13 @@ class AddIngredientsActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (!todosComprados) {
-                        // Mostrar diálogo de confirmación
                         val dialog = androidx.appcompat.app.AlertDialog.Builder(this@AddIngredientsActivity)
-                            .setTitle("Lista incompleta")
-                            .setMessage("La lista no está completada. ¿Desea continuar?")
-                            .setPositiveButton("Sí") { _, _ ->
+                            .setTitle(getString(R.string.lista_incompleta))
+                            .setMessage(getString(R.string.mensaje_lista_incompleta))
+                            .setPositiveButton(getString(R.string.si)) { _, _ ->
                                 abrirResumeActivity(nombreLista, idLista)
                             }
-                            .setNegativeButton("No", null)
+                            .setNegativeButton(getString(R.string.no), null)
                             .create()
                         dialog.show()
                     } else {
@@ -141,7 +141,7 @@ class AddIngredientsActivity : AppCompatActivity() {
                 val presupuestoRestante = presupuestoOriginal - totalGastado
 
                 binding.tvPresupuesto.visibility = View.VISIBLE
-                binding.tvPresupuesto.text = "Presupuesto: $%.2f".format(presupuestoRestante)
+                binding.tvPresupuesto.text = getString(R.string.presupuesto_2f).format(presupuestoRestante)
 
                 if (presupuestoRestante < 0) {
                     binding.tvPresupuesto.setTextColor(
@@ -211,7 +211,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         invalidateOptionsMenu()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "StringFormatMatches")
     private fun deleteSelectedIngredients() {
         val idsToDelete = adapter.selectedItems.toList()
         if (idsToDelete.isNotEmpty()) {
@@ -221,24 +221,18 @@ class AddIngredientsActivity : AppCompatActivity() {
                 adapter.removeItemsByIds(idsToDelete)
                 val cantidadEliminada = idsToDelete.size
 
-                // Limpiar estado
                 adapter.selectedItems.clear()
                 adapter.selectionMode = false
                 adapter.notifyDataSetChanged()
                 deactivateSelectionMode()
                 cargarIngredientes()
 
-                // Mostrar Snackbar
                 binding.root.let {
-                    com.google.android.material.snackbar.Snackbar.make(
-                        it,
-                        "$cantidadEliminada ingrediente(s) eliminado(s)",
-                        com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
-                    ).show()
+                    binding.root.styledSnackbar(getString(R.string.ingrediente_s_eliminado_s, cantidadEliminada), this@AddIngredientsActivity)
                 }
             }
         } else {
-            Toast.makeText(this, "Selecciona elementos para eliminar", Toast.LENGTH_SHORT).show()
+            binding.root.styledSnackbar(getString(R.string.selecciona_elementos_para_eliminar), this)
         }
     }
 
@@ -259,9 +253,9 @@ class AddIngredientsActivity : AppCompatActivity() {
         if (indexUnidad >= 0) spUnidad.setSelection(indexUnidad)
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Editar Ingrediente")
+            .setTitle(getString(R.string.editar_ingrediente))
             .setView(view)
-            .setPositiveButton("Guardar") { _, _ ->
+            .setPositiveButton(getString(R.string.guardar)) { _, _ ->
                 val repo = (application as ListDBApp).ingredientRepository
                 lifecycleScope.launch {
                     ingrediente.name = etNombre.text.toString()
@@ -272,7 +266,7 @@ class AddIngredientsActivity : AppCompatActivity() {
                     cargarIngredientes()
                 }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .create()
 
         dialog.show()
@@ -287,9 +281,9 @@ class AddIngredientsActivity : AppCompatActivity() {
         val etPrecio = view.findViewById<EditText>(R.id.etPrecio)
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Agregar Ingrediente")
+            .setTitle(getString(R.string.agregar_ingrediente))
             .setView(view)
-            .setPositiveButton("Agregar") { _, _ ->
+            .setPositiveButton(getString(R.string.agregar)) { _, _ ->
                 val nombre = etNombre.text.toString().trim()
                 val cantidad = etCantidad.text.toString().trim()
                 val unidad = spUnidad.selectedItem.toString()
@@ -312,14 +306,16 @@ class AddIngredientsActivity : AppCompatActivity() {
                         cargarIngredientes()
                     }
                 } else {
-                    Toast.makeText(this, "Nombre y cantidad son obligatorios", Toast.LENGTH_SHORT).show()
+                    binding.root.styledSnackbar(getString(R.string.error_nombre_cantidad), this)
                 }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .create()
 
         dialog.show()
     }
+
+
 
 
 

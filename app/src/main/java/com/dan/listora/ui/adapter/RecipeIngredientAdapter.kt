@@ -1,5 +1,6 @@
 package com.dan.listora.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@ class RecipeIngredientAdapter(
 
     override fun getItemCount(): Int = ingredientes.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newList: List<RecipeIngredientEntity>) {
         ingredientes.clear()
         ingredientes.addAll(newList)

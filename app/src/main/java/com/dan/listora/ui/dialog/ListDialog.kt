@@ -44,7 +44,7 @@ class ListDialog(
         }
 
         dialog = if (newList) {
-            buildDialog("Guardar", "Cancelar", {
+            buildDialog(getString(R.string.guardar), getString(R.string.cancelar), {
                 binding.apply {
                     list.name = inputNombre.text.toString()
                     list.date = inputFecha.text.toString()
@@ -54,26 +54,26 @@ class ListDialog(
                 lifecycleScope.launch {
                     try {
                         repository.insertList(list)
-                        message("Lista guardada exitosamente")
+                        message(getString(R.string.lista_guardada_exitosamente))
                         updateUI()
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        message("Error al guardar la lista")
+                        message(getString(R.string.error_al_guardar_la_lista))
                     }
                 }
             }, {
                 dismiss()
             })
         } else {
-            buildDialog("Actualizar", "Cancelar", {
+            buildDialog(getString(R.string.actualizar), getString(R.string.cancelar), {
                 val nombre = _binding?.inputNombre?.text.toString()
                 val fecha = _binding?.inputFecha?.text.toString()
                 val presupuesto = _binding?.inputPresupuesto?.text.toString().toDoubleOrNull() ?: 0.0
 
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Confirmar")
-                    .setMessage("¿Deseas actualizar la lista \"$nombre\"?")
-                    .setPositiveButton("Sí") { _, _ ->
+                    .setTitle(getString(R.string.confirmar))
+                    .setMessage(getString(R.string.deseas_actualizar_la_lista, nombre))
+                    .setPositiveButton(getString(R.string.si)) { _, _ ->
                         list.name = nombre
                         list.date = fecha
                         list.presupuesto = presupuesto
@@ -81,15 +81,15 @@ class ListDialog(
                         lifecycleScope.launch {
                             try {
                                 repository.updateList(list)
-                                message("Lista actualizada exitosamente")
+                                message(getString(R.string.actualizado_exito))
                                 updateUI()
                             } catch (e: Exception) {
                                 e.printStackTrace()
-                                message("Error al actualizar la lista")
+                                message(getString(R.string.error_actualizar))
                             }
                         }
                     }
-                    .setNegativeButton("Cancelar", null)
+                    .setNegativeButton(getString(R.string.cancelar), null)
                     .show()
             }, {
                 dismiss()
@@ -150,7 +150,7 @@ class ListDialog(
         negativeButton: () -> Unit,
     ): Dialog = AlertDialog.Builder(requireContext())
         .setView(binding.root)
-        .setTitle("Lista")
+        .setTitle(getString(R.string.lista))
         .setPositiveButton(btn1Text) { _, _ -> positiveButton() }
         .setNegativeButton(btn2Text) { _, _ -> negativeButton() }
         .create()

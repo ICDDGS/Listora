@@ -3,14 +3,14 @@ package com.dan.listora.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
 import com.dan.listora.databinding.ActivityResumeBinding
-import com.dan.listora.ui.adapter.HistorialAdapter
 import com.dan.listora.ui.adapter.ResumenCompraAdapter
+import com.dan.listora.util.styledSnackbar
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileWriter
@@ -22,7 +22,6 @@ import java.util.Locale
 class ResumeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResumeBinding
-    private lateinit var historialAdapter: HistorialAdapter
     private var nombreLista: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +46,8 @@ class ResumeActivity : AppCompatActivity() {
             val resumenAdapter = ResumenCompraAdapter(ingredientesComprados)
             binding.rvCompras.adapter = resumenAdapter
 
-            val total = ingredientesComprados.sumOf { it.price ?: 0.0 }
-            binding.tvTotalGastado.text = "Total gastado: $%.2f".format(total)
+            val total = ingredientesComprados.sumOf { it.price }
+            binding.tvTotalGastado.text = getString(R.string.total_gastado_2f).format(total)
         }
 
 
@@ -102,7 +101,7 @@ class ResumeActivity : AppCompatActivity() {
         try {
             val writer = FileWriter(finalFile, false)
 
-            writer.append("Ingrediente,Cantidad,Unidad,Costo,Fecha\n")
+            writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha_2))
 
             val historial = (application as ListDBApp)
                 .historialRepository
@@ -115,11 +114,10 @@ class ResumeActivity : AppCompatActivity() {
 
             writer.flush()
             writer.close()
-
-            Toast.makeText(this, "Exportado a Descargas: ${finalFile.name}", Toast.LENGTH_LONG).show()
+            binding.root.styledSnackbar(getString(R.string.exportado_a_descargas, finalFile.name), this)
 
         } catch (e: Exception) {
-            Toast.makeText(this, "Error al exportar: ${e.message}", Toast.LENGTH_LONG).show()
+            binding.root.styledSnackbar(getString(R.string.error_al_exportar, e.message), this)
             e.printStackTrace()
         }
     }

@@ -1,14 +1,16 @@
-package com.dan.listora.ui.settings
+package com.dan.listora.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dan.listora.databinding.FragmentSettingsBinding
-import com.dan.listora.ui.MainActivity
+import androidx.core.content.edit
+import com.dan.listora.R
+import com.dan.listora.util.styledSnackbar
 
 class SettingsFragment : Fragment() {
 
@@ -28,11 +30,10 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogout.setOnClickListener {
-            val prefs = requireContext().getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
-            prefs.edit().clear().apply()
+            val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+            prefs.edit { clear() }
 
-            Toast.makeText(requireContext(), "Sesión cerrada", Toast.LENGTH_SHORT).show()
-
+            binding.root.styledSnackbar(getString(R.string.sesion_cerrada), requireContext())
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

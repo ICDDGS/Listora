@@ -1,5 +1,6 @@
 package com.dan.listora.ui.dialog
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -8,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
-import com.dan.listora.application.ListDBApp
+import com.dan.listora.R
 import com.dan.listora.data.db.ListDataBase
 import com.dan.listora.data.db.model.RecipeIngredientEntity
 import com.dan.listora.databinding.DialogIngredientBinding
@@ -24,18 +25,18 @@ class RecipeIngredientDialog(
     private var _binding: DialogIngredientBinding? = null
     private val binding get() = _binding!!
 
+    @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogIngredientBinding.inflate(LayoutInflater.from(context))
 
-        // Spinner setup
         val unidades = resources.getStringArray(com.dan.listora.R.array.unidades_array)
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, unidades)
         binding.spUnidad.adapter = spinnerAdapter
 
         return AlertDialog.Builder(requireContext())
-            .setTitle("Agregar ingrediente a receta")
+            .setTitle(getString(R.string.agregar_ingrediente_receta))
             .setView(binding.root)
-            .setPositiveButton("Guardar") { _, _ ->
+            .setPositiveButton(getString(R.string.guardar)) { _, _ ->
                 val nombre = binding.etNombre.text.toString().trim()
                 val cantidad = binding.etCantidad.text.toString().toDoubleOrNull() ?: 0.0
                 val unidad = binding.spUnidad.selectedItem.toString()
@@ -53,15 +54,15 @@ class RecipeIngredientDialog(
                         dao.insertIngredient(nuevoIngrediente)
 
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Ingrediente agregado", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.ingrediente_agregado), Toast.LENGTH_SHORT).show()
                             onSuccess()
                         }
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Completa todos los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.completar_campos), Toast.LENGTH_SHORT).show()
                 }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .create()
     }
 
