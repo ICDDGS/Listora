@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="?android:windowBackground">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Mis Recetas"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:shadowRadius="10"
-        />
+        android:textColor="?attr/colorOnPrimary"
+        android:shadowRadius="10" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecetas"
@@ -36,7 +37,8 @@
         android:layout_margin="16dp"
         android:contentDescription="Agregar receta"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorPrimary"
-        app:tint="@android:color/white" />
+        app:backgroundTint="?attr/colorPrimary"
+        app:tint="?attr/colorOnPrimary" />
 
 </LinearLayout>
+

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:fitsSystemWindows="true">
-
+    android:fitsSystemWindows="true"
+    android:background="?android:windowBackground">
 
     <TextView
         android:id="@+id/tvTotalGastado"
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:text="Total gastado: $0.00"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary" />
 
     <TextView
         android:layout_width="match_parent"
@@ -22,7 +23,8 @@
         android:layout_marginTop="16dp"
         android:text="Compras realizadas:"
         android:textStyle="bold"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="?android:textColorPrimary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCompras"
@@ -31,12 +33,15 @@
         android:layout_weight="1"
         android:paddingTop="8dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnExportar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Exportar a Excel"
+        style="@style/Widget.MaterialComponents.Button"
+        app:backgroundTint="?attr/colorPrimary"
+        android:textColor="?attr/colorOnPrimary"
         android:layout_marginTop="16dp" />
 
     <TextView
@@ -45,13 +50,17 @@
         android:layout_height="wrap_content"
         android:text="Se ha guardado registro de las compras"
         android:textAlignment="center"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="?android:textColorPrimary" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContinuar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Continuar"
-        android:layout_marginTop="12dp"/>
+        style="@style/Widget.MaterialComponents.Button"
+        app:backgroundTint="?attr/colorSecondary"
+        android:textColor="?attr/colorOnSecondary"
+        android:layout_marginTop="12dp" />
 </LinearLayout>

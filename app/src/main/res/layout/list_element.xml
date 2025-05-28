@@ -8,7 +8,7 @@
     android:layout_marginHorizontal="12dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="?attr/colorPrimary">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvNombre"
             android:text="Fecha límite: 00/00/0000"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFecha"
             android:text="Presupuesto: $0.0"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
@@ -51,8 +51,8 @@
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_more_vert"
-            android:contentDescription="Opciones"
-            />
-
+            app:tint="?attr/colorOnPrimary"
+            android:contentDescription="Opciones" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+

@@ -35,6 +35,10 @@ class HistorialRepository(private val historialDao: HistorialDAO) {
 
         historialDao.insert(historial)
     }
+    suspend fun getHistorialEntreFechas(inicio: Long, fin: Long): List<HistorialEntity> {
+        return historialDao.getHistorialEntreFechas(inicio, fin)
+    }
+
 
 
 }

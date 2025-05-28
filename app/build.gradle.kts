@@ -51,6 +51,8 @@ dependencies {
     implementation (libs.glide)
     ksp (libs.compiler)
 
+    implementation (libs.philjay.mpandroidchart)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

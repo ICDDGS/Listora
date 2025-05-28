@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:windowBackground">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,16 +14,16 @@
         android:layout_gravity="center_horizontal"
         android:text="Nombre de la lista"
         android:textSize="20sp"
-        android:textStyle="bold"/>
-
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginHorizontal="16dp"
         android:hint="Nombre de la lista">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputNombre"
             android:layout_width="match_parent"
@@ -33,22 +35,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:text="Fecha limite"
+        android:text="Fecha límite"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputFechaLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginHorizontal="16dp"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_calendar"
         app:endIconContentDescription="Seleccionar fecha"
-        app:endIconTint="@color/colorPrimary"
+        app:endIconTint="?attr/colorPrimary"
         android:hint="Fecha límite (dd/MM/yyyy)">
-
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputFecha"
@@ -60,22 +61,22 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:text="Presupuesto limite"
+        android:text="Presupuesto límite"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginHorizontal="16dp"
         android:hint="Presupuesto ($)">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputPresupuesto"
             android:inputType="numberDecimal"
@@ -83,9 +84,7 @@
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
 </LinearLayout>
+
 
 

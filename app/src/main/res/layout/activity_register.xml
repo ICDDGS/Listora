@@ -90,7 +90,8 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Acepto los términos y condiciones"
-            android:textColor="@color/colorTextSecondary" />
+            android:textColor="?android:textColorPrimary"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
@@ -99,7 +100,9 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Registrarse"
-            android:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary"
+
             app:cornerRadius="16dp"
             style="@style/Widget.MaterialComponents.Button" />
 

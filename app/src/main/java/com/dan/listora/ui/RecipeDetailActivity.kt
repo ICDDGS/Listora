@@ -65,6 +65,25 @@ class RecipeDetailActivity : AppCompatActivity() {
         binding.fabAddToList.setOnClickListener {
             agregarIngredientesALista()
         }
+
+        binding.btnGuardarPasos.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val stepsText = findViewById<EditText>(R.id.editSteps).text.toString()
+
+                val dao = (application as ListDBApp).database.recipeDAO()
+                val currentRecipe = dao.getRecipeById(currentRecipeId)
+
+                currentRecipe?.let {
+                    val updatedRecipe = it.copy(steps = stepsText)
+                    dao.updateRecipe(updatedRecipe)
+
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@RecipeDetailActivity, "Pasos actualizados", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
 
     private fun loadRecipeAndIngredients() {

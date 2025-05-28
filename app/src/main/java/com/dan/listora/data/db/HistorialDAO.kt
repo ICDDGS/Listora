@@ -12,4 +12,8 @@ interface HistorialDAO {
 
     @Query("SELECT * FROM historial_table WHERE nombre_lista = :lista ORDER BY fecha ASC")
     suspend fun getHistorialPorLista(lista: String): List<HistorialEntity>
+
+    @Query("SELECT * FROM historial_table WHERE fecha BETWEEN :inicio AND :fin")
+    suspend fun getHistorialEntreFechas(inicio: Long, fin: Long): List<HistorialEntity>
+
 }

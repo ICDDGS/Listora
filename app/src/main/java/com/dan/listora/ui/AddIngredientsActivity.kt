@@ -1,7 +1,10 @@
 package com.dan.listora.ui
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,6 +32,7 @@ class AddIngredientsActivity : AppCompatActivity() {
     private lateinit var ingredientList: MutableList<IngEntity>
     private var selectionActive = false
     private var listaId: Long = 0L
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +64,19 @@ class AddIngredientsActivity : AppCompatActivity() {
 
 
         binding.menuSelection.menu.findItem(R.id.action_accept)?.setOnMenuItemClickListener {
-            deleteSelectedIngredients()
-            deactivateSelectionMode()
+            val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Confirmar eliminación")
+                .setMessage("¿Está seguro de que desea eliminar los ingredientes seleccionados?")
+                .setPositiveButton("Sí") { _, _ ->
+                    deleteSelectedIngredients()
+                    deactivateSelectionMode()
+                }
+                .setNegativeButton("No", null)
+                .create()
+            dialog.show()
             true
         }
+
 
         binding.menuSelection.menu.findItem(R.id.action_cancel)?.setOnMenuItemClickListener {
             deactivateSelectionMode()
@@ -78,21 +91,39 @@ class AddIngredientsActivity : AppCompatActivity() {
             if (idLista == -1L) return@setOnClickListener
 
             CoroutineScope(Dispatchers.IO).launch {
-                val app = application as ListDBApp
-                val ingredientesComprados = app.ingredientRepository.getIngredientsByListId(idLista).filter { it.isPurchased }
+                val repo = (application as ListDBApp).ingredientRepository
+                val ingredientes = repo.getIngredientsByListId(idLista)
 
+                val todosComprados = ingredientes.isNotEmpty() && ingredientes.all { it.isPurchased }
 
-
-                val intent = Intent(this@AddIngredientsActivity, ResumeActivity::class.java)
-                intent.putExtra("nombre_lista", nombreLista)
-                intent.putExtra("lista_id", idLista)
-                startActivity(intent)
-
+                withContext(Dispatchers.Main) {
+                    if (!todosComprados) {
+                        // Mostrar diálogo de confirmación
+                        val dialog = androidx.appcompat.app.AlertDialog.Builder(this@AddIngredientsActivity)
+                            .setTitle("Lista incompleta")
+                            .setMessage("La lista no está completada. ¿Desea continuar?")
+                            .setPositiveButton("Sí") { _, _ ->
+                                abrirResumeActivity(nombreLista, idLista)
+                            }
+                            .setNegativeButton("No", null)
+                            .create()
+                        dialog.show()
+                    } else {
+                        abrirResumeActivity(nombreLista, idLista)
+                    }
+                }
             }
         }
 
 
     }
+    private fun abrirResumeActivity(nombreLista: String, idLista: Long) {
+        val intent = Intent(this, ResumeActivity::class.java)
+        intent.putExtra("nombre_lista", nombreLista)
+        intent.putExtra("lista_id", idLista)
+        startActivity(intent)
+    }
+
 
     private fun cargarIngredientes() {
         val repo = (application as ListDBApp).ingredientRepository
@@ -117,25 +148,22 @@ class AddIngredientsActivity : AppCompatActivity() {
                         androidx.core.content.ContextCompat.getColor(this@AddIngredientsActivity, android.R.color.holo_red_dark)
                     )
                 } else {
-                    binding.tvPresupuesto.setTextColor(
-                        androidx.core.content.ContextCompat.getColor(this@AddIngredientsActivity, com.dan.listora.R.color.black)
-                    )
+                    val themedColor = obtainStyledAttributes(intArrayOf(android.R.attr.textColorPrimary))
+                        .getColor(0, Color.BLACK)
+                    binding.tvPresupuesto.setTextColor(themedColor)
+
                 }
             } else {
                 binding.tvPresupuesto.visibility = View.GONE
             }
         }
-        val todosComprados = ingredientList.isNotEmpty() && ingredientList.all { it.isPurchased }
 
         binding.btnListaCompletada.apply {
-            alpha = if (todosComprados) 1.0f else 0.5f
-            setTextColor(
-                ContextCompat.getColor(
-                    this@AddIngredientsActivity,
-                    if (todosComprados) R.color.colorPrimary else R.color.colorPrimaryVariant
-                )
-            )
+
+            setTextColor(ContextCompat.getColor(this@AddIngredientsActivity, android.R.color.white))
         }
+
+
 
     }
 

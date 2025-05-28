@@ -110,12 +110,16 @@
                 android:nestedScrollingEnabled="false"/>
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddIngredient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Agregar ingrediente"
-                android:layout_marginTop="8dp" />
+                style="@style/Widget.MaterialComponents.Button"
+                app:backgroundTint="?attr/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginTop="8dp"/>
+
 
 
             <TextView
@@ -142,12 +146,18 @@
                 android:overScrollMode="always"
                 android:layout_marginTop="16dp"
                 />
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGuardarPasos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Guardar pasos"
+                style="@style/Widget.MaterialComponents.Button"
+                app:backgroundTint="?attr/colorSecondary"
+                android:textColor="?attr/colorOnSecondary"
                 android:layout_marginTop="12dp"/>
+
+
+
 
 
         </LinearLayout>
@@ -161,9 +171,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:icon="@drawable/ic_add"
-        app:backgroundTint="@color/colorPrimary"
-        app:iconTint="@android:color/white"
-        android:textColor="@android:color/white"
-        />
+        app:backgroundTint="?attr/colorPrimary"
+        app:iconTint="?attr/colorOnPrimary"
+        android:textColor="?attr/colorOnPrimary"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

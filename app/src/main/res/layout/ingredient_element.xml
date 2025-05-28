@@ -13,9 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:background="@color/shopping_list_background">
+        android:background="?android:windowBackground">
 
-        <!-- CheckBox para selección múltiple -->
         <CheckBox
             android:id="@+id/cbSeleccionar"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Icono de compra -->
         <ImageView
             android:id="@+id/btnPurchaseConfirm"
             android:layout_width="36dp"
@@ -33,13 +31,12 @@
             android:src="@drawable/ic_check_circle"
             android:background="@drawable/circle_background"
             android:contentDescription="Confirmar compra"
-            app:tint="@color/shopping_check_default"
+            app:tint="?attr/colorPrimary"
             app:layout_constraintStart_toEndOf="@id/cbSeleccionar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="8dp" />
 
-        <!-- Contenido central -->
         <LinearLayout
             android:id="@+id/contentLayout"
             android:layout_width="0dp"
@@ -59,7 +56,7 @@
                 android:text="Nombre del ingrediente"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="?android:textColorPrimary" />
 
             <TextView
                 android:id="@+id/tvCantidadUnidad"
@@ -67,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="Cantidad: 5 pz"
                 android:textSize="14sp"
-                android:textColor="@color/black" />
+                android:textColor="?android:textColorPrimary" />
 
             <TextView
                 android:id="@+id/tvPrecio"
@@ -75,10 +72,9 @@
                 android:layout_height="wrap_content"
                 android:text="Precio: $50"
                 android:textSize="14sp"
-                android:textColor="@color/black" />
+                android:textColor="?android:textColorPrimary" />
         </LinearLayout>
 
-        <!-- Botón de editar -->
         <ImageButton
             android:id="@+id/btnEditIngredient"
             android:layout_width="40dp"
@@ -86,10 +82,9 @@
             android:contentDescription="Editar ingrediente"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_edit"
-            app:tint="@android:color/black"
+            app:tint="?android:textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

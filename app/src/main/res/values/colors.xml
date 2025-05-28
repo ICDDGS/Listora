@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primarios -->
-    <color name="colorPrimary">#4CAF50</color>          <!-- Verde menta -->
-    <color name="colorPrimaryVariant">#388E3C</color>   <!-- Verde más oscuro -->
-    <color name="colorOnPrimary">#FFFFFF</color>        <!-- Texto sobre botones verdes -->
+    <!-- Paleta personalizada Listora -->
+    <color name="listora_aqua_primary">#0AF598</color>
+    <color name="listora_lime">#81F50A</color>
+    <color name="listora_mint">#5CA070</color>
 
-    <!-- Secundarios -->
-    <color name="colorSecondary">#03A9F4</color>        <!-- Azul claro -->
-    <color name="colorSecondaryVariant">#0288D1</color> <!-- Azul más oscuro -->
-    <color name="colorOnSecondary">#FFFFFF</color>      <!-- Texto sobre azul -->
+    <!-- Colores de texto -->
+    <color name="text_primary_dark">#1A1A1A</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_light">#000000</color>
+    <color name="text_secondary">#666666</color>
 
-    <!-- Fondo y superficie -->
-    <color name="colorBackground">#F9F9F9</color>       <!-- Fondo general -->
-    <color name="colorSurface">#FFFFFF</color>          <!-- Tarjetas, inputs -->
-    <color name="colorOnBackground">#212121</color>     <!-- Texto en fondo -->
-    <color name="colorOnSurface">#212121</color>        <!-- Texto en tarjetas -->
+    <!-- Colores principales -->
+    <color name="listora_green_primary">#34CA5C</color> <!-- Verde base suave -->
+    <color name="listora_green_soft">#9FF553</color>     <!-- Verde más claro -->
+    <color name="listora_green_alt">#54F584</color>      <!-- Verde con tinte aqua -->
 
-    <!-- Texto -->
-    <color name="colorTextPrimary">#212121</color>
-    <color name="colorTextSecondary">#757575</color>
+    <!-- Tonos aqua y cyan -->
+    <color name="listora_aqua">#53F5BB</color>          <!-- Aqua relajante -->
+    <color name="listora_cyan">#53F5F1</color>          <!-- Cyan fresco -->
 
-    <!-- Acciones / Estado -->
-    <color name="colorError">#F44336</color>
-    <color name="colorSuccess">#81C784</color>
-    <color name="colorActive">#26A69A</color>
+    <!-- Neutro para fondo claro o tarjetas -->
+    <color name="listora_background_light">#CBF5D8</color>
 
-    <color name="shopping_list_background">#FFF8E1</color> <!-- color cálido, tipo nota -->
-    <color name="shopping_check_default">#A0A0A0</color>
-    <color name="shopping_check_confirmed">#4CAF50</color> <!-- verde -->
-    <color name="black">#000000</color>
+    <color name="shopping_check_confirmed">#1FF50A</color>
+    <color name="shopping_check_default">#CCCCCC</color>
 
-    <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorAccent">#FFC107</color>
-
+    <color name="lista_completada_enabled">#5BF553</color>
+    <color name="lista_completada_disabled">#CBF5D8</color>
 
 
 </resources>

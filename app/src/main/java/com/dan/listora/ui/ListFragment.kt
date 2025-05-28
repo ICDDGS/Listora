@@ -106,8 +106,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun message(text: String) {
         Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT)
-            .setTextColor(requireContext().getColor(R.color.colorOnSecondary))
-            .setBackgroundTint(requireContext().getColor(R.color.colorSecondary))
+            .setTextColor(requireContext().getColor(com.google.android.material.R.color.design_default_color_on_secondary))
+            .setBackgroundTint(requireContext().getColor(com.google.android.material.R.color.design_default_color_secondary))
             .show()
     }
 }
