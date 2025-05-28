@@ -100,20 +100,24 @@ class ResumeActivity : AppCompatActivity() {
 
         try {
             val writer = FileWriter(finalFile, false)
-
             writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha_2))
 
-            val historial = (application as ListDBApp)
-                .historialRepository
-                .getHistorialPorLista(nombreLista)
+            val app = application as ListDBApp
+            val idLista = intent.getLongExtra("lista_id", 0L)
+            val ingredientesComprados = app.ingredientRepository
+                .getIngredientsByListId(idLista)
+                .filter { it.isPurchased }
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            historial.forEach {
-                writer.append("${it.ingrediente},${it.cantidad},${it.unidad},${it.costo},${formato.format(Date(it.fecha))}\n")
+            val fechaActual = Date()
+
+            ingredientesComprados.forEach {
+                writer.append("${it.name},${it.cant},${it.unit},${it.price},${formato.format(fechaActual)}\n")
             }
 
             writer.flush()
             writer.close()
+
             binding.root.styledSnackbar(getString(R.string.exportado_a_descargas, finalFile.name), this)
 
         } catch (e: Exception) {
@@ -121,6 +125,7 @@ class ResumeActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
 
 
 

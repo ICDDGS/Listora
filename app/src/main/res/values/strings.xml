@@ -51,8 +51,14 @@
         <item>L</item>
     </string-array>
 
+    <string-array name="categoria_receta_array">
+        <item>Desayuno</item>
+        <item>Comida</item>
+        <item>Cena</item>
+        <item>Snack</item>
+    </string-array>
 
-        <!-- Actividad Principal -->
+    <!-- Actividad Principal -->
         <string name="app_name">Listora</string>
         <string name="menu_settings">Ajustes</string>
         <string name="menu_list">Listas</string>

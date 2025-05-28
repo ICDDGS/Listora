@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import com.dan.listora.data.db.model.RecipeEntity
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +26,12 @@ class RecipeDialog(
     fun show() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_recipe, null)
         val recipeName = dialogView.findViewById<EditText>(R.id.etRecipeName)
-        val categorySpinner = dialogView.findViewById<Spinner>(R.id.spinnerCategory)
+        val spinner = dialogView.findViewById<Spinner>(R.id.spinnerCategory)
 
-        val categories = listOf(context.getString(R.string.desayuno),
-            context.getString(R.string.comida), context.getString(R.string.cena))
-        categorySpinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, categories)
+        val categorias = context.resources.getStringArray(R.array.categoria_receta_array)
+        val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, categorias)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
 
         val dialog = AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.nueva_receta))
@@ -42,7 +44,7 @@ class RecipeDialog(
             val saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
             saveButton.setOnClickListener {
                 val name = recipeName.text.toString().trim()
-                val category = categorySpinner.selectedItem.toString()
+                val category = spinner.selectedItem.toString()
 
                 if (name.isEmpty()) {
                     recipeName.error = context.getString(R.string.el_nombre_es_obligatorio)
@@ -75,5 +77,6 @@ class RecipeDialog(
 
         dialog.show()
     }
+
 }
 

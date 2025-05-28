@@ -17,6 +17,22 @@
         <!-- Componentes Material -->
         <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
         <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <!-- themes.xml -->
+        <item name="colorSurface">@color/fondo_comp</item>
+        <item name="colorOnSurface">@color/text_on_primary</item>
+        <item name="snackbarStyle">@style/CustomSnackbar</item>
+
     </style>
+    <style name="CustomSnackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="backgroundTint">@color/listora_green_primary</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
+
 
 </resources>
