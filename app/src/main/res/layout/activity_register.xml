@@ -31,14 +31,15 @@ tools:context=".ui.RegisterActivity">
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
-
+            android:textColor="?android:textColorPrimary"
             android:shadowRadius="10"/>
         </com.google.android.material.appbar.MaterialToolbar>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/nombre_usuario"/>
+            android:text="@string/nombre_usuario"
+            android:textColor="?android:textColorPrimary"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -54,7 +55,8 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/correo"/>
+            android:text="@string/correo"
+            android:textColor="?android:textColorPrimary"/>
 
         <com.google.android.material.textfield.TextInputLayout
 
@@ -72,7 +74,8 @@ tools:context=".ui.RegisterActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/contrasena"/>
+            android:text="@string/contrasena"
+            android:textColor="?android:textColorPrimary"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +105,6 @@ tools:context=".ui.RegisterActivity">
             android:text="@string/registrarse"
             app:backgroundTint="?attr/colorPrimary"
             android:textColor="?attr/colorOnPrimary"
-
             app:cornerRadius="16dp"
             style="@style/Widget.MaterialComponents.Button" />
 
