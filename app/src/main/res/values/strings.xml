@@ -104,7 +104,7 @@
     <string name="cerrar_sesion">Cerrar sesión</string>
     <string name="semana_actual">Semana actual</string>
     <string name="semana_anterior">Semana anterior</string>
-    <string name="siguiente">Siguiente</string>
+    <string name="siguiente">Siguiente Semana</string>
     <string name="exportar_semana_excel">Exportar semana a Excel</string>
     <string name="confirmar_compra">Confirmar compra</string>
     <string name="nombre_ingrediente">Nombre del ingrediente</string>

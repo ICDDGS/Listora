@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dan.listora.R
@@ -145,11 +148,12 @@ class RecipeDetailActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.dialog_ingredient_recipe, null)
         val etNombre = view.findViewById<EditText>(R.id.etNombre)
         val etCantidad = view.findViewById<EditText>(R.id.etCantidad)
-        val spUnidad = view.findViewById<android.widget.Spinner>(R.id.spUnidad)
+        val spUnidad = view.findViewById<Spinner>(R.id.spUnidad) // <- AQUÍ estaba el problema
 
         val unidades = resources.getStringArray(R.array.unidades_array)
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, unidades)
-        spUnidad.adapter = spinnerAdapter
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, unidades)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spUnidad.adapter = adapter
 
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.agg_ingrediente_receta))
@@ -157,7 +161,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.agregar)) { dialog, _ ->
                 val nombre = etNombre.text.toString().trim()
                 val cantidad = etCantidad.text.toString().toDoubleOrNull() ?: 0.0
-                val unidad = spUnidad.selectedItem.toString()
+                val unidad = spUnidad.selectedItem.toString() // <- Ahora sí funciona
 
                 if (nombre.isNotEmpty() && cantidad > 0) {
                     val ingrediente = RecipeIngredientEntity(
@@ -185,6 +189,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
+
 
     private fun eliminarIngrediente(ingrediente: RecipeIngredientEntity) {
         CoroutineScope(Dispatchers.IO).launch {
