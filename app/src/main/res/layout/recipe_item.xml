@@ -9,14 +9,14 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="12dp"
     app:cardElevation="6dp"
-    app:cardBackgroundColor="?android:windowBackground"
+    app:cardBackgroundColor="?attr/colorPrimary"
     android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:background="@color/secondary">
+        >
 
         <ImageView
             android:id="@+id/ivRecipeImage"
@@ -34,7 +34,6 @@
             android:text="@string/nombre_receta"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/text_on_primary"
             android:layout_toEndOf="@id/ivRecipeImage"
             android:layout_marginStart="12dp"
             android:layout_alignTop="@id/ivRecipeImage"
@@ -46,7 +45,6 @@
             android:layout_height="wrap_content"
             android:text="@string/categoria"
             android:textSize="14sp"
-            android:textColor="@color/text_on_primary"
             android:layout_below="@id/tvRecipeName"
             android:layout_alignStart="@id/tvRecipeName" />
 

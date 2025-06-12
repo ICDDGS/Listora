@@ -16,7 +16,7 @@
         android:text="@string/nueva_receta"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/text_on_primary" />
+         />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:text="@string/nombre_receta"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:textColor="@color/text_on_primary" />
+         />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -46,12 +46,11 @@
         android:text="@string/categoria"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:textColor="@color/text_on_primary" />
+         />
 
 
     <Spinner
         android:id="@+id/spinnerCategory"
-        android:background="@color/third"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"

@@ -94,7 +94,6 @@ class StatisticsFragment : Fragment() {
             val dataSet = BarDataSet(entries, getString(R.string.gastos_por_dia)).apply {
                 valueTextSize = 12f
             }
-            dataSet.color = ContextCompat.getColor(requireContext(), R.color.secondary)
 
             val data = BarData(dataSet)
 
@@ -103,8 +102,7 @@ class StatisticsFragment : Fragment() {
             barChart.xAxis.setDrawGridLines(false)
 
             barChart.axisRight.isEnabled = false
-            barChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.text_on_primary)
-            barChart.axisLeft.textColor = ContextCompat.getColor(requireContext(), R.color.text_on_primary)
+
             barChart.axisLeft.textSize = 12f
             barChart.xAxis.textSize = 12f
 

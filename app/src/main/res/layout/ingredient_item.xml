@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:gravity="center_vertical"
-    android:background="@color/third">
+    >
 
     <TextView
         android:id="@+id/tvNombre"
@@ -14,7 +14,6 @@
         android:layout_weight="2"
         android:layout_height="wrap_content"
         android:text="@string/nombre"
-        android:textColor="@color/text_on_primary"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/cant"
-        android:textColor="@color/text_on_primary"
         android:textSize="14sp" />
 
     <TextView
@@ -35,7 +33,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/unidad"
-        android:textColor="@color/text_on_primary"
         android:textSize="14sp" />
 
     <FrameLayout

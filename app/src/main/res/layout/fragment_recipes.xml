@@ -37,7 +37,6 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/btn_add"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primary"
         app:tint="?attr/colorOnPrimary" />
 
 </LinearLayout>

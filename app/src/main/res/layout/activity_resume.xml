@@ -6,18 +6,18 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:fitsSystemWindows="true"
-    android:background="@color/third">
+    >
 
     <TextView
         android:id="@+id/tvTotalGastado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/total_gastado"
-        android:textColor="@color/text_on_primary"
+
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:textSize="18sp"
-        android:background="@color/third"
+
         android:textStyle="bold" />
 
     <TextView
@@ -28,9 +28,8 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:gravity="center"
-        android:background="@color/third"
         android:layout_marginBottom="15dp"
-        android:textColor="@color/text_on_primary" />
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCompras"
@@ -60,6 +59,5 @@
         android:text="@string/continuar"
         style="@style/Widget.MaterialComponents.Button"
         app:backgroundTint="?attr/colorSecondary"
-        android:textColor="@color/text_on_primary"
         android:layout_marginTop="12dp" />
 </LinearLayout>

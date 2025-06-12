@@ -31,7 +31,6 @@ tools:context=".ui.RegisterActivity">
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
-            android:textColor="@color/text_on_primary"
             android:shadowRadius="10"/>
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -40,7 +39,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/correo"
-            android:textColor="@color/text_on_primary"/>
+            />
 
         <com.google.android.material.textfield.TextInputLayout
 
@@ -59,7 +58,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/contrasena"
-            android:textColor="@color/text_on_primary"/>
+            />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,7 +76,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/term_cond"
-            android:textColor="@color/text_on_primary"
+
             />
 
         <com.google.android.material.button.MaterialButton

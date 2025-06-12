@@ -94,7 +94,7 @@ class IngredientViewHolder(
         binding.btnPurchaseConfirm.setColorFilter(
             ContextCompat.getColor(
                 context,
-                if (isPurchased) R.color.shopping_check_confirmed else R.color.shopping_check_default
+                if (isPurchased) R.color.incomplete else R.color.complete
             )
         )
     }

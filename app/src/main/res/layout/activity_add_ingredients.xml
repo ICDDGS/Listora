@@ -55,7 +55,6 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:contentDescription="@string/desc_add_ingredient"
-            app:backgroundTint="@color/secondary"
             app:srcCompat="@drawable/ic_add"
             tools:ignore="ImageContrastCheck" />
 

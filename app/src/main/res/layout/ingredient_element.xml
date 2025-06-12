@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:background="@color/third">
+        >
 
         <CheckBox
             android:id="@+id/cbSeleccionar"
@@ -57,7 +57,7 @@
                 android:text="@string/nombre_ingrediente"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/text_on_primary" />
+                 />
 
             <TextView
                 android:id="@+id/tvCantidadUnidad"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/cantidad"
                 android:textSize="14sp"
-                android:textColor="@color/text_on_primary" />
+                 />
 
             <TextView
                 android:id="@+id/tvPrecio"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/precio"
                 android:textSize="14sp"
-                android:textColor="@color/text_on_primary" />
+                 />
         </LinearLayout>
 
         <ImageButton

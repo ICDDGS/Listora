@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:textColorHint="@color/text_on_primary"
         android:hint="@string/hint_email">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -39,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:textColorHint="@color/text_on_primary"
         android:hint="@string/hint_password">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -67,7 +65,7 @@
         android:text="@string/text_no_account"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:textColor="@color/text_on_primary"/>
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"

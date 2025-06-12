@@ -29,10 +29,10 @@ class ListViewHolder(
         }
 
         binding.btnListOptions.setOnClickListener {
-            val popup = PopupMenu(
-                ContextThemeWrapper(binding.root.context, R.style.PopupMenuStyle),
-                it
-            )
+            val wrapper = ContextThemeWrapper(binding.root.context, R.style.CustomPopupMenu)
+            val popup = PopupMenu(wrapper, it)
+
+
             popup.inflate(R.menu.list_item_menu)
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
