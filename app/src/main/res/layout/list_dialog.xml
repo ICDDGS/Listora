@@ -15,7 +15,7 @@
         android:text="@string/nombre_lista"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="?android:textColorPrimary"/>
+        android:textColor="@color/text_on_primary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:text="@string/fecha_limite_2"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="?android:textColorPrimary"/>
+        android:textColor="@color/text_on_primary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputFechaLayout"
@@ -68,7 +68,7 @@
         android:text="@string/presupuesto_limite"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="?android:textColorPrimary"/>
+        android:textColor="@color/text_on_primary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="10dp"

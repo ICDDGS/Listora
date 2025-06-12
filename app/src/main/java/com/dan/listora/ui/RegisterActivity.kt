@@ -27,12 +27,11 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-            val username = binding.tiUsername.text.toString().trim()
             val email = binding.tiEmail.text.toString().trim()
             val password = binding.tiPassword.text.toString()
             val acceptTerms = binding.cbTerms.isChecked
 
-            if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && acceptTerms) {
+            if (email.isNotEmpty() && password.isNotEmpty() && acceptTerms) {
                 binding.root.styledSnackbar(getString(R.string.registro_exitoso), this)
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)

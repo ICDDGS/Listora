@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:background="@color/fondo_comp">
+        android:background="@color/third">
 
         <CheckBox
             android:id="@+id/cbSeleccionar"
@@ -56,7 +57,7 @@
                 android:text="@string/nombre_ingrediente"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="?android:textColorPrimary" />
+                android:textColor="@color/text_on_primary" />
 
             <TextView
                 android:id="@+id/tvCantidadUnidad"
@@ -64,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/cantidad"
                 android:textSize="14sp"
-                android:textColor="?android:textColorPrimary" />
+                android:textColor="@color/text_on_primary" />
 
             <TextView
                 android:id="@+id/tvPrecio"
@@ -72,19 +73,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/precio"
                 android:textSize="14sp"
-                android:textColor="?android:textColorPrimary" />
+                android:textColor="@color/text_on_primary" />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnEditIngredient"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="@string/editar"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/editar"
             android:src="@drawable/ic_edit"
-            app:tint="?android:textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:tint="?android:textColorPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

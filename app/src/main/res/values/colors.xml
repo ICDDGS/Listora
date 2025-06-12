@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Paleta personalizada Listora -->
-    <color name="listora_aqua_primary">#0AF598</color>
+    <color name="listora_aqua_primary">#074F57</color>
     <color name="listora_lime">#81F50A</color>
-    <color name="listora_mint">#5CA070</color>
+    <color name="listora_mint">#74A57F</color>
 
     <!-- Colores de texto -->
     <color name="text_primary_dark">#1A1A1A</color>
-    <color name="text_on_primary">#FFFFFF</color>
-    <color name="text_on_light">#000000</color>
-    <color name="text_secondary">#666666</color>
+    <color name="text_on_primary">#9EFFFFFF</color>
+    <color name="text_secondary">#E9666666</color>
 
     <!-- Colores principales -->
-    <color name="listora_green_primary">#34CA5C</color>
+    <color name="listora_green_primary">#074F57</color>
     <color name="listora_green_soft">#9FF553</color>
-    <color name="listora_green_alt">#54F584</color>
+    <color name="listora_green_alt">#077187</color>
 
     <color name="listora_aqua">#53F5BB</color>
     <color name="listora_cyan">#53F5F1</color>
@@ -29,7 +28,19 @@
 
     <color name="fondo_comp">#577560</color>
 
-    <color name="background_dark">#EBF2ED</color>
+    <color name="background_dark">#9ECE9A</color>
+
+    <color name="primary">#00A6FB</color>
+    <color name="secondary">#0582CA</color>
+    <color name="third">#006494</color>
+    <color name="fourth">#003554</color>
+    <color name="fifth">#051923</color>
+
+    <color name="popup_background">#00A6FB</color>
+    <color name="popup_text">#000000</color>
+
+
+
 
 
 

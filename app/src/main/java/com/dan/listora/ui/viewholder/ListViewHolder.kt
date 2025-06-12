@@ -1,6 +1,7 @@
 package com.dan.listora.ui.viewholder
 
 import android.annotation.SuppressLint
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,10 @@ class ListViewHolder(
         }
 
         binding.btnListOptions.setOnClickListener {
-            val popup = PopupMenu(binding.root.context, it)
+            val popup = PopupMenu(
+                ContextThemeWrapper(binding.root.context, R.style.PopupMenuStyle),
+                it
+            )
             popup.inflate(R.menu.list_item_menu)
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
@@ -45,6 +49,7 @@ class ListViewHolder(
             }
             popup.show()
         }
+
     }
 }
 

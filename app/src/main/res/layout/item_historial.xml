@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="?android:windowBackground">
+    android:background="@color/third">
 
     <TextView
         android:id="@+id/tvLineaResumen"
@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="@string/historial_item"
         android:textSize="16sp"
-        android:textColor="?android:textColorPrimary" />
+        android:textColor="@color/text_on_primary"
+        />
 
     <View
         android:layout_width="match_parent"

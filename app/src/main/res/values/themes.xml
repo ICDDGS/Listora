@@ -1,26 +1,32 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="Theme.Listora" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-    <!-- Colores principales -->
-        <item name="colorPrimary">@color/listora_green_primary</item>
+        <!-- Colores principales -->
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/listora_green_alt</item>
         <item name="colorOnPrimary">@color/text_on_primary</item>
 
-        <item name="colorSecondary">@color/listora_mint</item>
+        <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/listora_lime</item>
         <item name="colorOnSecondary">@color/text_on_primary</item>
 
         <!-- Fondo y texto -->
         <item name="android:textColorPrimary">@color/text_primary_dark</item>
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/fourth</item>
+
+
 
         <!-- Componentes Material -->
         <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
         <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
         <!-- themes.xml -->
-        <item name="colorSurface">@color/fondo_comp</item>
+        <item name="colorSurface">@color/third</item>
         <item name="colorOnSurface">@color/text_on_primary</item>
+
         <item name="snackbarStyle">@style/CustomSnackbar</item>
+
+
+
 
     </style>
     <style name="CustomSnackbar" parent="Widget.MaterialComponents.Snackbar">
@@ -32,7 +38,10 @@
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:background">?attr/colorSurface</item>
     </style>
-
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/popup_background</item>
+        <item name="android:textColor">@color/popup_text</item>
+    </style>
 
 
 </resources>

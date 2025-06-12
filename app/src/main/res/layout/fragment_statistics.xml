@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="?android:windowBackground"
+    android:background="@color/third"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -15,12 +15,14 @@
         android:text="@string/semana_actual"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:textColor="?android:textColorPrimary" />
+        android:background="@color/third"
+        android:textColor="@color/text_on_primary" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:background="@color/third"
         android:layout_marginTop="12dp" />
 
     <LinearLayout
@@ -37,7 +39,7 @@
             android:text="@string/semana_anterior"
             style="@style/Widget.MaterialComponents.Button"
             app:backgroundTint="?attr/colorSecondary"
-            android:textColor="?attr/colorOnSecondary" />
+            android:textColor="@color/text_on_primary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSemanaSiguiente"
@@ -47,7 +49,7 @@
             android:layout_marginStart="12dp"
             style="@style/Widget.MaterialComponents.Button"
             app:backgroundTint="?attr/colorSecondary"
-            android:textColor="?attr/colorOnSecondary" />
+            android:textColor="@color/text_on_primary" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

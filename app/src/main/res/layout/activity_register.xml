@@ -31,32 +31,16 @@ tools:context=".ui.RegisterActivity">
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/text_on_primary"
             android:shadowRadius="10"/>
         </com.google.android.material.appbar.MaterialToolbar>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/nombre_usuario"
-            android:textColor="?android:textColorPrimary"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nombre_usuario">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/correo"
-            android:textColor="?android:textColorPrimary"/>
+            android:textColor="@color/text_on_primary"/>
 
         <com.google.android.material.textfield.TextInputLayout
 
@@ -75,7 +59,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/contrasena"
-            android:textColor="?android:textColorPrimary"/>
+            android:textColor="@color/text_on_primary"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +77,7 @@ tools:context=".ui.RegisterActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/term_cond"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/text_on_primary"
             />
 
         <com.google.android.material.button.MaterialButton

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/third"
     >
 
     <ScrollView
@@ -53,7 +53,7 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginTop="12dp"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="@color/text_on_primary"/>
 
             <TextView
                 android:id="@+id/tvCategory"
@@ -63,7 +63,7 @@
                 android:textStyle="italic"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="@color/text_on_primary"/>
 
 
 
@@ -81,7 +81,7 @@
                     android:text="@string/cantidad"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:textColor="?android:textColorPrimary"/>
+                    android:textColor="@color/text_on_primary"/>
 
                 <ImageButton
                     android:id="@+id/btnDecrease"
@@ -98,7 +98,7 @@
                     android:gravity="center"
                     android:text="@string/_1"
                     android:textSize="16sp"
-                    android:textColor="?android:textColorPrimary"/>
+                    android:textColor="@color/text_on_primary"/>
 
                 <ImageButton
                     android:id="@+id/btnIncrease"
@@ -118,7 +118,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="@color/text_on_primary"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
@@ -148,7 +148,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="@color/text_on_primary"/>
 
             <EditText
                 android:id="@+id/editSteps"
@@ -160,11 +160,12 @@
                 android:inputType="textMultiLine"
                 android:maxLength="500"
                 android:padding="12dp"
-                android:textColor="#000"
+                android:textColor="@color/text_on_primary"
                 android:textSize="16sp"
                 android:scrollbars="vertical"
                 android:overScrollMode="always"
                 android:layout_marginTop="16dp"
+
                 />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGuardarPasos"
@@ -172,8 +173,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/guardar_pasos"
                 style="@style/Widget.MaterialComponents.Button"
-                app:backgroundTint="?attr/colorSecondary"
-                android:textColor="?attr/colorOnSecondary"
+                app:backgroundTint="?attr/colorPrimary"
+                android:textColor="@color/text_on_primary"
                 android:layout_marginTop="12dp"/>
 
 

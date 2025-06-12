@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/nombre"
         android:layout_marginTop="8dp"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/text_on_primary"
         />
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/cant_unit"
         android:layout_marginTop="12dp"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/text_on_primary"
         />
 
     <LinearLayout
@@ -60,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/third"
             android:entries="@array/unidades_array" />
 
 
@@ -70,7 +71,7 @@
         android:layout_height="wrap_content"
         android:text="@string/precio"
         android:layout_marginTop="12dp"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/text_on_primary"
         />
 
 
