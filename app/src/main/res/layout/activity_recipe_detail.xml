@@ -52,6 +52,8 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginTop="12dp"
+                android:textColor="?attr/colorOnBackground"
+
                 />
 
             <TextView
@@ -62,6 +64,8 @@
                 android:textStyle="italic"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
+                android:textColor="?attr/colorOnBackground"
+
                 />
 
 
@@ -80,6 +84,8 @@
                     android:text="@string/cantidad"
                     android:textStyle="bold"
                     android:textSize="16sp"
+                    android:textColor="?attr/colorOnBackground"
+
                     />
 
                 <ImageButton
@@ -97,6 +103,8 @@
                     android:gravity="center"
                     android:text="@string/_1"
                     android:textSize="16sp"
+                    android:textColor="?attr/colorOnBackground"
+
                     />
 
                 <ImageButton
@@ -106,7 +114,8 @@
                     android:src="@drawable/ic_more"
                     android:contentDescription="@string/aumentar"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:textColor="?android:textColorPrimary"/>
+                    android:textColor="?attr/colorOnBackground"
+                    />
             </LinearLayout>
 
             <TextView
@@ -117,6 +126,8 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp"
+                android:textColor="?attr/colorOnBackground"
+
                 />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -147,25 +158,27 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp"
+                android:textColor="?attr/colorOnBackground"
+
                 />
 
             <EditText
                 android:id="@+id/editSteps"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:autofillHints=""
                 android:hint="@string/escribe_pasos"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
                 android:maxLength="500"
                 android:padding="12dp"
-
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp"
                 android:scrollbars="vertical"
                 android:overScrollMode="always"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_edittext_background" />
 
-                />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGuardarPasos"
                 android:layout_width="wrap_content"

@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:text="@string/nombre"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="?attr/colorOnBackground"
+        />
 
     <TextView
         android:id="@+id/tvCantidad"
@@ -24,6 +26,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/cant"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="14sp" />
 
     <TextView
@@ -33,6 +36,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/unidad"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="14sp" />
 
     <FrameLayout
@@ -48,7 +52,7 @@
             android:src="@drawable/ic_delete"
             android:contentDescription="@string/eliminar"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="?android:textColorPrimary" />
+            />
     </FrameLayout>
 
 </LinearLayout>
