@@ -36,6 +36,18 @@ class HistorialRepository(private val historialDao: HistorialDAO) {
         return historialDao.getHistorialEntreFechas(inicio, fin)
     }
 
+    suspend fun guardarDesdeIngrediente(ingrediente: IngEntity, nombreLista: String) {
+        val historial = HistorialEntity(
+            nombreLista = nombreLista,
+            ingrediente = ingrediente.name,
+            cantidad = ingrediente.cant,
+            unidad = ingrediente.unit,
+            costo = ingrediente.price,
+            fecha = System.currentTimeMillis()
+        )
+        historialDao.insert(historial)
+    }
+
 
 
 }

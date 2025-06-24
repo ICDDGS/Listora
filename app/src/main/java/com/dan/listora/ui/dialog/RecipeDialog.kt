@@ -20,6 +20,7 @@ import com.dan.listora.data.db.ListDataBase
 
 class RecipeDialog(
     private val context: Context,
+    private val recipeToEdit: RecipeEntity? = null,
     private val onSuccess: () -> Unit
 ) {
 
@@ -51,32 +52,38 @@ class RecipeDialog(
                     return@setOnClickListener
                 }
 
-                val recipe = RecipeEntity(
-                    name = name,
-                    imageUrl = null,
-                    category = category,
-                    servings = 0,
-                    steps = ""
-                )
-
                 CoroutineScope(Dispatchers.IO).launch {
                     val db = ListDataBase.getDatabase(context)
-                    val recipeId = db.recipeDAO().insertRecipe(recipe)
+                    val recipeId: Long = if (recipeToEdit != null) {
+                        val updated = recipeToEdit.copy(name = name, category = category)
+                        db.recipeDAO().updateRecipe(updated)
+                        updated.id
+                    } else {
+                        val newRecipe = RecipeEntity(
+                            name = name,
+                            imageUrl = null,
+                            category = category,
+                            servings = 0,
+                            steps = ""
+                        )
+                        db.recipeDAO().insertRecipe(newRecipe)
+                    }
 
                     withContext(Dispatchers.Main) {
                         dialog.dismiss()
                         onSuccess()
-
-                        val intent = Intent(context, RecipeDetailActivity::class.java)
-                        intent.putExtra("recipe_id", recipeId)
-                        context.startActivity(intent)
                     }
                 }
+            }
+
+            recipeToEdit?.let { recipe ->
+                recipeName.setText(recipe.name)
+                val index = categorias.indexOf(recipe.category)
+                if (index >= 0) spinner.setSelection(index)
             }
         }
 
         dialog.show()
     }
-
 }
 

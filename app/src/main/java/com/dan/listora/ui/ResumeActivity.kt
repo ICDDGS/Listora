@@ -60,7 +60,7 @@ class ResumeActivity : AppCompatActivity() {
                     .filter { it.isPurchased }
 
                 ingredientesComprados.forEach { ingrediente ->
-                    app.historialRepository.guardarDesdeIngrediente(app.repository, ingrediente)
+                    app.historialRepository.guardarDesdeIngrediente(ingrediente, nombreLista)
                 }
 
                 val intent = Intent(this@ResumeActivity, MenuActivity::class.java)

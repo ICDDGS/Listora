@@ -14,6 +14,7 @@ import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.databinding.FragmentRecipesBinding
 import com.dan.listora.ui.adapter.RecipeAdapter
 import com.dan.listora.ui.dialog.RecipeDialog
+import com.dan.listora.util.styledSnackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,27 +40,45 @@ class RecipesFragment : Fragment() {
 
         binding.rvRecetas.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = RecipeAdapter(recipes,
+        adapter = RecipeAdapter(
+            recetas = recipes,
             onItemClick = { recipe ->
                 val intent = Intent(requireContext(), RecipeDetailActivity::class.java)
                 intent.putExtra("recipe_id", recipe.id)
                 startActivity(intent)
             },
-            onToggleFavorite = { recipe ->
-                lifecycleScope.launch {
-                    val dao = (requireActivity().application as ListDBApp).database.recipeDAO()
-                    val updated = recipe.copy(isFavorite = !recipe.isFavorite)
-                    withContext(Dispatchers.IO) {
-                        dao.updateRecipe(updated)
-                    }
-                    val index = recipes.indexOfFirst { it.id == recipe.id }
-                    if (index != -1) {
-                        recipes[index] = updated
-                        adapter.notifyItemChanged(index)
-                    }
+            onEditClick = { recipe ->
+                val dialog = RecipeDialog(requireContext(), recipeToEdit = recipe) {
+                    loadRecipes()
+                    view?.styledSnackbar("Receta actualizada", requireContext())
                 }
+
+
+                dialog.show()
+            },
+            onDeleteClick = { recipe ->
+                val confirmDialog = android.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Eliminar receta")
+                    .setMessage("¿Estás seguro de que deseas eliminar esta receta?")
+                    .setPositiveButton("Eliminar") { _, _ ->
+                        lifecycleScope.launch {
+                            val dao = (requireActivity().application as ListDBApp).database.recipeDAO()
+                            withContext(Dispatchers.IO) {
+                                dao.deleteRecipe(recipe)
+                            }
+                            loadRecipes()
+                            view?.styledSnackbar("Receta eliminada", requireContext())
+
+                        }
+                    }
+                    .setNegativeButton("Cancelar", null)
+                    .create()
+
+                confirmDialog.show()
             }
+
         )
+
 
         binding.rvRecetas.adapter = adapter
 

@@ -10,17 +10,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/agregar_ingrediente"
-        android:textSize="20sp"
-        android:textStyle="bold"
-         />
-
-    <!-- Nombre del ingrediente -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/nombre"
         android:layout_marginTop="8dp"
          />

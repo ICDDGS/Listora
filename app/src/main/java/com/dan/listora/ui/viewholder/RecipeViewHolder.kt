@@ -1,6 +1,6 @@
-package com.dan.listora.ui.adapter
+package com.dan.listora.ui.viewholder
 
-import android.view.View
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dan.listora.R
@@ -8,10 +8,15 @@ import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.databinding.RecipeItemBinding
 
 class RecipeViewHolder(
-    private val binding: RecipeItemBinding
+    private val binding: RecipeItemBinding,
+    private val onEditClick: (RecipeEntity) -> Unit,
+    private val onDeleteClick: (RecipeEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(recipe: RecipeEntity, onClick: (RecipeEntity) -> Unit, onToggleFavorite: (RecipeEntity) -> Unit) {
+    fun bind(
+        recipe: RecipeEntity,
+        onClick: (RecipeEntity) -> Unit
+    ) {
         binding.tvRecipeName.text = recipe.name
         binding.tvCategory.text = recipe.category
 
@@ -23,15 +28,29 @@ class RecipeViewHolder(
             binding.ivRecipeImage.setImageResource(R.drawable.food)
         }
 
-        val iconRes = if (recipe.isFavorite) R.drawable.ic_star else R.drawable.ic_star_border
-        binding.ivFavorite.setImageResource(iconRes)
-
         binding.root.setOnClickListener {
             onClick(recipe)
         }
 
-        binding.ivFavorite.setOnClickListener {
-            onToggleFavorite(recipe)
+        binding.btnListOptions.setOnClickListener {
+            val popup = PopupMenu(binding.root.context, it)
+            popup.inflate(R.menu.recipe_item_menu)
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.action_edit_recipe -> {
+                        onEditClick(recipe)
+                        true
+                    }
+                    R.id.action_delete_recipe -> {
+                        onDeleteClick(recipe)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popup.show()
         }
     }
+
+
 }

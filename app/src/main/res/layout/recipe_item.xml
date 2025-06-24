@@ -37,6 +37,7 @@
             android:layout_toEndOf="@id/ivRecipeImage"
             android:layout_marginStart="12dp"
             android:layout_alignTop="@id/ivRecipeImage"
+            android:textColor="?attr/colorOnPrimary"
             tools:ignore="RelativeOverlap" />
 
         <TextView
@@ -46,17 +47,17 @@
             android:text="@string/categoria"
             android:textSize="14sp"
             android:layout_below="@id/tvRecipeName"
+            android:textColor="?attr/colorOnPrimary"
             android:layout_alignStart="@id/tvRecipeName" />
-
-        <ImageView
-            android:id="@+id/ivFavorite"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_star_border"
-            app:tint="?android:textColorPrimary"
+        <ImageButton
+            android:id="@+id/btnListOptions"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@id/tvRecipeName"
-            android:contentDescription="@string/favorito" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_more_vert"
+            app:tint="?attr/colorOnPrimary"
+            android:contentDescription="@string/opciones" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
