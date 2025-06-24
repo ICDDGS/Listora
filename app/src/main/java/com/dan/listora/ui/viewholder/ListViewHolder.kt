@@ -2,7 +2,6 @@ package com.dan.listora.ui.viewholder
 
 import android.annotation.SuppressLint
 import android.view.ContextThemeWrapper
-import android.view.View
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.dan.listora.R

@@ -1,5 +1,6 @@
 package com.dan.listora.application
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.pm.ActivityInfo
@@ -15,8 +16,9 @@ class ListDBApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) // fuerza tema claro
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            @SuppressLint("SourceLockedOrientationActivity")
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             }

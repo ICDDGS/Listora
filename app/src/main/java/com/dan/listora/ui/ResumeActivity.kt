@@ -11,7 +11,9 @@ import com.dan.listora.application.ListDBApp
 import com.dan.listora.databinding.ActivityResumeBinding
 import com.dan.listora.ui.adapter.ResumenCompraAdapter
 import com.dan.listora.util.styledSnackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileWriter
 import java.text.SimpleDateFormat
@@ -89,7 +91,6 @@ class ResumeActivity : AppCompatActivity() {
         val baseFileName = "${safeNombreLista}_$formattedDate.csv"
         val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-        // Verifica existencia y agrega índice si ya existe
         var finalFile = File(downloadsDir, baseFileName)
         var index = 1
         while (finalFile.exists()) {
@@ -99,8 +100,12 @@ class ResumeActivity : AppCompatActivity() {
         }
 
         try {
-            val writer = FileWriter(finalFile, false)
-            writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha_2))
+            val writer = withContext(Dispatchers.IO) {
+                FileWriter(finalFile, false)
+            }
+            withContext(Dispatchers.IO) {
+                writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha_2))
+            }
 
             val app = application as ListDBApp
             val idLista = intent.getLongExtra("lista_id", 0L)
@@ -115,8 +120,12 @@ class ResumeActivity : AppCompatActivity() {
                 writer.append("${it.name},${it.cant},${it.unit},${it.price},${formato.format(fechaActual)}\n")
             }
 
-            writer.flush()
-            writer.close()
+            withContext(Dispatchers.IO) {
+                writer.flush()
+            }
+            withContext(Dispatchers.IO) {
+                writer.close()
+            }
 
             binding.root.styledSnackbar(getString(R.string.exportado_a_descargas, finalFile.name), this)
 

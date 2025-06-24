@@ -194,6 +194,10 @@
     <string name="precio_2">Precio: $%1$s</string>
     <string name="fecha_limite_3">Fecha límite: %1$s</string>
     <string name="presupuesto_2">Presupuesto: $%1$s</string>
+    <string name="receta_actualizada">Receta actualizada</string>
+    <string name="eliminar_receta">Eliminar receta</string>
+    <string name="est_s_seguro_de_que_deseas_eliminar_esta_receta">¿Estás seguro de que deseas eliminar esta receta?</string>
+    <string name="receta_eliminada">Receta eliminada</string>
 
 
 </resources>

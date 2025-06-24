@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
 import com.dan.listora.data.db.model.RecipeEntity
 import com.dan.listora.databinding.FragmentRecipesBinding
@@ -50,7 +51,7 @@ class RecipesFragment : Fragment() {
             onEditClick = { recipe ->
                 val dialog = RecipeDialog(requireContext(), recipeToEdit = recipe) {
                     loadRecipes()
-                    view?.styledSnackbar("Receta actualizada", requireContext())
+                    view.styledSnackbar(getString(R.string.receta_actualizada), requireContext())
                 }
 
 
@@ -58,20 +59,20 @@ class RecipesFragment : Fragment() {
             },
             onDeleteClick = { recipe ->
                 val confirmDialog = android.app.AlertDialog.Builder(requireContext())
-                    .setTitle("Eliminar receta")
-                    .setMessage("¿Estás seguro de que deseas eliminar esta receta?")
-                    .setPositiveButton("Eliminar") { _, _ ->
+                    .setTitle(getString(R.string.eliminar_receta))
+                    .setMessage(getString(R.string.est_s_seguro_de_que_deseas_eliminar_esta_receta))
+                    .setPositiveButton(R.string.eliminar) { _, _ ->
                         lifecycleScope.launch {
                             val dao = (requireActivity().application as ListDBApp).database.recipeDAO()
                             withContext(Dispatchers.IO) {
                                 dao.deleteRecipe(recipe)
                             }
                             loadRecipes()
-                            view?.styledSnackbar("Receta eliminada", requireContext())
+                            view.styledSnackbar(getString(R.string.receta_eliminada), requireContext())
 
                         }
                     }
-                    .setNegativeButton("Cancelar", null)
+                    .setNegativeButton(R.string.cancelar, null)
                     .create()
 
                 confirmDialog.show()

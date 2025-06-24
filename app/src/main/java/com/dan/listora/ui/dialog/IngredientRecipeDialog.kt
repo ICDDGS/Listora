@@ -29,7 +29,7 @@ class RecipeIngredientDialog(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogIngredientBinding.inflate(LayoutInflater.from(context))
 
-        val unidades = resources.getStringArray(com.dan.listora.R.array.unidades_array)
+        val unidades = resources.getStringArray(R.array.unidades_array)
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, unidades)
         binding.spUnidad.adapter = spinnerAdapter
 

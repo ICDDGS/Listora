@@ -36,7 +36,6 @@ class IngredientViewHolder(
         if (selectionMode) {
             binding.cbSeleccionar.visibility = View.VISIBLE
 
-            // Sin interferencia con otros eventos
             binding.cbSeleccionar.setOnCheckedChangeListener(null)
             binding.cbSeleccionar.isChecked = selectedItems.contains(ingredient.id)
             binding.cbSeleccionar.setOnCheckedChangeListener { _, isChecked ->
@@ -48,7 +47,6 @@ class IngredientViewHolder(
                 binding.cbSeleccionar.isChecked = !binding.cbSeleccionar.isChecked
             }
 
-            // No acciones en botones en modo selección
             binding.btnEditIngredient.setOnClickListener(null)
             binding.btnPurchaseConfirm.setOnClickListener(null)
 
@@ -57,7 +55,6 @@ class IngredientViewHolder(
             binding.cbSeleccionar.setOnCheckedChangeListener(null)
             binding.cbSeleccionar.isChecked = false
 
-            // Marcar como comprado al tocar cualquier parte que NO sea el botón editar
             binding.root.setOnClickListener {
                 ingredient.isPurchased = !ingredient.isPurchased
 
@@ -76,7 +73,6 @@ class IngredientViewHolder(
             }
 
 
-            // Botón editar funciona normalmente
             binding.btnEditIngredient.setOnClickListener {
                 onEditClick(ingredient)
             }

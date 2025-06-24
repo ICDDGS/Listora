@@ -8,7 +8,6 @@ import com.dan.listora.data.db.model.RecipeIngredientEntity
 @Dao
 interface RecipeDAO {
 
-    // --- Recetas ---
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipe(recipe: RecipeEntity): Long
 
@@ -27,7 +26,6 @@ interface RecipeDAO {
     @Query("SELECT * FROM recipes WHERE is_favorite = 1")
     suspend fun getFavoriteRecipes(): List<RecipeEntity>
 
-    // --- Ingredientes por receta ---
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIngredient(ingredient: RecipeIngredientEntity)
 

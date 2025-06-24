@@ -2,10 +2,8 @@ package com.dan.listora.ui.dialog
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import com.dan.listora.data.db.model.RecipeEntity
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +11,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.widget.Spinner
 import com.dan.listora.R
-import com.dan.listora.ui.RecipeDetailActivity
 import kotlinx.coroutines.CoroutineScope
 
 import com.dan.listora.data.db.ListDataBase
@@ -54,7 +51,7 @@ class RecipeDialog(
 
                 CoroutineScope(Dispatchers.IO).launch {
                     val db = ListDataBase.getDatabase(context)
-                    val recipeId: Long = if (recipeToEdit != null) {
+                    if (recipeToEdit != null) {
                         val updated = recipeToEdit.copy(name = name, category = category)
                         db.recipeDAO().updateRecipe(updated)
                         updated.id

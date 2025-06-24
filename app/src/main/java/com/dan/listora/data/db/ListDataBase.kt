@@ -17,9 +17,9 @@ import com.dan.listora.data.db.model.HistorialEntity
         IngEntity::class,
         RecipeEntity::class,
         RecipeIngredientEntity::class,
-        HistorialEntity::class // debe estar aquí
+        HistorialEntity::class
     ],
-    version = 1, // o mayor
+    version = 1,
     exportSchema = false
 )
 

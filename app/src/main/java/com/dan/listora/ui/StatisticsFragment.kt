@@ -3,11 +3,10 @@ package com.dan.listora.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Environment
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.dan.listora.R
 import com.dan.listora.application.ListDBApp
@@ -25,7 +24,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class StatisticsFragment : Fragment() {
 
@@ -173,16 +174,24 @@ class StatisticsFragment : Fragment() {
         }
 
         try {
-            val writer = OutputStreamWriter(FileOutputStream(file))
-            writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha))
+            val writer = OutputStreamWriter(withContext(Dispatchers.IO) {
+                FileOutputStream(file)
+            })
+            withContext(Dispatchers.IO) {
+                writer.append(getString(R.string.ingrediente_cantidad_unidad_costo_fecha))
+            }
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
             historial.forEach {
                 writer.append("${it.ingrediente},${it.cantidad},${it.unidad},${it.costo},${formato.format(Date(it.fecha))}\n")
             }
 
-            writer.flush()
-            writer.close()
+            withContext(Dispatchers.IO) {
+                writer.flush()
+            }
+            withContext(Dispatchers.IO) {
+                writer.close()
+            }
 
             withContext(Dispatchers.Main) {
                 binding.root.styledSnackbar(getString(R.string.exportado_a_descargas, file.name), requireContext())
