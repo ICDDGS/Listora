@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.TextView
 import android.widget.Switch
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +25,8 @@ import com.dan.listora.notifications.NotificationReceiver
 class SettingsFragment : Fragment() {
 
     private lateinit var switchNotifications: Switch
-    private lateinit var btnSelectTime: Button
+    private lateinit var textSelectedTime: TextView
+
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -48,7 +49,7 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
         switchNotifications = view.findViewById(R.id.switch_notifications)
-        btnSelectTime = view.findViewById(R.id.btn_select_time)
+        textSelectedTime = view.findViewById(R.id.text_selected_time)
 
         val prefs = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val notificationsEnabled = prefs.getBoolean("notifications_enabled", false)
@@ -56,37 +57,42 @@ class SettingsFragment : Fragment() {
 
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    when {
-                        shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
-                            // Podemos volver a solicitar
-                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                        }
-                        requireActivity().checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED -> {
-                            // No se puede volver a pedir, se debe redirigir a Ajustes
-                            Toast.makeText(
-                                requireContext(),
-                                "Debes habilitar el permiso manualmente en Ajustes > Aplicaciones > Listora",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            switchNotifications.isChecked = false
-                        }
-                        else -> {
-                            // Permiso ya concedido
-                            prefs.edit().putBoolean("notifications_enabled", true).apply()
-                        }
-                    }
+                prefs.edit().putBoolean("notifications_enabled", true).apply()
+
+                val savedTime = prefs.getString("notification_time", null)
+                val hour: Int
+                val minute: Int
+
+                if (savedTime == null) {
+                    hour = 12
+                    minute = 0
+                    prefs.edit().putString("notification_time", "12:00").apply()
                 } else {
-                    // Versiones < Android 13 no requieren este permiso
-                    prefs.edit().putBoolean("notifications_enabled", true).apply()
+                    val parts = savedTime.split(":")
+                    hour = parts[0].toInt()
+                    minute = parts[1].toInt()
                 }
+
+                // Mostrar en formato AM/PM
+                val calendar = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, hour)
+                    set(Calendar.MINUTE, minute)
+                }
+
+                val amPmFormat = android.text.format.DateFormat.format("hh:mm a", calendar)
+                textSelectedTime.text = amPmFormat
+
+                scheduleDailyNotification(requireContext(), hour, minute)
+
             } else {
                 prefs.edit().putBoolean("notifications_enabled", false).apply()
+                textSelectedTime.text = "—"
+                Toast.makeText(requireContext(), "Notificaciones desactivadas", Toast.LENGTH_SHORT).show()
             }
         }
 
 
-        btnSelectTime.setOnClickListener {
+        textSelectedTime.setOnClickListener {
             if (!prefs.getBoolean("notifications_enabled", false)) {
                 Toast.makeText(requireContext(), "Primero activa las notificaciones", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -97,15 +103,22 @@ class SettingsFragment : Fragment() {
             val minute = calendar.get(Calendar.MINUTE)
 
             TimePickerDialog(requireContext(), { _, selectedHour, selectedMinute ->
-                val time = "$selectedHour:$selectedMinute"
+                val time = String.format("%02d:%02d", selectedHour, selectedMinute)
                 prefs.edit().putString("notification_time", time).apply()
-                Toast.makeText(requireContext(), "Hora guardada: $time", Toast.LENGTH_SHORT).show()
+
+                // Mostrar en formato AM/PM
+                val amPmFormat = android.text.format.DateFormat.format("hh:mm a", calendar.apply {
+                    set(Calendar.HOUR_OF_DAY, selectedHour)
+                    set(Calendar.MINUTE, selectedMinute)
+                })
+
+                textSelectedTime.text = amPmFormat
 
                 scheduleDailyNotification(requireContext(), selectedHour, selectedMinute)
 
             }, hour, minute, true).show()
-
         }
+
 
         return view
     }
@@ -120,14 +133,13 @@ class SettingsFragment : Fragment() {
         )
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.cancel(pendingIntent) // Cancela anterior
 
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
-
-            // Si la hora ya pasó hoy, programar para mañana
             if (before(Calendar.getInstance())) {
                 add(Calendar.DAY_OF_YEAR, 1)
             }
@@ -140,5 +152,6 @@ class SettingsFragment : Fragment() {
             pendingIntent
         )
     }
+
 
 }
