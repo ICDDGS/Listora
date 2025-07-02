@@ -46,6 +46,9 @@ interface IngredientDAO {
     @Query("DELETE FROM ${Constants.DATABASE_INGREDIENT_TABLE} WHERE idLista = :listId")
     suspend fun deleteByListId(listId: Long)
 
+    @Query("SELECT EXISTS(SELECT 1 FROM ingredient_data_table WHERE isPurchased = 0)")
+    suspend fun existsUnpurchased(): Boolean
+
 
 
 

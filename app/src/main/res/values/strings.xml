@@ -59,39 +59,39 @@
     </string-array>
 
     <!-- Actividad Principal -->
-        <string name="app_name">Listora</string>
-        <string name="menu_settings">Ajustes</string>
-        <string name="menu_list">Listas</string>
-        <string name="menu_recipes">Recetas</string>
-        <string name="menu_statistics">Estadísticas</string>
+    <string name="app_name">Listora</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_list">Listas</string>
+    <string name="menu_recipes">Recetas</string>
+    <string name="menu_statistics">Estadísticas</string>
 
-        <!-- Resume/Exportación -->
-        <string name="export_success">Exportado a Descargas: %1$s</string>
-        <string name="export_error">Error exportando: %1$s</string>
+    <!-- Resume/Exportación -->
+    <string name="export_success">Exportado a Descargas: %1$s</string>
+    <string name="export_error">Error exportando: %1$s</string>
 
-        <!-- Confirmaciones -->
-        <string name="dialog_title_confirm_delete">¿Seguro que desea eliminar?</string>
-        <string name="dialog_yes">Sí</string>
-        <string name="dialog_no">No</string>
-        <string name="dialog_list_incomplete">La lista no está completada. ¿Desea continuar?</string>
+    <!-- Confirmaciones -->
+    <string name="dialog_title_confirm_delete">¿Seguro que desea eliminar?</string>
+    <string name="dialog_yes">Sí</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_list_incomplete">La lista no está completada. ¿Desea continuar?</string>
 
-        <!-- Botones -->
-        <string name="btn_save">Guardar</string>
-        <string name="btn_add">Agregar</string>
-        <string name="btn_delete">Eliminar</string>
-        <string name="btn_edit">Editar</string>
-        <string name="btn_purchase_confirm">Confirmar Compra</string>
-        <string name="btn_list_completed">Lista Completada</string>
+    <!-- Botones -->
+    <string name="btn_save">Guardar</string>
+    <string name="btn_add">Agregar</string>
+    <string name="btn_delete">Eliminar</string>
+    <string name="btn_edit">Editar</string>
+    <string name="btn_purchase_confirm">Confirmar Compra</string>
+    <string name="btn_list_completed">Lista Completada</string>
 
-        <!-- Campos -->
-        <string name="hint_ingredient_name">Nombre del ingrediente</string>
-        <string name="hint_quantity">Cantidad</string>
-        <string name="hint_unit">Unidad</string>
-        <string name="hint_cost">Costo</string>
+    <!-- Campos -->
+    <string name="hint_ingredient_name">Nombre del ingrediente</string>
+    <string name="hint_quantity">Cantidad</string>
+    <string name="hint_unit">Unidad</string>
+    <string name="hint_cost">Costo</string>
 
-        <!-- Otros -->
-        <string name="empty_list">No hay elementos</string>
-        <string name="add_note">Agregar nota</string>
+    <!-- Otros -->
+    <string name="empty_list">No hay elementos</string>
+    <string name="add_note">Agregar nota</string>
     <string name="agg_ingrediente">Agregar ingrediente</string>
     <string name="cantidad">Cantidad:</string>
     <string name="reducir">Reducir</string>
@@ -198,6 +198,13 @@
     <string name="eliminar_receta">Eliminar receta</string>
     <string name="est_s_seguro_de_que_deseas_eliminar_esta_receta">¿Estás seguro de que deseas eliminar esta receta?</string>
     <string name="receta_eliminada">Receta eliminada</string>
+    <string name="primero_activa_las_notificaciones">Primero activa las notificaciones</string>
+    <string name="notificaciones_desactivadas">Notificaciones desactivadas</string>
+    <string name="permiso_de_notificaciones_denegado">Permiso de notificaciones denegado</string>
+    <string name="recordatorio_de_compras">Recordatorio de compras</string>
+    <string name="tienes_listas_con_ingredientes_pendientes">Tienes listas con ingredientes pendientes 🛒</string>
+    <string name="activar_notificaciones">Activar notificaciones</string>
+    <string name="elegir_hora_de_notificaci_n">Elegir hora de notificación</string>
 
 
 </resources>
