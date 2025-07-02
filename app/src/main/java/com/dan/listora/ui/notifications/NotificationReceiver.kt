@@ -36,8 +36,8 @@ class NotificationReceiver : BroadcastReceiver() {
                 }
 
                 val notification = NotificationCompat.Builder(context, channelId)
-                    .setContentTitle("Recordatorio de compras")
-                    .setContentText("Tienes listas con ingredientes pendientes 🛒")
+                    .setContentTitle(context.getString(R.string.recordatorio_de_compras))
+                    .setContentText(context.getString(R.string.tienes_listas_con_ingredientes_pendientes))
                     .setSmallIcon(R.drawable.ic_notifications)
                     .setAutoCancel(true)
                     .build()

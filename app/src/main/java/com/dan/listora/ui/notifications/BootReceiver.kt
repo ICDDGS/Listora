@@ -17,7 +17,6 @@ class BootReceiver : BroadcastReceiver() {
                 val hour = parts[0].toInt()
                 val minute = parts[1].toInt()
 
-                // Usamos SettingsFragment para reutilizar su método
                 val settings = SettingsFragment()
                 settings.scheduleDailyNotification(context, hour, minute)
             }

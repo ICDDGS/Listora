@@ -198,6 +198,13 @@
     <string name="eliminar_receta">Eliminar receta</string>
     <string name="est_s_seguro_de_que_deseas_eliminar_esta_receta">¿Estás seguro de que deseas eliminar esta receta?</string>
     <string name="receta_eliminada">Receta eliminada</string>
+    <string name="primero_activa_las_notificaciones">Primero activa las notificaciones</string>
+    <string name="notificaciones_desactivadas">Notificaciones desactivadas</string>
+    <string name="permiso_de_notificaciones_denegado">Permiso de notificaciones denegado</string>
+    <string name="recordatorio_de_compras">Recordatorio de compras</string>
+    <string name="tienes_listas_con_ingredientes_pendientes">Tienes listas con ingredientes pendientes 🛒</string>
+    <string name="activar_notificaciones">Activar notificaciones</string>
+    <string name="elegir_hora_de_notificaci_n">Elegir hora de notificación</string>
 
 
 </resources>

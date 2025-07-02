@@ -2,7 +2,6 @@ package com.dan.listora.ui
 
 import android.app.TimePickerDialog
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,19 +13,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.dan.listora.R
 import java.util.Calendar
-import android.Manifest
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.pm.PackageManager
 import com.dan.listora.notifications.NotificationReceiver
-
 
 class SettingsFragment : Fragment() {
 
     private lateinit var switchNotifications: Switch
     private lateinit var textSelectedTime: TextView
-
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -38,7 +33,8 @@ class SettingsFragment : Fragment() {
         } else {
             prefs.edit().putBoolean("notifications_enabled", false).apply()
             switchNotifications.isChecked = false
-            Toast.makeText(requireContext(), "Permiso de notificaciones denegado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),
+                getString(R.string.permiso_de_notificaciones_denegado), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -55,30 +51,43 @@ class SettingsFragment : Fragment() {
         val notificationsEnabled = prefs.getBoolean("notifications_enabled", false)
         switchNotifications.isChecked = notificationsEnabled
 
+        val savedTime = prefs.getString("notification_time", null)
+        if (notificationsEnabled && savedTime != null) {
+            val parts = savedTime.split(":")
+            val hour = parts[0].toInt()
+            val minute = parts[1].toInt()
+            val calendar = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, hour)
+                set(Calendar.MINUTE, minute)
+            }
+            val amPmFormat = android.text.format.DateFormat.format("hh:mm a", calendar)
+            textSelectedTime.text = amPmFormat
+        } else {
+            textSelectedTime.text = "—"
+        }
+
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 prefs.edit().putBoolean("notifications_enabled", true).apply()
 
-                val savedTime = prefs.getString("notification_time", null)
+                val savedTimeNow = prefs.getString("notification_time", null)
                 val hour: Int
                 val minute: Int
 
-                if (savedTime == null) {
+                if (savedTimeNow == null) {
                     hour = 12
                     minute = 0
                     prefs.edit().putString("notification_time", "12:00").apply()
                 } else {
-                    val parts = savedTime.split(":")
+                    val parts = savedTimeNow.split(":")
                     hour = parts[0].toInt()
                     minute = parts[1].toInt()
                 }
 
-                // Mostrar en formato AM/PM
                 val calendar = Calendar.getInstance().apply {
                     set(Calendar.HOUR_OF_DAY, hour)
                     set(Calendar.MINUTE, minute)
                 }
-
                 val amPmFormat = android.text.format.DateFormat.format("hh:mm a", calendar)
                 textSelectedTime.text = amPmFormat
 
@@ -87,14 +96,15 @@ class SettingsFragment : Fragment() {
             } else {
                 prefs.edit().putBoolean("notifications_enabled", false).apply()
                 textSelectedTime.text = "—"
-                Toast.makeText(requireContext(), "Notificaciones desactivadas", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.notificaciones_desactivadas), Toast.LENGTH_SHORT).show()
             }
         }
 
-
         textSelectedTime.setOnClickListener {
             if (!prefs.getBoolean("notifications_enabled", false)) {
-                Toast.makeText(requireContext(), "Primero activa las notificaciones", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.primero_activa_las_notificaciones), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -106,7 +116,6 @@ class SettingsFragment : Fragment() {
                 val time = String.format("%02d:%02d", selectedHour, selectedMinute)
                 prefs.edit().putString("notification_time", time).apply()
 
-                // Mostrar en formato AM/PM
                 val amPmFormat = android.text.format.DateFormat.format("hh:mm a", calendar.apply {
                     set(Calendar.HOUR_OF_DAY, selectedHour)
                     set(Calendar.MINUTE, selectedMinute)
@@ -118,7 +127,6 @@ class SettingsFragment : Fragment() {
 
             }, hour, minute, true).show()
         }
-
 
         return view
     }
@@ -133,7 +141,7 @@ class SettingsFragment : Fragment() {
         )
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(pendingIntent) // Cancela anterior
+        alarmManager.cancel(pendingIntent)
 
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)
@@ -152,6 +160,4 @@ class SettingsFragment : Fragment() {
             pendingIntent
         )
     }
-
-
 }
