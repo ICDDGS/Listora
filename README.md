@@ -13,7 +13,7 @@ El logo de Listora está conformado por una lista, que representa la organizaci�
 
 - **Tipo de dispositivo**: La app está pensada para smartphones, ya que son dispositivos que siempre tenemos a la mano, permitiendo acceder a la aplicación cuando sea necesario.
 - **Versión mínima del sistema operativo**: Android 7.0 (API 24) en adelante. Esta elección garantiza compatibilidad con una amplia gama de dispositivos actuales sin sacrificar funcionalidades modernas como notificaciones o almacenamiento local avanzado.
-- **Orientaciones soportadas**: Solo se soporta **orientación vertical (portrait)** para mantener una experiencia enfocada, práctica y ergonómica.
+- **Orientaciones soportadas**: Solo se soporta **orientación vertical (portrait)**, con el objetivo de mantener una experiencia centrada, sencilla y cómoda para el usuario.
 
 ## 🔐 Credenciales de acceso
 
